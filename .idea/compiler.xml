@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="jlibra-examples" />
+        <module name="jlibra-integration-tests" />
+        <module name="jlibra-core" />
+        <module name="libra-payment-processor" />
+        <module name="libra-message-signing" />
+        <module name="java-libra-client" />
+        <module name="jlibra-spring-boot-starter" />
+        <module name="jlibra-grpc" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="java-libra-client" target="1.8" />
+      <module name="jlibra-core" target="8" />
+      <module name="jlibra-examples" target="8" />
+      <module name="jlibra-grpc" target="8" />
+      <module name="jlibra-integration-tests" target="8" />
+      <module name="jlibra-parent" target="8" />
+      <module name="jlibra-spring-boot-starter" target="8" />
+      <module name="libra-message-signing" target="1.8" />
+      <module name="libra-payment-processor" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-libra-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/jlibra" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/jlibra-spring-boot-starter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libra-message-signing" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libra-payment-processor" vcs="Git" />
+  </component>
+</project>

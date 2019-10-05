@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/java-libra-client/java-libra-client.iml" filepath="$PROJECT_DIR$/java-libra-client/java-libra-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jlibra/jlibra-core/jlibra-core.iml" filepath="$PROJECT_DIR$/jlibra/jlibra-core/jlibra-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jlibra/jlibra-examples/jlibra-examples.iml" filepath="$PROJECT_DIR$/jlibra/jlibra-examples/jlibra-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jlibra/jlibra-grpc/jlibra-grpc.iml" filepath="$PROJECT_DIR$/jlibra/jlibra-grpc/jlibra-grpc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jlibra/jlibra-integration-tests/jlibra-integration-tests.iml" filepath="$PROJECT_DIR$/jlibra/jlibra-integration-tests/jlibra-integration-tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jlibra/jlibra-parent.iml" filepath="$PROJECT_DIR$/jlibra/jlibra-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jlibra-spring-boot-starter/jlibra-spring-boot-starter.iml" filepath="$PROJECT_DIR$/jlibra-spring-boot-starter/jlibra-spring-boot-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libra-message-signing/libra-message-signing.iml" filepath="$PROJECT_DIR$/libra-message-signing/libra-message-signing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libra-payment-processor/libra-payment-processor.iml" filepath="$PROJECT_DIR$/libra-payment-processor/libra-payment-processor.iml" />
+    </modules>
+  </component>
+</project>
