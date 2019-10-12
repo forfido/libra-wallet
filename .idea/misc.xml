@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/libra-message-signing/pom.xml" />
         <option value="$PROJECT_DIR$/java-libra-client/pom.xml" />
         <option value="$PROJECT_DIR$/libra-payment-processor/pom.xml" />
+        <option value="$PROJECT_DIR$/walletapi/pom.xml" />
       </list>
     </option>
   </component>

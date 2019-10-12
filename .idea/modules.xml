@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/jlibra-spring-boot-starter/jlibra-spring-boot-starter.iml" filepath="$PROJECT_DIR$/jlibra-spring-boot-starter/jlibra-spring-boot-starter.iml" />
       <module fileurl="file://$PROJECT_DIR$/libra-message-signing/libra-message-signing.iml" filepath="$PROJECT_DIR$/libra-message-signing/libra-message-signing.iml" />
       <module fileurl="file://$PROJECT_DIR$/libra-payment-processor/libra-payment-processor.iml" filepath="$PROJECT_DIR$/libra-payment-processor/libra-payment-processor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/walletapi/walletapi.iml" filepath="$PROJECT_DIR$/walletapi/walletapi.iml" />
     </modules>
   </component>
 </project>

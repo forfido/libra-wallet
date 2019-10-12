@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="761.0" y="1301.0">dev.jlibra.admissioncontrol.query.UpdateToLatestLedgerResult</node>
+    <node x="325.0" y="917.0">dev.jlibra.serialization.Deserialization</node>
+    <node x="1257.0" y="917.0">dev.jlibra.mnemonic.Seed</node>
+    <node x="1068.0" y="517.0">dev.jlibra.mnemonic.Mnemonic</node>
+    <node x="662.0" y="347.0">dev.jlibra.admissioncontrol.transaction.U64Argument</node>
+    <node x="461.0" y="517.0">dev.jlibra.admissioncontrol.query.AccountResource</node>
+    <node x="0.0" y="917.0">dev.jlibra.KeyUtils</node>
+    <node x="569.0" y="150.0">dev.jlibra.admissioncontrol.transaction.Program</node>
+    <node x="0.0" y="1131.0">dev.jlibra.mnemonic.ExtendedPrivKey</node>
+    <node x="0.0" y="1301.0">dev.jlibra.mnemonic.Master</node>
+    <node x="338.99999999999994" y="186.0">dev.jlibra.admissioncontrol.transaction.TransactionArgument</node>
+    <node x="448.99999999999994" y="347.0">dev.jlibra.admissioncontrol.transaction.ByteArrayArgument</node>
+    <node x="845.0" y="917.0">dev.jlibra.mnemonic.ChildNumber</node>
+    <node x="597.0" y="1448.0">dev.jlibra.admissioncontrol.query.SignedTransactionWithProof</node>
+    <node x="169.0" y="1301.0">dev.jlibra.admissioncontrol.query.Query</node>
+    <node x="1028.0" y="104.0">dev.jlibra.admissioncontrol.transaction.Transaction</node>
+    <node x="0.0" y="517.0">dev.jlibra.serialization.Serializer</node>
+    <node x="964.0" y="1131.0">dev.jlibra.admissioncontrol.transaction.SubmitTransactionResult</node>
+    <node x="815.0" y="138.5">dev.jlibra.admissioncontrol.transaction.SignedTransaction</node>
+    <node x="411.0" y="1448.0">dev.jlibra.admissioncontrol.query.EventHandle</node>
+    <node x="245.0" y="1131.0">dev.jlibra.LibraHelper</node>
+    <node x="700.25" y="0.0">dev.jlibra.serialization.LibraSerializable</node>
+    <node x="629.0" y="917.0">dev.jlibra.admissioncontrol.query.Event</node>
+    <node x="913.0" y="1448.0">dev.jlibra.admissioncontrol.query.GetAccountState</node>
+    <node x="255.99999999999994" y="347.0">dev.jlibra.admissioncontrol.transaction.StringArgument</node>
+    <node x="0.0" y="347.0">dev.jlibra.admissioncontrol.transaction.AccountAddressArgument</node>
+    <node x="1283.0" y="1131.0">dev.jlibra.move.Move</node>
+    <node x="1071.0" y="917.0">dev.jlibra.mnemonic.SecretKey</node>
+    <node x="743.0" y="517.0">dev.jlibra.mnemonic.LibraKeyFactory</node>
+    <node x="0.0" y="1448.0">dev.jlibra.admissioncontrol.query.GetAccountTransactionBySequenceNumber</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="dev.jlibra.admissioncontrol.transaction.U64Argument" target="dev.jlibra.admissioncontrol.transaction.TransactionArgument">
+      <point x="0.0" y="-62.5" />
+      <point x="740.0" y="317.0" />
+      <point x="522.75" y="317.0" />
+      <point x="78.75" y="14.5" />
+    </edge>
+    <edge source="dev.jlibra.admissioncontrol.transaction.Program" target="dev.jlibra.serialization.LibraSerializable">
+      <point x="0.0" y="-50.5" />
+      <point x="682.0" y="84.0" />
+      <point x="772.625" y="84.0" />
+      <point x="-24.125" y="27.0" />
+    </edge>
+    <edge source="dev.jlibra.admissioncontrol.transaction.StringArgument" target="dev.jlibra.admissioncontrol.transaction.TransactionArgument">
+      <point x="0.0" y="-62.5" />
+      <point x="342.49999999999994" y="327.0" />
+      <point x="417.74999999999994" y="327.0" />
+      <point x="-26.25" y="14.5" />
+    </edge>
+    <edge source="dev.jlibra.admissioncontrol.transaction.Transaction" target="dev.jlibra.serialization.LibraSerializable">
+      <point x="0.0" y="-96.5" />
+      <point x="1098.5" y="74.0" />
+      <point x="869.1249999999998" y="74.0" />
+      <point x="72.37499999999989" y="27.0" />
+    </edge>
+    <edge source="dev.jlibra.admissioncontrol.transaction.ByteArrayArgument" target="dev.jlibra.admissioncontrol.transaction.TransactionArgument">
+      <point x="0.0" y="-62.5" />
+      <point x="545.5" y="327.0" />
+      <point x="470.24999999999994" y="327.0" />
+      <point x="26.25" y="14.5" />
+    </edge>
+    <edge source="dev.jlibra.admissioncontrol.transaction.TransactionArgument" target="dev.jlibra.serialization.LibraSerializable">
+      <point x="0.0" y="-14.5" />
+      <point x="443.99999999999994" y="74.0" />
+      <point x="724.375" y="74.0" />
+      <point x="-72.375" y="27.0" />
+    </edge>
+    <edge source="dev.jlibra.admissioncontrol.transaction.SignedTransaction" target="dev.jlibra.serialization.LibraSerializable">
+      <point x="0.0" y="-62.0" />
+      <point x="911.5" y="84.0" />
+      <point x="820.875" y="84.0" />
+      <point x="24.125" y="27.0" />
+    </edge>
+    <edge source="dev.jlibra.admissioncontrol.transaction.AccountAddressArgument" target="dev.jlibra.admissioncontrol.transaction.TransactionArgument">
+      <point x="0.0" y="-62.5" />
+      <point x="118.0" y="317.0" />
+      <point x="365.24999999999994" y="317.0" />
+      <point x="-78.75" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="925.8571428571429" y="696.4285714285714" />
+  <SelectedNodes>
+    <node>dev.jlibra.admissioncontrol.query.UpdateToLatestLedgerResult</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

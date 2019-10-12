@@ -6,12 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jlibra-examples" />
+        <module name="java-libra-client" />
+        <module name="walletapi" />
         <module name="jlibra-integration-tests" />
         <module name="jlibra-core" />
         <module name="libra-payment-processor" />
         <module name="libra-message-signing" />
-        <module name="java-libra-client" />
+        <module name="jlibra-examples" />
         <module name="jlibra-spring-boot-starter" />
         <module name="jlibra-grpc" />
       </profile>
@@ -26,6 +27,14 @@
       <module name="jlibra-spring-boot-starter" target="8" />
       <module name="libra-message-signing" target="1.8" />
       <module name="libra-payment-processor" target="1.8" />
+      <module name="userapi" target="1.8" />
+      <module name="walletapi" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="userapi" options="-parameters" />
+      <module name="walletapi" options="-parameters" />
+    </option>
   </component>
 </project>
