@@ -1,21 +1,28 @@
+spring:
+  profiles:
+    active: local
 
+---
 server:
   port: 8090
 
 spring:
+  profiles: local
+
   h2:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
+    platform: h2
+    url: jdbc:h2:tcp://localhost:9092/mem:testdb;MVCC=TRUE
     username: sa
     password:
-
+    driver-class-name: org.h2.Driver
   jpa:
+    database-platform: H2
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect

@@ -2,8 +2,8 @@ package com.palibra.walletapi.security;
 
 
 import com.palibra.walletapi.exception.ResourceNotFoundException;
-import com.palibra.walletapi.domain.User;
-import com.palibra.walletapi.repository.UserRepository;
+import com.palibra.walletapi.domain.user.User;
+import com.palibra.walletapi.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

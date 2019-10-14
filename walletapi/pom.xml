@@ -19,6 +19,29 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>dev.jlibra</groupId>
+            <artifactId>jlibra-spring-boot-starter</artifactId>
+            <version>0.4.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.jlibra</groupId>
+            <artifactId>jlibra-core</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.jlibra</groupId>
+            <artifactId>jlibra-grpc</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.jlibra.extension</groupId>
+            <artifactId>libra-message-signing</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

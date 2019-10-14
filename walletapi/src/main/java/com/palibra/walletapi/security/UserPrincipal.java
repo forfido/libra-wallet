@@ -1,6 +1,6 @@
 package com.palibra.walletapi.security;
 
-import com.palibra.walletapi.domain.User;
+import com.palibra.walletapi.domain.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

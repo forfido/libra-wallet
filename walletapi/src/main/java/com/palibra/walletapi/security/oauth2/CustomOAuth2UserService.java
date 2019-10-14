@@ -2,8 +2,8 @@ package com.palibra.walletapi.security.oauth2;
 
 import com.palibra.walletapi.exception.OAuth2AuthenticationProcessingException;
 import com.palibra.walletapi.model.auth.AuthProvider;
-import com.palibra.walletapi.domain.User;
-import com.palibra.walletapi.repository.UserRepository;
+import com.palibra.walletapi.domain.user.User;
+import com.palibra.walletapi.domain.user.UserRepository;
 import com.palibra.walletapi.security.UserPrincipal;
 import com.palibra.walletapi.security.oauth2.user.OAuth2UserInfo;
 import com.palibra.walletapi.security.oauth2.user.OAuth2UserInfoFactory;
