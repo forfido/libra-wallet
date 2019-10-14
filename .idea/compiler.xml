@@ -18,6 +18,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="exsample" target="1.8" />
       <module name="java-libra-client" target="1.8" />
       <module name="jlibra-core" target="8" />
       <module name="jlibra-examples" target="8" />
@@ -33,6 +34,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="exsample" options="-parameters" />
       <module name="userapi" options="-parameters" />
       <module name="walletapi" options="-parameters" />
     </option>

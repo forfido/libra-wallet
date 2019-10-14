@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**");            
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/webjars/**");
     }
     
     @Override
@@ -110,7 +110,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js")
                         .permitAll()
-                .antMatchers("/h2-console/**").permitAll() //TODO : for only test
                 .antMatchers("/auth/**", "/oauth2/**").permitAll()
                     .anyRequest()
                         .authenticated()
@@ -131,6 +130,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.headers().frameOptions().disable();    //TODO : h2 console for only
     }
 }
