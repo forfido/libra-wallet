@@ -1,4 +1,4 @@
-package com.palibra.walletapi.model.auth;
+package com.palibra.walletapi.domain.auth;
 
 public enum  AuthProvider {
     local,

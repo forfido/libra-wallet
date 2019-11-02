@@ -3,19 +3,17 @@ package com.palibra.walletapi.domain;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
-import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-@Data
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    @NotNull
+    @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime regDate;
 

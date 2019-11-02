@@ -1,7 +1,7 @@
 package com.palibra.walletapi.security.oauth2;
 
 import com.palibra.walletapi.exception.OAuth2AuthenticationProcessingException;
-import com.palibra.walletapi.model.auth.AuthProvider;
+import com.palibra.walletapi.domain.auth.AuthProvider;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.domain.user.UserRepository;
 import com.palibra.walletapi.security.UserPrincipal;
@@ -63,13 +63,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
-        User user = new User();
+        User user = User.builder()
+                .setEmail(oAuth2UserInfo.getEmail())
+                .setName(oAuth2UserInfo.getName())
+                .setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))
+                .setProviderId(oAuth2UserInfo.getId())
+                .setImageUrl(oAuth2UserInfo.getImageUrl())
+                .build();
 
-        user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        user.setProviderId(oAuth2UserInfo.getId());
-        user.setName(oAuth2UserInfo.getName());
-        user.setEmail(oAuth2UserInfo.getEmail());
-        user.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(user);
     }
 

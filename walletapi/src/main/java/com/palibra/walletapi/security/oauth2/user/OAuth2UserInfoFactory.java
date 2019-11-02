@@ -1,7 +1,7 @@
 package com.palibra.walletapi.security.oauth2.user;
 
 import com.palibra.walletapi.exception.OAuth2AuthenticationProcessingException;
-import com.palibra.walletapi.model.auth.AuthProvider;
+import com.palibra.walletapi.domain.auth.AuthProvider;
 
 import java.util.Map;
 
