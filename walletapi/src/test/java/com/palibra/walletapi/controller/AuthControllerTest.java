@@ -1,55 +1,70 @@
 package com.palibra.walletapi.controller;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
+import com.palibra.walletapi.domain.auth.LoginRequest;
+import com.palibra.walletapi.domain.auth.SignUpRequest;
+import com.palibra.walletapi.domain.user.User;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Objects;
 
 import static com.palibra.walletapi.constants.config.BACKEND_API_DOMAIN;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 public class AuthControllerTest {
 
+    private RestTemplate restTemplate;
+
     @Before
     public void setUp() throws Exception {
+        restTemplate = new RestTemplate();
     }
 
     @Test
-    public void authenticateUser() throws IOException {
-        //Given
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost request = new HttpPost(BACKEND_API_DOMAIN + "/auth/login");
+    public void authenticateUserTest() throws URISyntaxException {
 
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("username", "John"));
-        params.add(new BasicNameValuePair("password", "pass"));
-        request.setEntity(new UrlEncodedFormEntity(params));
+        final String baseUrl = BACKEND_API_DOMAIN + "/auth/login";
+        URI uri = new URI(baseUrl);
+
+        LoginRequest param = new LoginRequest();
+        param.setEmail("ccami@palibra.net");
+        param.setPassword("123123");
+
+        HttpEntity<LoginRequest> request = new HttpEntity<>(param);
+
+        ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
+
+        //Verify request succeed
+        Assert.assertEquals(200, result.getStatusCodeValue());
+
+        //Assert.assertEquals("", result.getBody());
+    }
+
+    @Test
+    public void registerUserTest() throws URISyntaxException {
+        //Given
+        final String baseUrl = BACKEND_API_DOMAIN + "/auth/signUp";
+
+        SignUpRequest param = new SignUpRequest();
+        param.setEmail("ahin@palibra.net");
+        param.setPassword("123123");
+        param.setName("아인");
+
+        HttpEntity<SignUpRequest> request = new HttpEntity<>(param);
 
         //When
-        CloseableHttpResponse httpResponse = client.execute(request);
+        ResponseEntity<User> result = restTemplate.exchange(baseUrl, HttpMethod.POST, request, User.class);
 
         //Then
-        assertThat(httpResponse.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
+        Assert.assertEquals(200, result.getStatusCodeValue());
 
-        client.close();
-    }
-
-    @Test
-    public void registerUser() {
+        Assert.assertEquals("ahin@palibra.net", Objects.requireNonNull(result.getBody()).getEmail());
     }
 }

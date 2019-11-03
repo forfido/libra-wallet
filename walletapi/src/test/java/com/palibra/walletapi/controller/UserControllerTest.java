@@ -1,48 +1,47 @@
 package com.palibra.walletapi.controller;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.HttpClientBuilder;
+import com.palibra.walletapi.domain.user.User;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Objects;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static com.palibra.walletapi.constants.config.AUTHORIZATION_TOKEN;
+import static com.palibra.walletapi.constants.config.BACKEND_API_DOMAIN;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
 public class UserControllerTest
 {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private RestTemplate restTemplate;
+    private HttpHeaders headers;
 
-    @Test
-    public void testGetCurrentUser() throws ClientProtocolException, IOException
-    {
-        //Given
-        long id = 1L;
-        HttpUriRequest request = new HttpGet("http://localhost:8090/user/me?id=" + id);
-
-        //When
-        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-
-        //Then
-        assertThat(httpResponse.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
+    @Before
+    public void setUp() throws Exception {
+        restTemplate = new RestTemplate();
+        headers = new HttpHeaders();
+        headers.set("Authorization", AUTHORIZATION_TOKEN);
     }
 
     @Test
-    public void testSetPassword() {
-        String pass = passwordEncoder.encode("123123");
+    public void testGetCurrentUser() throws URISyntaxException {
+        //Given
+        long id = 1L;
+        final String baseUrl = BACKEND_API_DOMAIN + "/user/me?id=" + id;
 
-        assertThat(pass, equalTo("123"));
+        //When
+        HttpEntity request = new HttpEntity(headers);
+        ResponseEntity<User> result = restTemplate.exchange(baseUrl, HttpMethod.GET, request, User.class);
+
+        //Then
+        Assert.assertEquals(200, result.getStatusCodeValue());
+
+        Assert.assertEquals("ccami@palibra.net", Objects.requireNonNull(result.getBody()).getEmail());
+
     }
 }

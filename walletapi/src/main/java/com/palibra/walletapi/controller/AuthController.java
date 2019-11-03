@@ -79,6 +79,6 @@ public class AuthController {
 //                .fromCurrentContextPath().path("/user/me")
 //                .buildAndExpand(result.getId()).toUri();
 
-        return ApiResponse.Success("User registered successfully(id: " + result.getId() +")" );
+        return ApiResponse.Success(result);
     }
 }
