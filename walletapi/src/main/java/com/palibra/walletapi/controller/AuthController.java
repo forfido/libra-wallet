@@ -1,6 +1,8 @@
 package com.palibra.walletapi.controller;
 
 import com.palibra.walletapi.controller.common.ApiResponse;
+import com.palibra.walletapi.domain.account.Account;
+import com.palibra.walletapi.domain.account.AccountRepository;
 import com.palibra.walletapi.domain.auth.AuthProvider;
 import com.palibra.walletapi.domain.auth.AuthResponse;
 import com.palibra.walletapi.domain.auth.LoginRequest;
@@ -39,6 +41,9 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -74,6 +79,13 @@ public class AuthController {
                 .build();
 
         User result = userRepository.save(user);
+
+        //Create Libra Address
+
+
+        //Test Promotion 1000 LBR
+        Account account = Account.createAccount("LibraWallet", "LBR", "testAddress", "qklijoq", "skdfjl", user);
+        accountRepository.save(account);
 
 //        URI location = ServletUriComponentsBuilder
 //                .fromCurrentContextPath().path("/user/me")

@@ -2,26 +2,21 @@ package com.palibra.walletapi.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palibra.walletapi.domain.BaseEntity;
+import com.palibra.walletapi.domain.account.Account;
 import com.palibra.walletapi.domain.auth.AuthProvider;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@EqualsAndHashCode(callSuper = false)
+//@EqualsAndHashCode(callSuper = false)
 @Table(name = "USERS", uniqueConstraints = {
     //@UniqueConstraint(columnNames = {"username"}),
     @UniqueConstraint(columnNames = "email")
@@ -53,6 +48,10 @@ public class User extends BaseEntity {
     private String providerId;
 
     private Boolean enabled;
+
+    @OneToMany(mappedBy = "user")
+    private List<Account> libraAccount = new ArrayList<Account>();
+
 
     protected User(){ }
 
@@ -103,6 +102,8 @@ public class User extends BaseEntity {
     public Boolean IsEnabled() {
         return enabled;
     }
+
+    public List<Account> getLibraAccount() { return libraAccount; }
 
     public void setName(String name) {
         this.name = name;
