@@ -50,7 +50,7 @@ public class User extends BaseEntity {
     private Boolean enabled;
 
     @OneToMany(mappedBy = "user")
-    private List<Account> libraAccount = new ArrayList<Account>();
+    private List<Account> libraAccounts = new ArrayList<Account>();
 
 
     protected User(){ }
@@ -103,7 +103,7 @@ public class User extends BaseEntity {
         return enabled;
     }
 
-    public List<Account> getLibraAccount() { return libraAccount; }
+    public List<Account> getLibraAccount() { return libraAccounts; }
 
     public void setName(String name) {
         this.name = name;

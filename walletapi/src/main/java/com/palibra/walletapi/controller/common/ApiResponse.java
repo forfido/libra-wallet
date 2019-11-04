@@ -5,11 +5,14 @@ import org.springframework.http.ResponseEntity;
 
 public class ApiResponse {
     private boolean success;
-    private String message;
+    private Object contents;
 
-    private ApiResponse(boolean success, String message) {
+    public ApiResponse(){
+    }
+
+    private ApiResponse(boolean success, Object contents) {
         this.success = success;
-        this.message = message;
+        this.contents = contents;
     }
 
     public boolean isSuccess() {
@@ -20,29 +23,15 @@ public class ApiResponse {
         this.success = success;
     }
 
-    public String getMessage() {
-        return message;
+    public Object getContents() {
+        return contents;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static ResponseEntity<?> Fail(String message, HttpStatus status) {
-        return new ResponseEntity<>(new ApiResponse(false, message), status);
-    }
-
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static ResponseEntity<?> Fail(String message, HttpStatus status, Exception e) {
-        return new ResponseEntity<>(new ApiResponse(false, message +"(" + e.getMessage() + ")"), status);
+    public void setContents(Object contents) {
+        this.contents = contents;
     }
 
     public static ResponseEntity<?> Success(Object contents) {
-        return ResponseEntity.ok().body(contents);
-    }
-
-    public static ResponseEntity<?> Success(String message) {
-        return new ResponseEntity<>(new ApiResponse(true, message), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, contents), HttpStatus.OK);
     }
 }

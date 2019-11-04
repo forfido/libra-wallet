@@ -84,13 +84,14 @@ public class AuthController {
 
 
         //Test Promotion 1000 LBR
-        Account account = Account.createAccount("LibraWallet", "LBR", "testAddress", "qklijoq", "skdfjl", user);
+        Account account = Account.createAccount("LibraWallet", "LBR", "testAddress", "qklijoq", "skdfjl", result);
         accountRepository.save(account);
 
 //        URI location = ServletUriComponentsBuilder
 //                .fromCurrentContextPath().path("/user/me")
 //                .buildAndExpand(result.getId()).toUri();
 
-        return ApiResponse.Success(result);
+        //return ResponseEntity.ok().body(account.getLibraAddress());
+        return ApiResponse.Success(account.getLibraAddress());
     }
 }

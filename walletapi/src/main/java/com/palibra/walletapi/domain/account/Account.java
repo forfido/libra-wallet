@@ -36,6 +36,9 @@ public class Account {
 
     //연관관계 메서드
     public void setUser(User user) {
+        if (this.user != null) {
+            this.user.getLibraAccount().remove(this);
+        }
         this.user = user;
         user.getLibraAccount().add(this);
     }

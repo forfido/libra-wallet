@@ -1,13 +1,12 @@
 package com.palibra.walletapi.controller;
 
+import com.palibra.walletapi.controller.common.ApiResponse;
 import com.palibra.walletapi.domain.auth.LoginRequest;
 import com.palibra.walletapi.domain.auth.SignUpRequest;
-import com.palibra.walletapi.domain.user.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -60,11 +59,11 @@ public class AuthControllerTest {
         HttpEntity<SignUpRequest> request = new HttpEntity<>(param);
 
         //When
-        ResponseEntity<User> result = restTemplate.exchange(baseUrl, HttpMethod.POST, request, User.class);
+        ResponseEntity<ApiResponse> result = restTemplate.exchange(baseUrl, HttpMethod.POST, request, ApiResponse.class);
 
         //Then
         Assert.assertEquals(200, result.getStatusCodeValue());
 
-        Assert.assertEquals("ahin@palibra.net", Objects.requireNonNull(result.getBody()).getEmail());
+        Assert.assertEquals("testAddress", Objects.requireNonNull(result.getBody()).getContents());
     }
 }
