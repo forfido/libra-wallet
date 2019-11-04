@@ -1,12 +1,14 @@
 package com.palibra.walletapi.domain.account;
 
 import com.palibra.walletapi.domain.user.User;
+import com.palibra.walletapi.domain.wallet.Wallet;
 
 import javax.persistence.*;
 
 @Entity
 public class Account {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ACCOUNT_ID")
     private Long id;
 
     private String name;
@@ -17,8 +19,10 @@ public class Account {
     private String publicKey;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "WALLET_ID")
+    private Wallet wallet;
+
+
 
     private Account(){}
 

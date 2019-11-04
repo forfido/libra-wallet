@@ -5,6 +5,7 @@ import com.palibra.walletapi.domain.BaseEntity;
 import com.palibra.walletapi.domain.account.Account;
 import com.palibra.walletapi.domain.auth.AuthProvider;
 
+import com.palibra.walletapi.domain.wallet.Wallet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -49,8 +50,9 @@ public class User extends BaseEntity {
 
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user")
-    private List<Account> libraAccounts = new ArrayList<Account>();
+    @OneToOne
+    @JoinColumn(name = "WALLET_ID")
+    private Wallet wallet;
 
 
     protected User(){ }
@@ -103,7 +105,7 @@ public class User extends BaseEntity {
         return enabled;
     }
 
-    public List<Account> getLibraAccount() { return libraAccounts; }
+    public Wallet getWallet() { return wallet; }
 
     public void setName(String name) {
         this.name = name;
