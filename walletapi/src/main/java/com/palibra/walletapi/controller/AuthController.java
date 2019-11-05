@@ -1,6 +1,7 @@
 package com.palibra.walletapi.controller;
 
 import com.palibra.walletapi.controller.common.ApiResponse;
+import com.palibra.walletapi.domain.account.Account;
 import com.palibra.walletapi.domain.account.LibraAccount;
 import com.palibra.walletapi.domain.account.AccountRepository;
 import com.palibra.walletapi.domain.auth.AuthProvider;
@@ -25,13 +26,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 
-import java.net.URI;
-
-import static java.time.LocalDateTime.now;
 
 @RestController
 @RequestMapping("/auth")
@@ -86,17 +83,20 @@ public class AuthController {
                 .setPassword(passwordEncoder.encode(signUpRequest.getPassword()))
                 .setProvider(AuthProvider.local)
                 .build();
+        //TODO : 1대1 주테이블에 값 매핑안되어 있음
+        //user.setWallet(wallet);
+
 
         User result = userRepository.save(user);
-
         Wallet wallet = new Wallet(result);
+
         walletRepository.save(wallet);
 
-        //Create Libra Address
-        String libraAccount = libraWalletService.createAccount();
+        //Create Libra Address by JLibra
+        Account libraAccount = libraWalletService.createAccount();
 
         //Test Promotion 1000 LBR
-        LibraAccount account = LibraAccount.createAccount("LibraWallet", "LBR", libraAccount, "qklijoq", "skdfjl", wallet);
+        LibraAccount account = LibraAccount.createAccount("LibraWallet", "LBR", libraAccount.getAddress(), libraAccount.getPrivateKey(), libraAccount.getPublicKey(), wallet);
         accountRepository.save(account);
 
 //        URI location = ServletUriComponentsBuilder

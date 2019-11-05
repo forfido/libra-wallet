@@ -25,6 +25,18 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
 
+  jLibra:
+    service-url: ac.testnet.libra.org
+    service-port: 8000
+    faucet-url: http://faucet.testnet.libra.org
+    faucet-port: 80
+    gas-unit-price: 5
+    max-gas-amount: 600000
+
+  Logging:
+    Level:
+      root: OFF
+
   #logging.level.org.hibernate.SQL=DEBUG
   #logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 

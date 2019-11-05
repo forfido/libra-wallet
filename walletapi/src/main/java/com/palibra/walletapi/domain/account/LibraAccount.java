@@ -14,19 +14,17 @@ public class LibraAccount {
     private String name;
     private String currency;
 
-    private String libraAddress;
-    private String privateKey;
-    private String publicKey;
+    private byte[] libraAddress;
+    private byte[] privateKey;
+    private byte[] publicKey;
 
     @ManyToOne
     @JoinColumn(name = "WALLET_ID")
     private Wallet wallet;
 
-
-
     private LibraAccount(){}
 
-    public static LibraAccount createAccount(String name, String currency, String libraAddress, String privateKey, String publicKey, Wallet wallet) {
+    public static LibraAccount createAccount(String name, String currency, byte[] libraAddress, byte[] privateKey, byte[] publicKey, Wallet wallet) {
         LibraAccount account = new LibraAccount();
         account.setName(name);
         account.setCurrency(currency);
@@ -39,7 +37,7 @@ public class LibraAccount {
     }
 
     //연관관계 메서드
-    public void setWallet(Wallet wallet) {
+    private void setWallet(Wallet wallet) {
         if (this.wallet != null) {
             this.wallet.getAccounts().remove(this);
         }
@@ -59,15 +57,15 @@ public class LibraAccount {
         return currency;
     }
 
-    public String getLibraAddress() {
+    public byte[] getLibraAddress() {
         return libraAddress;
     }
 
-    public String getPrivateKey() {
+    public byte[] getPrivateKey() {
         return privateKey;
     }
 
-    public String getPublicKey() {
+    public byte[] getPublicKey() {
         return publicKey;
     }
 
@@ -83,15 +81,15 @@ public class LibraAccount {
         this.currency = currency;
     }
 
-    public void setLibraAddress(String libraAddress) {
+    public void setLibraAddress(byte[] libraAddress) {
         this.libraAddress = libraAddress;
     }
 
-    public void setPrivateKey(String privateKey) {
+    public void setPrivateKey(byte[] privateKey) {
         this.privateKey = privateKey;
     }
 
-    public void setPublicKey(String publicKey) {
+    public void setPublicKey(byte[] publicKey) {
         this.publicKey = publicKey;
     }
 }

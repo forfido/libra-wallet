@@ -48,7 +48,7 @@ public class User extends BaseEntity {
     private Wallet wallet;
 
 
-    protected User(){ }
+    private User(){ }
 
     private User(String name, String email, String password, AuthProvider provider, String providerId, String imageUrl) {
         this.name = name;
@@ -107,6 +107,8 @@ public class User extends BaseEntity {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public void setWallet(Wallet wallet){ this.wallet = wallet; }
 
     public static UserBuilder builder() {
         return new UserBuilder();
