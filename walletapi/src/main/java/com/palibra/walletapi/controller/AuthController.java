@@ -9,6 +9,7 @@ import com.palibra.walletapi.domain.auth.LoginRequest;
 import com.palibra.walletapi.domain.auth.SignUpRequest;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.domain.user.UserRepository;
+import com.palibra.walletapi.domain.wallet.LibraWalletService;
 import com.palibra.walletapi.domain.wallet.Wallet;
 import com.palibra.walletapi.domain.wallet.WalletRepository;
 import com.palibra.walletapi.exception.BadRequestException;
@@ -47,6 +48,9 @@ public class AuthController {
 
     @Autowired
     private WalletRepository walletRepository;
+
+    @Autowired
+    private LibraWalletService libraWalletService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -89,10 +93,10 @@ public class AuthController {
         walletRepository.save(wallet);
 
         //Create Libra Address
-
+        String libraAccount = libraWalletService.createAccount();
 
         //Test Promotion 1000 LBR
-        LibraAccount account = LibraAccount.createAccount("LibraWallet", "LBR", "testAddress", "qklijoq", "skdfjl", wallet);
+        LibraAccount account = LibraAccount.createAccount("LibraWallet", "LBR", libraAccount, "qklijoq", "skdfjl", wallet);
         accountRepository.save(account);
 
 //        URI location = ServletUriComponentsBuilder
