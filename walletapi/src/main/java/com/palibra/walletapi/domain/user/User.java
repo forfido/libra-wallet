@@ -2,19 +2,12 @@ package com.palibra.walletapi.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palibra.walletapi.domain.BaseEntity;
-import com.palibra.walletapi.domain.account.Account;
 import com.palibra.walletapi.domain.auth.AuthProvider;
-
 import com.palibra.walletapi.domain.wallet.Wallet;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 //@EqualsAndHashCode(callSuper = false)

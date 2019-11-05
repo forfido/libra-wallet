@@ -1,6 +1,6 @@
 package com.palibra.walletapi.domain.wallet;
 
-import com.palibra.walletapi.domain.account.Account;
+import com.palibra.walletapi.domain.account.LibraAccount;
 import com.palibra.walletapi.domain.user.User;
 
 import javax.persistence.*;
@@ -17,10 +17,22 @@ public class Wallet {
     private User user;
 
     @OneToMany(mappedBy = "wallet")
-    private List<Account> accounts = new ArrayList<Account>();
+    private List<LibraAccount> accounts = new ArrayList<LibraAccount>();
 
+    public Long getId() {
+        return id;
+    }
 
-    public Wallet() {
+    public User getUser() {
+        return user;
+    }
+
+    public List<LibraAccount> getAccounts() {
+        return accounts;
+    }
+
+    public Wallet(User user) {
+        this.user = user;
         this.accounts = new ArrayList<>();
     }
 }

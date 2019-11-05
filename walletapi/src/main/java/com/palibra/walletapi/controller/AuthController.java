@@ -1,7 +1,7 @@
 package com.palibra.walletapi.controller;
 
 import com.palibra.walletapi.controller.common.ApiResponse;
-import com.palibra.walletapi.domain.account.Account;
+import com.palibra.walletapi.domain.account.LibraAccount;
 import com.palibra.walletapi.domain.account.AccountRepository;
 import com.palibra.walletapi.domain.auth.AuthProvider;
 import com.palibra.walletapi.domain.auth.AuthResponse;
@@ -9,6 +9,8 @@ import com.palibra.walletapi.domain.auth.LoginRequest;
 import com.palibra.walletapi.domain.auth.SignUpRequest;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.domain.user.UserRepository;
+import com.palibra.walletapi.domain.wallet.Wallet;
+import com.palibra.walletapi.domain.wallet.WalletRepository;
 import com.palibra.walletapi.exception.BadRequestException;
 import com.palibra.walletapi.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class AuthController {
     private AccountRepository accountRepository;
 
     @Autowired
+    private WalletRepository walletRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -70,7 +75,7 @@ public class AuthController {
             throw new BadRequestException("Email address already in use.");
         }
 
-        //Create user's account
+        //Create user and wallet
         User user = User.builder()
                 .setEmail(signUpRequest.getEmail())
                 .setName(signUpRequest.getName())
@@ -80,11 +85,14 @@ public class AuthController {
 
         User result = userRepository.save(user);
 
+        Wallet wallet = new Wallet(result);
+        walletRepository.save(wallet);
+
         //Create Libra Address
 
 
         //Test Promotion 1000 LBR
-        Account account = Account.createAccount("LibraWallet", "LBR", "testAddress", "qklijoq", "skdfjl", result);
+        LibraAccount account = LibraAccount.createAccount("LibraWallet", "LBR", "testAddress", "qklijoq", "skdfjl", wallet);
         accountRepository.save(account);
 
 //        URI location = ServletUriComponentsBuilder
