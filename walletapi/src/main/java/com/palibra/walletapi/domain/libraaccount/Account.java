@@ -1,4 +1,4 @@
-package com.palibra.walletapi.domain.account;
+package com.palibra.walletapi.domain.libraaccount;
 
 public abstract class Account {
 

@@ -1,7 +1,7 @@
-package com.palibra.walletapi.domain.account;
+package com.palibra.walletapi.domain.libraaccount;
 
 import com.palibra.walletapi.domain.user.User;
-import com.palibra.walletapi.domain.wallet.Wallet;
+import org.bouncycastle.util.encoders.Hex;
 
 import javax.persistence.*;
 
@@ -12,37 +12,36 @@ public class LibraAccount {
     private Long id;
 
     private String name;
-    private String currency;
 
     private byte[] libraAddress;
     private byte[] privateKey;
     private byte[] publicKey;
 
     @ManyToOne
-    @JoinColumn(name = "WALLET_ID")
-    private Wallet wallet;
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     private LibraAccount(){}
 
-    public static LibraAccount createAccount(String name, String currency, byte[] libraAddress, byte[] privateKey, byte[] publicKey, Wallet wallet) {
+    //생성자 메서드
+    public static LibraAccount createAccount(String name, byte[] libraAddress, byte[] privateKey, byte[] publicKey, User user) {
         LibraAccount account = new LibraAccount();
         account.setName(name);
-        account.setCurrency(currency);
         account.setLibraAddress(libraAddress);
         account.setPrivateKey(privateKey);
         account.setPublicKey(publicKey);
-        account.setWallet(wallet);
+        account.setUser(user);
 
         return account;
     }
 
     //연관관계 메서드
-    private void setWallet(Wallet wallet) {
-        if (this.wallet != null) {
-            this.wallet.getAccounts().remove(this);
+    private void setUser(User user) {
+        if (this.user != null) {
+            this.user.getAccounts().remove(this);
         }
-        this.wallet = wallet;
-        wallet.getAccounts().add(this);
+        this.user = user;
+        user.getAccounts().add(this);
     }
 
     public Long getId() {
@@ -53,12 +52,11 @@ public class LibraAccount {
         return name;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
     public byte[] getLibraAddress() {
         return libraAddress;
+    }
+    public String getLibraAddressToString() {
+        return Hex.toHexString(libraAddress);
     }
 
     public byte[] getPrivateKey() {
@@ -69,16 +67,14 @@ public class LibraAccount {
         return publicKey;
     }
 
-    public Wallet getWallet(){
-        return wallet;
+    public User getUser(){
+        return user;
     }
+
+
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public void setLibraAddress(byte[] libraAddress) {

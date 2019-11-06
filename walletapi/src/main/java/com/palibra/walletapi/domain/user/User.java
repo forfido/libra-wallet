@@ -3,11 +3,13 @@ package com.palibra.walletapi.domain.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palibra.walletapi.domain.BaseEntity;
 import com.palibra.walletapi.domain.auth.AuthProvider;
-import com.palibra.walletapi.domain.wallet.Wallet;
+import com.palibra.walletapi.domain.libraaccount.LibraAccount;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 //@EqualsAndHashCode(callSuper = false)
@@ -43,9 +45,8 @@ public class User extends BaseEntity {
 
     private Boolean enabled;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "WALLET_ID")
-    private Wallet wallet;
+    @OneToMany(mappedBy = "user")
+    private List<LibraAccount> libraAccounts = new ArrayList<LibraAccount>();
 
 
     private User(){
@@ -53,7 +54,7 @@ public class User extends BaseEntity {
         this.enabled = true;
     }
 
-    public static User createUser(String name, String email, String password, AuthProvider provider, String providerId, String imageUrl, Wallet wallet) {
+    public static User createUser(String name, String email, String password, AuthProvider provider, String providerId, String imageUrl) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
@@ -61,22 +62,11 @@ public class User extends BaseEntity {
         user.setProvider(provider);
         user.setProviderId(providerId);
         user.setImageUrl(imageUrl);
-        user.setWallet(wallet);
 
         return user;
     }
 
-    private void setProviderId(String providerId) {
-        this.providerId = providerId;
-    }
 
-    private void setProvider(AuthProvider provider) {
-        this.provider = provider;
-    }
-
-    private void setPassword(String password) {
-        this.password = password;
-    }
 
     public Long getId() {
         return id;
@@ -114,17 +104,35 @@ public class User extends BaseEntity {
         return enabled;
     }
 
-    public Wallet getWallet() { return wallet; }
+
+
+    private void setProviderId(String providerId) {
+        this.providerId = providerId;
+    }
+
+    private void setProvider(AuthProvider provider) {
+        this.provider = provider;
+    }
+
+    private void setPassword(String password) {
+        this.password = password;
+    }
 
     public void setName(String name) {
         this.name = name;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    public void setWallet(Wallet wallet){ this.wallet = wallet; }
+
+    public List<LibraAccount> getAccounts() {
+        return libraAccounts;
+    }
+
 
 }

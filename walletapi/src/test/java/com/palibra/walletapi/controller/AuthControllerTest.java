@@ -64,6 +64,6 @@ public class AuthControllerTest {
         //Then
         Assert.assertEquals(200, result.getStatusCodeValue());
 
-        Assert.assertEquals("c94fca612ec8baceae50e2592ef81da9c1a31d41fa9c9527c29a0a7371438120", Objects.requireNonNull(result.getBody()).getContents());
+        Assert.assertTrue(Objects.requireNonNull(result.getBody()).isSuccess());
     }
 }

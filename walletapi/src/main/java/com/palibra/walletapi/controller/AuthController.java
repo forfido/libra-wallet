@@ -1,20 +1,21 @@
 package com.palibra.walletapi.controller;
 
 import com.palibra.walletapi.controller.common.ApiResponse;
-import com.palibra.walletapi.domain.account.Account;
-import com.palibra.walletapi.domain.account.LibraAccount;
-import com.palibra.walletapi.domain.account.AccountRepository;
 import com.palibra.walletapi.domain.auth.AuthProvider;
 import com.palibra.walletapi.domain.auth.AuthResponse;
 import com.palibra.walletapi.domain.auth.LoginRequest;
 import com.palibra.walletapi.domain.auth.SignUpRequest;
+import com.palibra.walletapi.domain.libraaccount.Account;
+import com.palibra.walletapi.domain.libraaccount.LibraAccountRepository;
+import com.palibra.walletapi.domain.libraaccount.LibraAccount;
+import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.domain.user.UserRepository;
-import com.palibra.walletapi.domain.wallet.LibraWalletService;
-import com.palibra.walletapi.domain.wallet.Wallet;
-import com.palibra.walletapi.domain.wallet.WalletRepository;
 import com.palibra.walletapi.exception.BadRequestException;
 import com.palibra.walletapi.security.TokenProvider;
+import dev.jlibra.util.JLibraUtil;
+import org.bouncycastle.util.BigIntegers;
+import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,13 +42,13 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private LibraAccountRepository libraAccountRepository;
 
     @Autowired
-    private WalletRepository walletRepository;
+    private LibraAccountService libraAccountService;
 
     @Autowired
-    private LibraWalletService libraWalletService;
+    private JLibraUtil jLibraUtil;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -76,28 +77,27 @@ public class AuthController {
             throw new BadRequestException("Email address already in use.");
         }
 
-        Wallet wallet = new Wallet();
-
         //Create user and wallet
         User user = User.createUser(signUpRequest.getName(), signUpRequest.getEmail(),
-                passwordEncoder.encode(signUpRequest.getPassword()), AuthProvider.local, null, null, wallet);
+                passwordEncoder.encode(signUpRequest.getPassword()), AuthProvider.local, null, null);
 
         userRepository.save(user);
 
-        //walletRepository.save(wallet);
-
         //Create Libra Address by JLibra
-        Account libraAccount = libraWalletService.createAccount();
+        Account libraAccount = libraAccountService.createAccount();
 
-        //Test Promotion 1000 LBR
-        LibraAccount account = LibraAccount.createAccount("LibraWallet", "LBR", libraAccount.getAddress(), libraAccount.getPrivateKey(), libraAccount.getPublicKey(), wallet);
-        accountRepository.save(account);
+        //Save on Palibra wallet
+        LibraAccount account = LibraAccount.createAccount("LibraWallet", libraAccount.getAddress(), libraAccount.getPrivateKey(), libraAccount.getPublicKey(), user);
+        libraAccountRepository.save(account);
+
+        //1000 Test LBR provided
+        jLibraUtil.mint(Hex.toHexString(account.getLibraAddress()), 1000L);
 
 //        URI location = ServletUriComponentsBuilder
 //                .fromCurrentContextPath().path("/user/me")
 //                .buildAndExpand(result.getId()).toUri();
 
         //return ResponseEntity.ok().body(account.getLibraAddress());
-        return ApiResponse.Success(account.getLibraAddress());
+        return ApiResponse.Success(libraAccount);
     }
 }
