@@ -76,21 +76,15 @@ public class AuthController {
             throw new BadRequestException("Email address already in use.");
         }
 
+        Wallet wallet = new Wallet();
+
         //Create user and wallet
-        User user = User.builder()
-                .setEmail(signUpRequest.getEmail())
-                .setName(signUpRequest.getName())
-                .setPassword(passwordEncoder.encode(signUpRequest.getPassword()))
-                .setProvider(AuthProvider.local)
-                .build();
-        //TODO : 1대1 주테이블에 값 매핑안되어 있음
-        //user.setWallet(wallet);
+        User user = User.createUser(signUpRequest.getName(), signUpRequest.getEmail(),
+                passwordEncoder.encode(signUpRequest.getPassword()), AuthProvider.local, null, null, wallet);
 
+        userRepository.save(user);
 
-        User result = userRepository.save(user);
-        Wallet wallet = new Wallet(result);
-
-        walletRepository.save(wallet);
+        //walletRepository.save(wallet);
 
         //Create Libra Address by JLibra
         Account libraAccount = libraWalletService.createAccount();

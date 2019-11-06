@@ -1,5 +1,7 @@
 package com.palibra.walletapi.security.oauth2;
 
+import com.palibra.walletapi.domain.wallet.Wallet;
+import com.palibra.walletapi.domain.wallet.WalletRepository;
 import com.palibra.walletapi.exception.OAuth2AuthenticationProcessingException;
 import com.palibra.walletapi.domain.auth.AuthProvider;
 import com.palibra.walletapi.domain.user.User;
@@ -24,6 +26,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WalletRepository walletRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -63,13 +68,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
-        User user = User.builder()
-                .setEmail(oAuth2UserInfo.getEmail())
-                .setName(oAuth2UserInfo.getName())
-                .setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))
-                .setProviderId(oAuth2UserInfo.getId())
-                .setImageUrl(oAuth2UserInfo.getImageUrl())
-                .build();
+
+        Wallet wallet = new Wallet();
+
+        User user =  User.createUser(oAuth2UserInfo.getName(), oAuth2UserInfo.getEmail(),
+                "", AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()),
+                oAuth2UserInfo.getId(), oAuth2UserInfo.getImageUrl(), wallet);
+        walletRepository.save(wallet);
 
         return userRepository.save(user);
     }

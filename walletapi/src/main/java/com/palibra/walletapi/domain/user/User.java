@@ -43,23 +43,39 @@ public class User extends BaseEntity {
 
     private Boolean enabled;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "WALLET_ID")
     private Wallet wallet;
 
 
-    private User(){ }
-
-    private User(String name, String email, String password, AuthProvider provider, String providerId, String imageUrl) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.provider = provider;
-        this.providerId = providerId;
-        this.imageUrl = imageUrl;
-
+    private User(){
         this.emailVerified = false;
         this.enabled = true;
+    }
+
+    public static User createUser(String name, String email, String password, AuthProvider provider, String providerId, String imageUrl, Wallet wallet) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setProvider(provider);
+        user.setProviderId(providerId);
+        user.setImageUrl(imageUrl);
+        user.setWallet(wallet);
+
+        return user;
+    }
+
+    private void setProviderId(String providerId) {
+        this.providerId = providerId;
+    }
+
+    private void setProvider(AuthProvider provider) {
+        this.provider = provider;
+    }
+
+    private void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
@@ -103,52 +119,12 @@ public class User extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
     public void setWallet(Wallet wallet){ this.wallet = wallet; }
 
-    public static UserBuilder builder() {
-        return new UserBuilder();
-    }
-
-    public static class UserBuilder {
-        private String name;
-        private String email;
-        private String password;
-        private AuthProvider provider;
-        private String providerId;
-        private String imageUrl;
-
-        public UserBuilder setName(final String name) {
-            this.name = name;
-            return this;
-        }
-        public UserBuilder setEmail(final String email) {
-            this.email = email;
-            return this;
-        }
-        public UserBuilder setPassword(final String password) {
-            this.password = password;
-            return this;
-        }
-        public UserBuilder setProviderId(final String providerId) {
-            this.providerId = providerId;
-            return this;
-        }
-        public UserBuilder setProvider(final AuthProvider provider) {
-            this.provider = provider;
-            return this;
-        }
-        public UserBuilder setImageUrl(final String imageUrl) {
-            this.imageUrl = imageUrl;
-            return this;
-        }
-
-        public User build() {
-            return new User(name, email, password, provider, providerId, imageUrl);
-        }
-    }
 }

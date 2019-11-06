@@ -31,8 +31,7 @@ public class Wallet {
         return accounts;
     }
 
-    public Wallet(User user) {
-        this.user = user;
+    public Wallet() {
         this.accounts = new ArrayList<>();
     }
 }
