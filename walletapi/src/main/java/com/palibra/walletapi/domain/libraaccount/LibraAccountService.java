@@ -1,9 +1,9 @@
 package com.palibra.walletapi.domain.libraaccount;
 
 import com.palibra.walletapi.exception.ResourceNotFoundException;
-import dev.jlibra.admissioncontrol.query.UpdateToLatestLedgerResult;
+import dev.jlibra.KeyUtils;
 import dev.jlibra.mnemonic.*;
-import dev.jlibra.spring.action.AccountStateQuery;
+import dev.jlibra.spring.action.PeerToPeerTransfer;
 import dev.jlibra.util.JLibraUtil;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPrivateKey;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPublicKey;
@@ -11,11 +11,12 @@ import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 @Service
 public class LibraAccountService {
@@ -25,6 +26,9 @@ public class LibraAccountService {
 
     @Autowired
     private JLibraUtil jLibraUtil;
+
+    @Autowired
+    private PeerToPeerTransfer peerToPeerTransfer;
 
     public LibraAccountService() {
     }
@@ -73,5 +77,13 @@ public class LibraAccountService {
 
         return jLibraUtil.findBalance(libraAddress);
     }
-
+//
+//    public void transfer(String senderAddressOrIndex, String receiverAddress, BigInteger amount, @ShellOption(defaultValue = "-1") BigInteger gasUnitPrice, @ShellOption(defaultValue = "-1") BigInteger maxGasAmount) {
+//        Account senderAccount = getAccountAt(Integer.parseInt(senderAddressOrIndex));
+//        receiverAddress = Hex.toHexString(wallet.findLibraAccount(receiverAddress));
+//        PublicKey publicKey = KeyUtils.publicKeyFromHexString(new String(Hex.encode(senderAccount.getPublicKey())));
+//        PrivateKey privateKey = KeyUtils.privateKeyFromHexString(new String(Hex.encode(senderAccount.getPrivateKey())));
+//        PeerToPeerTransfer.PeerToPeerTransferReceipt receipt = peerToPeerTransfer.transferFunds(receiverAddress, amount.longValue() * 1_000_000, publicKey, privateKey, gasUnitPrice.longValue(), maxGasAmount.longValue());
+//        //System.out.println(receipt.getStatus());
+//    }
 }

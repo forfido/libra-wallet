@@ -14,7 +14,6 @@ import com.palibra.walletapi.domain.user.UserRepository;
 import com.palibra.walletapi.exception.BadRequestException;
 import com.palibra.walletapi.security.TokenProvider;
 import dev.jlibra.util.JLibraUtil;
-import org.bouncycastle.util.BigIntegers;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
