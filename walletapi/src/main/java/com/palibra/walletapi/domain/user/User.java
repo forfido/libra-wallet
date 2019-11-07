@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@EqualsAndHashCode(callSuper = false)
 @Table(name = "USERS", uniqueConstraints = {
-    //@UniqueConstraint(columnNames = {"username"}),
     @UniqueConstraint(columnNames = "email")
 })
 public class User extends BaseEntity {
