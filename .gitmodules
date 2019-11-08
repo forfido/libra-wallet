@@ -3,7 +3,7 @@
 	url = https://github.com/ketola/jlibra.git
 [submodule "jlibra-spring-boot-starter"]
 	path = jlibra-spring-boot-starter
-	url = https://github.com/ice09/jlibra-spring-boot-starter.git
+	url = https://github.com/forfido/jlibra-spring-boot-starter.git
 [submodule "libra-message-signing"]
 	path = libra-message-signing
 	url = https://github.com/ice09/libra-message-signing.git
