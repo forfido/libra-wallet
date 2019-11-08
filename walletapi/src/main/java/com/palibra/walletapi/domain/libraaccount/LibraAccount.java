@@ -4,6 +4,7 @@ import com.palibra.walletapi.domain.user.User;
 import org.bouncycastle.util.encoders.Hex;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class LibraAccount {

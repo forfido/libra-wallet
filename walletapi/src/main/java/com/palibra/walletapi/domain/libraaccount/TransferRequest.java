@@ -1,27 +1,16 @@
-package com.palibra.walletapi.domain.transaction;
+package com.palibra.walletapi.domain.libraaccount;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigInteger;
 
 public class TransferRequest {
     @NotNull
-    private Long senderUserId;
-
-    @NotNull
     private Long receiverUserId;
 
-    @Min(0)
+    @Positive
     private BigInteger amount;
 
-
-    public Long getSenderUserId() {
-        return senderUserId;
-    }
-
-    public void setSenderUserId(Long senderUserId) {
-        this.senderUserId = senderUserId;
-    }
 
     public Long getReceiverUserId() {
         return receiverUserId;

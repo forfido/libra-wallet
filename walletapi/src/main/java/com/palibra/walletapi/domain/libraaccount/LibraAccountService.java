@@ -2,7 +2,9 @@ package com.palibra.walletapi.domain.libraaccount;
 
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.exception.ResourceNotFoundException;
+import dev.jlibra.KeyUtils;
 import dev.jlibra.mnemonic.*;
+import dev.jlibra.spring.action.PeerToPeerTransfer;
 import dev.jlibra.util.JLibraUtil;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPrivateKey;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPublicKey;
@@ -10,14 +12,20 @@ import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 @Service
 public class LibraAccountService {
 
     @Autowired
     private LibraAccountRepository libraAccountRepository;
+
+    @Autowired
+    private PeerToPeerTransfer peerToPeerTransfer;
 
     @Autowired
     private JLibraUtil jLibraUtil;
@@ -69,4 +77,17 @@ public class LibraAccountService {
         return libraAccount;
     }
 
+    public PeerToPeerTransfer.PeerToPeerTransferReceipt.Status transfer(Long senderId, TransferRequest transferRequest) {
+        BigInteger gasUnitPrice = new BigInteger("-1");
+        BigInteger maxGasAmount = new BigInteger("-1");
+
+        LibraAccount senderAccount = findAccount(senderId);
+        LibraAccount receiverAccount = findAccount(transferRequest.getReceiverUserId());
+
+        String receiverAddress = Hex.toHexString(receiverAccount.getLibraAddress());
+        PublicKey publicKey = KeyUtils.publicKeyFromHexString(new String(Hex.encode(senderAccount.getPublicKey())));
+        PrivateKey privateKey = KeyUtils.privateKeyFromHexString(new String(Hex.encode(senderAccount.getPrivateKey())));
+        PeerToPeerTransfer.PeerToPeerTransferReceipt receipt = peerToPeerTransfer.transferFunds(receiverAddress, transferRequest.getAmount().longValue() * 1_000_000, publicKey, privateKey, gasUnitPrice.longValue(), maxGasAmount.longValue());
+        return receipt.getStatus();
+    }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URISyntaxException;
 
-import static com.palibra.walletapi.constants.config.AUTHORIZATION_TOKEN;
+import static com.palibra.walletapi.constants.config.AUTHORIZATION_AHIN_TOKEN;
 import static com.palibra.walletapi.constants.config.BACKEND_API_DOMAIN;
 
 public class UserControllerTest
@@ -23,14 +23,14 @@ public class UserControllerTest
     public void setUp() throws Exception {
         restTemplate = new RestTemplate();
         headers = new HttpHeaders();
-        headers.set("Authorization", AUTHORIZATION_TOKEN);
+        headers.set("Authorization", AUTHORIZATION_AHIN_TOKEN);
     }
 
     @Test
     public void testGetCurrentUser() throws URISyntaxException {
         //Given
         long id = 1L;
-        final String baseUrl = BACKEND_API_DOMAIN + "/user/me?id=" + id;
+        final String baseUrl = BACKEND_API_DOMAIN + "/user/me";
 
         //When
         HttpEntity request = new HttpEntity(headers);
