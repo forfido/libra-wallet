@@ -2,7 +2,7 @@
 <template>
   <v-toolbar app fixed clipped-left>
     <v-toolbar-side-icon @click.stop="onClickBtn"></v-toolbar-side-icon>
-    <v-toolbar-title>ExplainVue</v-toolbar-title>
+    <v-toolbar-title>Palibra</v-toolbar-title>
   </v-toolbar>
 </template>
 
