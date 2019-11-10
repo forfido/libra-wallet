@@ -1,0 +1,136 @@
+[
+  {
+    "accountid": 1,
+    "prodName": "Frozen Yogurt",
+    "chargeNo": 159,
+    "price": 24,
+    "vat": "1%"
+  },
+  {
+    "accountid": 3,
+    "prodName": "Ice cream sandwich",
+    "chargeNo": 237,
+    "price": 37,
+    "vat": "1%"
+  },
+  {
+    "accountid": 7,
+    "prodName": "Ice cream sandwich",
+    "chargeNo": 237,
+    "price": 37,
+    "vat": "1%"
+  },
+  {
+    "accountid": 1,
+    "prodName": "Eclair",
+    "chargeNo": 262,
+    "price": 23,
+    "vat": "7%"
+  },
+  {
+    "accountid": 1,
+    "prodName": "Cupcake",
+    "chargeNo": 305,
+    "price": 67,
+    "vat": "8%"
+  },
+  {
+    "accountid": 4,
+    "prodName": "Gingerbread",
+    "chargeNo": 356,
+    "price": 49,
+    "vat": "16%"
+  },
+  {
+    "accountid": 8,
+    "prodName": "Jelly bean",
+    "chargeNo": 375,
+    "price": 94,
+    "vat": "0%"
+  },
+  {
+    "accountid": 10,
+    "prodName": "Lollipop",
+    "chargeNo": 392,
+    "price": 98,
+    "protein": 0,
+    "vat": "2%"
+  },
+  {
+    "accountid": 11,
+    "prodName": "Honeycomb",
+    "chargeNo": 408,
+    "price": 87,
+    "vat": "45%"
+  },
+  {
+    "accountid": 1,
+    "prodName": "Donut",
+    "chargeNo": 452,
+    "price": 51,
+    "vat": "22%"
+  },
+  {
+    "accountid": 2,
+    "prodName": "KitKat",
+    "chargeNo": 518,
+    "price": 65,
+    "vat": "6%"
+  },
+  {
+    "accountid": 3,
+    "prodName": "KitKat",
+    "chargeNo": 518,
+    "price": 65,
+    "vat": "6%"
+  },
+  {
+    "accountid": 2,
+    "prodName": "KitKat",
+    "chargeNo": 518,
+    "price": 65,
+    "vat": "6%"
+  },
+  {
+    "accountid": 1,
+    "prodName": "KitKat",
+    "chargeNo": 518,
+    "price": 65,
+    "vat": "6%"
+  },
+  {
+    "accountid": 8,
+    "prodName": "KitKat",
+    "chargeNo": 518,
+    "price": 65,
+    "vat": "6%"
+  },
+  {
+    "accountid": 9,
+    "prodName": "KitKat",
+    "chargeNo": 518,
+    "price": 65,
+    "vat": "6%"
+  },
+  {
+    "accountid": 5,
+    "prodName": "KitKat",
+    "chargeNo": 518,
+    "price": 65,
+    "vat": "6%"
+  },
+  {
+    "accountid": 1,
+    "prodName": "Eclair",
+    "chargeNo": 262,
+    "price": 23,
+    "vat": "7%"
+  },
+  {
+    "accountid": 3,
+    "prodName": "Cupcake",
+    "chargeNo": 305,
+    "price": 67,
+    "vat": "8%"
+  }
+]
