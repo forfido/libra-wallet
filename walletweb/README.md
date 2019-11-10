@@ -1,5 +1,8 @@
 # 개발환경 설정
 
+*Move Project Root Path*
+> cd ./libra-wallet/walletweb
+
 *npm 설치*
 > npm install
  
