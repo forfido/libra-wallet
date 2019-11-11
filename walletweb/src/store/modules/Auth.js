@@ -31,17 +31,19 @@ const actions = {
   TryLogin({ commit }, SignUpObj) {
     console.log(SignUpObj.email, SignUpObj.password);
     axios
-      .post("/api/login", {
-        email: "eve.holt@reqres.in", // SignUpObj.email
-        password: "cityslicka" // SignUpObj.password
+      .post("/auth/login", {
+        email: SignUpObj.email,
+        password: SignUpObj.password
       })
       .then(res => {
         console.log(res);
-        let token = res.data.token;
-        localStorage.setItem("Authentication", token);
+        let token =  res.data.contents.tokenType + ' ' + res.data.contents.accessToken;
+        localStorage.setItem("Authorization", token);
+        console.log(token);
+
         // 성공시 토큰
         axios
-          .get("/api/users/2")
+          .get("/user/me")
           .then(response => {
             console.log(response);
           })
