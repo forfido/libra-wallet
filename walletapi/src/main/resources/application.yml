@@ -17,20 +17,14 @@ spring:
 
   jpa:
     #database-platform: H2
-    show-sql: true
-    hibernate:
-      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
-
-  Logging:
-    Level:
-      root: OFF
-
-  #logging.level.org.hibernate.SQL=DEBUG
-  #logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+        show_sql: true
+        ddl-auto: create
+        id:
+          new_generator_mappings: true
 
   security:
     oauth2:
@@ -62,6 +56,16 @@ spring:
             authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
             tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
             userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
 
 jLibra:
   service-url: ac.testnet.libra.org

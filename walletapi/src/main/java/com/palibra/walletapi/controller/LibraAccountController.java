@@ -2,16 +2,14 @@ package com.palibra.walletapi.controller;
 
 import com.palibra.walletapi.controller.common.ApiResponse;
 import com.palibra.walletapi.controller.common.TokenBaseController;
+import com.palibra.walletapi.domain.libraaccount.LibraAccount;
 import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
 import com.palibra.walletapi.domain.libraaccount.TransferRequest;
 import com.palibra.walletapi.exception.ErrorHandlerException;
 import dev.jlibra.spring.action.PeerToPeerTransfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,6 +21,15 @@ public class LibraAccountController extends TokenBaseController {
     @Autowired
     LibraAccountService libraAccountService;
 
+    @GetMapping("/balance")
+    public ResponseEntity<?> getBalance() {
+
+        LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
+
+        Long balance = libraAccountService.getBalance(libraAccount.getLibraAddressToString());
+        return ApiResponse.Success(balance);
+    }
+
     @PostMapping("/transfer")
     public ResponseEntity<?> transferLibra(@Valid @RequestBody TransferRequest transferRequest) {
         Long senderId = getAuthedUserInfo().getId();
@@ -33,4 +40,6 @@ public class LibraAccountController extends TokenBaseController {
 
         return ApiResponse.Success(status);
     }
+
+
 }

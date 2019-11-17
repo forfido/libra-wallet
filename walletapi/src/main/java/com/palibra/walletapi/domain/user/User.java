@@ -8,14 +8,16 @@ import com.palibra.walletapi.domain.libraaccount.LibraAccount;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS", uniqueConstraints = {
     @UniqueConstraint(columnNames = "email")
 })
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
     private Long id;
@@ -43,8 +45,9 @@ public class User extends BaseEntity {
 
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user")
-    private List<LibraAccount> libraAccounts = new ArrayList<LibraAccount>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<LibraAccount> libraAccounts;
 
 
     private User(){
@@ -98,7 +101,7 @@ public class User extends BaseEntity {
         return providerId;
     }
 
-    public Boolean IsEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 

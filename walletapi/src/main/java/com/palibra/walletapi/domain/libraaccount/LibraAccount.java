@@ -1,10 +1,10 @@
 package com.palibra.walletapi.domain.libraaccount;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palibra.walletapi.domain.user.User;
 import org.bouncycastle.util.encoders.Hex;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class LibraAccount {
@@ -20,6 +20,7 @@ public class LibraAccount {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
+    @JsonIgnore
     private User user;
 
     private LibraAccount(){}
