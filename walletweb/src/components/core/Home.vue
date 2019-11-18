@@ -14,12 +14,20 @@
 </style>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+
     export default {
         data() {
             return {};
         },
         props: {
             source: String
+        },
+        computed: {
+
+        },
+        methods: {
+
         }
     };
 </script>

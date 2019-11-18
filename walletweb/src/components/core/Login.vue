@@ -31,6 +31,9 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" block @click="TryLogin({email, password})">Login</v-btn>
+
+                <v-btn color="primary" block href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Home">Google</v-btn>
+                <v-btn color="primary" block @click="TryLogin({email, password})">FaceBook</v-btn>
               </v-card-actions>
             </v-card>
             <v-alert class="mt-3" :value="isLogin" type="success">로그인에 성공했습니다.</v-alert>
