@@ -6,12 +6,16 @@ import com.palibra.walletapi.domain.libraaccount.LibraAccount;
 import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
 import com.palibra.walletapi.domain.libraaccount.TransferRequest;
 import com.palibra.walletapi.exception.ErrorHandlerException;
+import com.palibra.walletapi.util.ZXingHelper;
 import dev.jlibra.spring.action.PeerToPeerTransfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Objects;
 
 
 @RestController
@@ -20,6 +24,17 @@ public class LibraAccountController extends TokenBaseController {
 
     @Autowired
     LibraAccountService libraAccountService;
+
+    @GetMapping("/account")
+    public byte[] getAccount() throws IOException {
+
+        LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(Objects.requireNonNull(ZXingHelper.getQRCodeImage(libraAccount.getLibraAddressToString(), 200, 200)));
+
+        return outputStream.toByteArray();
+    }
 
     @GetMapping("/balance")
     public ResponseEntity<?> getBalance() {
