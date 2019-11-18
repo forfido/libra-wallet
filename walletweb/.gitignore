@@ -1,49 +1,14 @@
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-# Editor directories and files
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw*
-.DS_Store
-
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
 ### front ignore file ###
-walletweb/node_modules/
-walletweb/dist/
+node_modules
+dist
 walletweb/package-*.json
 
-# node_modules cache file
-walletweb/node_modules/.cache/
-
 # local env files
-walletweb/env.local
-walletweb/env.*.local
+env.local
+env.*.local
 
 # Log files
-walletweb/npm-debug.log*
-walletweb/yarn-debug.log*
-walletweb/yarn-error.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
