@@ -17,6 +17,7 @@ const mutations = {
   LoginFail(state) {
     state.isLogin = false;
     state.isLoginError = true;
+
   },
   LogOut(state) {
     state.isLogin = false;
@@ -29,14 +30,13 @@ const actions = {
   // TryLogin Method
   // ------------------
   TryLogin({ commit }, SignUpObj) {
-    console.log(SignUpObj.email, SignUpObj.password);
+    //console.log(SignUpObj.email, SignUpObj.password);
     axios
       .post("/auth/login", {
         email: SignUpObj.email,
         password: SignUpObj.password
       })
       .then(res => {
-        console.log(res);
         let token =  res.data.contents.tokenType + ' ' + res.data.contents.accessToken;
         localStorage.setItem("Authorization", token);
         console.log(token);
