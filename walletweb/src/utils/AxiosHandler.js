@@ -1,18 +1,17 @@
 import axios from "axios";
+import Constants from "@/constants";
 
-const HttpsServer = "https://reqres.in";
+const HttpsServer = Constants.ENDPOINT;
 
 const AxiosHandler = axios.create({
   baseURL: HttpsServer,
   timeout: 10000
 });
 
-if (localStorage.getItem("Authorization")) {
-  AxiosHandler.defaults.headers.common["Authorization"] = localStorage.getItem(
-    "Authorization"
-  );
+if (localStorage.getItem(Constants.AUTHORIZTION)) {
+  AxiosHandler.defaults.headers.common[Constants.AUTHORIZTION] = localStorage.getItem(Constants.AUTHORIZTION);
 } else {
-  AxiosHandler.defaults.headers.common["Authorization"] = "";
+  AxiosHandler.defaults.headers.common[Constants.AUTHORIZTION] = "";
 }
 
 export default AxiosHandler;

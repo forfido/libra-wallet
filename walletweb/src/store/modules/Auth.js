@@ -1,4 +1,5 @@
 import axios from "@/utils/AxiosHandler";
+import Constants from "@/constants";
 
 const state = {
   isLogin: false,
@@ -35,17 +36,16 @@ const mutations = {
 const actions = {
   /// --------------------------------------------------------
   // TryLogin Method
-  // ------------------
+  /// --------------------------------------------------------
   TryLogin({ commit }, SignUpObj) {
-    //console.log(SignUpObj.email, SignUpObj.password);
     axios
       .post("/api/login", {
         email: "eve.holt@reqres.in",
         password: "cityslicka"
       })
       .then(res => {
-        let token =  res.data.contents.tokenType + ' ' + res.data.contents.accessToken;
-        localStorage.setItem("Authorization", token);
+        let token = res.data.contents.tokenType + " " + res.data.contents.accessToken;
+        localStorage.setItem(Constants.AUTHORIZTION, token);
         commit("LoginSuccess");
       })
       .catch(err => {
@@ -66,7 +66,7 @@ const actions = {
   // Auth State Check
   /// --------------------------------------------------------
   CheckAuthState({ commit }) {
-    if (localStorage.getItem("Authorization")) {
+    if (localStorage.getItem(Constants.AUTHORIZTION)) {
       commit("LoginSuccess");
     } else {
       commit("LogOut");
