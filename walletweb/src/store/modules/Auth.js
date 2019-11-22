@@ -22,6 +22,7 @@ const mutations = {
   LoginFail(state) {
     state.isLogin = false;
     state.isLoginError = true;
+
   },
   /// --------------------------------------------------------
   // LogOut
@@ -34,16 +35,16 @@ const mutations = {
 const actions = {
   /// --------------------------------------------------------
   // TryLogin Method
-  /// --------------------------------------------------------
-  TryLogin({ commit }, payLoad) {
-    console.log(payLoad.email, payLoad.password);
+  // ------------------
+  TryLogin({ commit }, SignUpObj) {
+    //console.log(SignUpObj.email, SignUpObj.password);
     axios
       .post("/api/login", {
         email: "eve.holt@reqres.in",
         password: "cityslicka"
       })
       .then(res => {
-        let token = res.data.token;
+        let token =  res.data.contents.tokenType + ' ' + res.data.contents.accessToken;
         localStorage.setItem("Authorization", token);
         commit("LoginSuccess");
       })
