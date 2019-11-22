@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-model="inputDrawer" clipped fixed app>
     <v-list dense>
-      <v-list-tile v-for="(menu, i) in menuList" :key="i" :to="menu.path">
+        <v-list-tile v-for="(menu, i) in menuList" :key="i" :to="menu.path" >      
         <v-list-tile-action>
           <v-icon>{{menu.icon}}</v-icon>
         </v-list-tile-action>

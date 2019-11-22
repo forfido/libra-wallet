@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/Home",
+    "name": "Home",
+    "view": "Home",
+    "icon": "home",
+    "title": "Home"
+  },
+  {
+    "path": "/Login",
+    "name": "Login",
+    "view": "Login",
+    "icon": "person",
+    "title": "Login"
+  },
+  {
+    "path": "/About",
+    "name": "About",
+    "view": "About",
+    "icon": "done",
+    "title": "About"
+  },
+  {
+    "path": "/ExplainList",
+    "name": "ExplainList",
+    "view": "ExplainList",
+    "icon": "reorder",
+    "title": "ExplainList"
+  }
+]

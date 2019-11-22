@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const HttpsServer = "http://localhost:8090";
+const HttpsServer = "https://reqres.in";
 
 const AxiosHandler = axios.create({
   baseURL: HttpsServer,
@@ -13,7 +13,6 @@ if (localStorage.getItem("Authorization")) {
   );
 } else {
   AxiosHandler.defaults.headers.common["Authorization"] = "";
-  // TODO: Issue Token Or Redirect Login Page
 }
 
 export default AxiosHandler;

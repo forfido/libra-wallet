@@ -1,70 +1,77 @@
 import axios from "@/utils/AxiosHandler";
 
 const state = {
-  User: null,
   isLogin: false,
   isLoginError: false
 };
-const getters = {};
+const getters = {
+  GetIsLogin: state => { return state.isLogin; },
+  GetIsLoginError: state => { return state.isLoginError; }
+};
 const mutations = {
+  /// --------------------------------------------------------
   // Login Success
-  LoginSuccess(state, ObjUser) {
+  /// --------------------------------------------------------
+  LoginSuccess(state) {
     state.isLogin = true;
     state.isLoginError = false;
-    state.User = ObjUser;
   },
+  /// --------------------------------------------------------
   // Login Fail
+  /// --------------------------------------------------------
   LoginFail(state) {
     state.isLogin = false;
     state.isLoginError = true;
   },
+  /// --------------------------------------------------------
+  // LogOut
+  /// --------------------------------------------------------
   LogOut(state) {
     state.isLogin = false;
     state.isLoginError = false;
-    state.User = null;
   }
 };
 const actions = {
-  // ------------------
+  /// --------------------------------------------------------
   // TryLogin Method
-  // ------------------
-  TryLogin({ commit }, SignUpObj) {
-    console.log(SignUpObj.email, SignUpObj.password);
+  /// --------------------------------------------------------
+  TryLogin({ commit }, payLoad) {
+    console.log(payLoad.email, payLoad.password);
     axios
-      .post("/auth/login", {
-        email: SignUpObj.email,
-        password: SignUpObj.password
+      .post("/api/login", {
+        email: "eve.holt@reqres.in",
+        password: "cityslicka"
       })
       .then(res => {
-        console.log(res);
-        let token =  res.data.contents.tokenType + ' ' + res.data.contents.accessToken;
+        let token = res.data.token;
         localStorage.setItem("Authorization", token);
-        console.log(token);
-
-        // 성공시 토큰
-        axios
-          .get("/user/me")
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-
-        commit("LoginSuccess", SignUpObj);
+        commit("LoginSuccess");
       })
       .catch(err => {
         console.log(err);
         commit("LoginFail");
       });
   },
-  // ------------------
+
+  /// --------------------------------------------------------
   // LogOut Method
-  // ------------------
+  // TODO : Login Page
+  /// --------------------------------------------------------
   TryLogOut({ commit }) {
     commit("LogOut");
-    //  TODO: Login Page
+  },
+
+  /// --------------------------------------------------------
+  // Auth State Check
+  /// --------------------------------------------------------
+  CheckAuthState({ commit }) {
+    if (localStorage.getItem("Authorization")) {
+      commit("LoginSuccess");
+    } else {
+      commit("LogOut");
+    }
   }
+
 };
 
 export default {

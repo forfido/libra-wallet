@@ -1,7 +1,7 @@
 ### front ignore file ###
 node_modules
 dist
-walletweb/package-*.json
+package-*.json
 
 # local env files
 env.local

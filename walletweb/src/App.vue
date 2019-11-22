@@ -4,13 +4,11 @@
       <core-toolbar />
 
       <core-navigation />
-
+    </div>
+    <div>
       <core-routerview />
 
       <core-footer />
-    </div>
-    <div v-else>
-      <core-login />
     </div>
   </v-app>
 </template>
@@ -24,8 +22,11 @@ export default {
   props: {
     source: String
   },
+  created() {
+    this.$store.dispatch("auth/CheckAuthState");
+  },
   computed: {
-    ...authHelper.mapState(["isLogin"])
-  }
+    ...authHelper.mapState(["isLogin"]),
+  },
 };
 </script>

@@ -1,5 +1,5 @@
 import { set, toggle } from "@/utils/vuex";
-import MenuJson from "@/assets/sampleData/menu.json";
+import MenuJson from "@/assets/sampleData/navigation.json";
 
 const state = {
   drawer: null,
