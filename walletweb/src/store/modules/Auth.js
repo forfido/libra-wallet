@@ -39,9 +39,9 @@ const actions = {
   /// --------------------------------------------------------
   TryLogin({ commit }, SignUpObj) {
     axios
-      .post("/api/login", {
-        email: "eve.holt@reqres.in",
-        password: "cityslicka"
+      .post("/auth/login", {
+        email: SignUpObj.email,//"eve.holt@reqres.in",
+        password: SignUpObj.password //"cityslicka"
       })
       .then(res => {
         let token = res.data.contents.tokenType + " " + res.data.contents.accessToken;
