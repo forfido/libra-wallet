@@ -16,4 +16,13 @@
 
 *npm dev환경으로 서비스 올리기*
 > npm run serve 
+
+
+*vuetify update*
+> npm install sass fibers --dev
+
+> npm i sass-loader
+
+> npm i node-sass
+
  

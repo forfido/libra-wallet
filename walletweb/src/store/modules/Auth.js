@@ -37,11 +37,11 @@ const actions = {
   /// --------------------------------------------------------
   // TryLogin Method
   /// --------------------------------------------------------
-  TryLogin({ commit }, SignUpObj) {
+  TryLogin({ commit }, payload) {
     axios
       .post("/auth/login", {
-        email: SignUpObj.email,//"eve.holt@reqres.in",
-        password: SignUpObj.password //"cityslicka"
+        email: payload.email,
+        password: payload.password
       })
       .then(res => {
         let token = res.data.contents.tokenType + " " + res.data.contents.accessToken;
@@ -59,7 +59,7 @@ const actions = {
   // TODO : Login Page
   /// --------------------------------------------------------
   TryLogOut({ commit }) {
-    commit("LogOut");
+    commit("LogOut").then(this.$router.push("/Login"));
   },
 
   /// --------------------------------------------------------
