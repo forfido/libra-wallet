@@ -30,12 +30,30 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" block @click="TryLogin({email, password})">Login</v-btn>
-
-                <v-btn color="primary" block href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Home">Google</v-btn>
-                <v-btn color="primary" block @click="TryLogin({email, password})">FaceBook</v-btn>
+                <v-btn color="primary" large @click="TryLogin({email, password})">
+                  <b>로그인</b>
+                </v-btn>
               </v-card-actions>
+
+              <v-system-bar light color="grey darken-2">
+                <v-card-actions>
+                  <v-btn color="deep-orange darken-4" round small href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Home">
+                    <v-icon left>fab fa-google-plus</v-icon>
+                    <v-spacer></v-spacer>
+                    <span>Google Login</span>
+                  </v-btn>
+                  <v-btn color="light-blue accent-2" round small href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Home">
+                    <!--<v-icon left>assignment_ind</v-icon>-->
+                    <v-icon left>fab fa-facebook</v-icon>
+                    <v-spacer></v-spacer>
+                    <span>FaceBook Login</span>
+                  </v-btn>
+                </v-card-actions>
+              </v-system-bar>
+
+
             </v-card>
+
             <v-alert class="mt-3" :value="isLogin" type="success">로그인에 성공했습니다.</v-alert>
             <v-alert class="mt-3" :value="isLoginError" type="error">아이디와 비밀번호를 확인해주세요.</v-alert>
           </v-flex>
@@ -54,6 +72,8 @@ export default {
     email: null,
     password: null
   }),
+  mounted() {
+  },
   props: {
     source: String
   },

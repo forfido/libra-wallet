@@ -38,28 +38,28 @@ const router = new Router({
 });
 
 Vue.use(Meta);
-
-// Login여부체크
-let loginCheck = function(next) {
-  axios
-    .get("/user/me")
-    .then(res => {
-      next();
-    })
-    .catch(() => {
-      alert("로그인이 필요합니다.");
-
-      next("/Login");
-    });
-};
-
-// Router진입시(전체체크)
-router.beforeResolve((to, from, next) => {
-  if (to.path === "/Login") {
-    return next();
-  }
-
-  loginCheck(next);
-});
+//
+// // Login여부체크
+// let loginCheck = function(next) {
+//   axios
+//     .get("/user/me")
+//     .then(res => {
+//       next();
+//     })
+//     .catch(() => {
+//       alert("로그인이 필요합니다.");
+//
+//       next("/Login");
+//     });
+// };
+//
+// // Router진입시(전체체크)
+// router.beforeResolve((to, from, next) => {
+//   if (to.path === "/Login") {
+//     return next();
+//   }
+//
+//   loginCheck(next);
+// });
 
 export default router;
