@@ -1,22 +1,26 @@
 import axios from "@/utils/AxiosHandler";
 
 const state = {
-  LibraAccount: null
+  balance: 0
 };
 const getters = {};
-const mutations = {};
+const mutations = {
+  setBalance : function (state, payload) {
+    state.balance = payload;
+  }
+};
 const actions = {
-  getBalance() {
+  getBalance({ commit }) {
     axios
         .get("libra/balance")
         .then(res => {
-          // 성공시 토큰
+          let balance = res.data.contents;
 
-          commit("LoginSuccess", SignUpObj);
+          commit("setBalance", balance);
         })
         .catch(err => {
           console.log(err);
-          commit("LoginFail");
+          commit("setBalance", 0);
         });
   }
 };

@@ -28,6 +28,7 @@
                                       label="Balance : "
                                       disabled/>
                                 </v-flex>
+                                <div>{{balance}}</div>
                             </v-layout>
                         </v-container>
                     </v-form>
@@ -40,7 +41,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const libraAccountHelper = createNamespacedHelpers("libraaccount");
+const libraAccountHelper = createNamespacedHelpers("LibraAccount");
 
 export default {
     data: () => ({
@@ -49,10 +50,10 @@ export default {
     computed: {
     },
     created() {
-
+        this.$store.dispatch("LibraAccount/getBalance");
     },
     methods: {
-        ...libraAccountHelper.mapActions(["getBalance"])
+        ...libraAccountHelper.mapState(["balance"]),
     }
 };
 </script>
