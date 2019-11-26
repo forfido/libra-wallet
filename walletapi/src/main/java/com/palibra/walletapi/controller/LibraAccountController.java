@@ -5,6 +5,7 @@ import com.palibra.walletapi.controller.common.TokenBaseController;
 import com.palibra.walletapi.domain.libraaccount.LibraAccount;
 import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
 import com.palibra.walletapi.domain.libraaccount.TransferRequest;
+import com.palibra.walletapi.domain.libraaccount.payload.LibraBalance;
 import com.palibra.walletapi.exception.ErrorHandlerException;
 import com.palibra.walletapi.util.ZXingHelper;
 import dev.jlibra.spring.action.PeerToPeerTransfer;
@@ -41,7 +42,7 @@ public class LibraAccountController extends TokenBaseController {
 
         LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
 
-        Long balance = libraAccountService.getBalance(libraAccount.getLibraAddressToString());
+        LibraBalance balance = libraAccountService.getBalance(libraAccount.getLibraAddressToString());
         return ApiResponse.Success(balance);
     }
 

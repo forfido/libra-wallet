@@ -1,5 +1,6 @@
 package com.palibra.walletapi.domain.libraaccount;
 
+import com.palibra.walletapi.domain.libraaccount.payload.LibraBalance;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.exception.ResourceNotFoundException;
 import dev.jlibra.KeyUtils;
@@ -59,8 +60,12 @@ public class LibraAccountService {
         return libraAccountRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "id", userId));
     }
 
-    public Long getBalance(String libraAddress) {
-        return jLibraUtil.findBalance(libraAddress);
+    public LibraBalance getBalance(String libraAddress) {
+        LibraBalance libraBalance = new LibraBalance();
+        Long balance = jLibraUtil.findBalance(libraAddress);
+        libraBalance.setLibra(balance/1000000);
+        libraBalance.setLibraMicro(balance);
+        return libraBalance;
     }
 
     public Account createLibraUserAccount(User user) {

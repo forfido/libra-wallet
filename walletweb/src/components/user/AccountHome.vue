@@ -41,19 +41,20 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const libraAccountHelper = createNamespacedHelpers("LibraAccount");
+const libraAccountHelper = createNamespacedHelpers("libraAccount");
 
 export default {
     data: () => ({
     }),
     props: {},
     computed: {
+        ...libraAccountHelper.mapState(['balance']),
+        ...libraAccountHelper.mapState(['microBalance'])
     },
     created() {
-        this.$store.dispatch("LibraAccount/getBalance");
+        this.$store.dispatch("libraAccount/getBalance");
     },
     methods: {
-        ...libraAccountHelper.mapState(["balance"]),
     }
 };
 </script>

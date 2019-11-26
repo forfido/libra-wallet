@@ -2,6 +2,7 @@ package com.palibra.walletapi.domain.libraaccount;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.palibra.walletapi.domain.auth.SignUpRequest;
+import com.palibra.walletapi.domain.libraaccount.payload.LibraBalance;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,8 +56,8 @@ public class LibraAccountServiceTest {
 
         LibraAccount account = libraAccountService.findAccount(1L);
 
-        Long balance = libraAccountService.getBalance(account.getLibraAddressToString());
+        LibraBalance balance = libraAccountService.getBalance(account.getLibraAddressToString());
 
-        Assert.assertTrue(balance > 0);
+        Assert.assertTrue(balance.getLibra() > 0);
     }
 }

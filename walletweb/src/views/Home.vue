@@ -1,3 +1,3 @@
 <template>
-  <user-AccountHome2 />
+  <user-AccountHome />
 </template>
