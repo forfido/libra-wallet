@@ -20,6 +20,8 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "@mdi/font": "^4.6.95",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
@@ -27,6 +29,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "material-design-icons-iconfont": "^5.0.1",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "stylus": "^0.54.5",
