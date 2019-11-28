@@ -3,20 +3,38 @@
             class="mx-auto"
             max-width="344"
     >
-        <v-img
-                :src="require('@/assets/bigone.png')"
-                contain
-                height="200px"
-        ></v-img>
-
         <v-card-title>
-            {{UserName}}
+            My Account
         </v-card-title>
 
         <v-card-subtitle>
-            <b>Balance  </b>
-            {{balence}}
-            <b>Libra</b>
+             <v-layout>
+                <v-flex xs12 sm6 md4 class="pb-2">
+                    <v-avatar
+                        size="100px"
+                    >
+                        <v-img
+                            :src="require('@/assets/bigone.png')"
+                            contain
+                            height="200px"
+                        ></v-img>
+                    </v-avatar>
+                </v-flex>
+
+                <v-flex xs12 sm6 md4 class="pb-2">
+                    <v-icon small :color="info">face</v-icon>
+                    <span class="grey--text caption font-italic">&nbsp;{{UserName}}</span>
+                    <v-spacer></v-spacer>
+                    
+                    <v-icon small :color="warning">email</v-icon>
+                    <span class="grey--text caption font-italic">&nbsp;{{Email}}</span>
+                    <v-spacer></v-spacer>
+
+                    <v-icon small :color="success">money</v-icon>
+                    <span class="grey--text caption font-italic">&nbsp;{{balence}} &nbsp; Libra</span>
+                    <v-spacer></v-spacer>
+                </v-flex>
+             </v-layout>
         </v-card-subtitle>
 
         <v-card-actions>
@@ -56,6 +74,7 @@
         data: () => ({
             show: false,
             UserName: "Bigone",
+            Email: "trium10@gmail.com",
             balence: "1000",
 
         }),
