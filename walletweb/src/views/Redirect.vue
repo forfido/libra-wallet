@@ -1,0 +1,3 @@
+<template>
+  <core-Redirect />
+</template>

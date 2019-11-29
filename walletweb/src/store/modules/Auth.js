@@ -44,8 +44,7 @@ const actions = {
         password: payload.password
       })
       .then(res => {
-        let token = res.data.contents.tokenType + " " + res.data.contents.accessToken;
-        localStorage.setItem(Constants.AUTHORIZTION, token);
+        localStorage.setItem(Constants.ACCESS_TOKEN, res.data.contents.accessToken);
         commit("LoginSuccess");
       })
       .catch(err => {
@@ -66,13 +65,12 @@ const actions = {
   // Auth State Check
   /// --------------------------------------------------------
   CheckAuthState({ commit }) {
-    if (localStorage.getItem(Constants.AUTHORIZTION)) {
+    if (localStorage.getItem(Constants.ACCESS_TOKEN)) {
       commit("LoginSuccess");
     } else {
       commit("LogOut");
     }
-  }
-
+  },
 };
 
 export default {

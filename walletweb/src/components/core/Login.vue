@@ -37,12 +37,12 @@
 
               <v-system-bar light color="grey darken-2">
                 <v-card-actions>
-                  <v-btn color="deep-orange darken-4" round small href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Home">
+                  <v-btn color="deep-orange darken-4" round small href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Redirect">
                     <v-icon left>fab fa-google-plus</v-icon>
                     <v-spacer></v-spacer>
                     <span>Google Login</span>
                   </v-btn>
-                  <v-btn color="light-blue accent-2" round small href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Home">
+                  <v-btn color="light-blue accent-2" round small href="http://localhost:8090/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/Redirect">
                     <!--<v-icon left>assignment_ind</v-icon>-->
                     <v-icon left>fab fa-facebook</v-icon>
                     <v-spacer></v-spacer>

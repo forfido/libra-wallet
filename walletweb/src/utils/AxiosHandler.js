@@ -8,8 +8,8 @@ const AxiosHandler = axios.create({
   timeout: 10000
 });
 
-if (localStorage.getItem(Constants.AUTHORIZTION)) {
-  AxiosHandler.defaults.headers.common[Constants.AUTHORIZTION] = localStorage.getItem(Constants.AUTHORIZTION);
+if (localStorage.getItem(Constants.ACCESS_TOKEN)) {
+  AxiosHandler.defaults.headers.common[Constants.AUTHORIZTION] =  "Bearer " + localStorage.getItem(Constants.ACCESS_TOKEN);
 } else {
   AxiosHandler.defaults.headers.common[Constants.AUTHORIZTION] = "";
 }
