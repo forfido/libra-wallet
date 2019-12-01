@@ -25,4 +25,9 @@
 
 > npm i node-sass
 
- 
+ *vuetify icon*
+> npm install material-design-icons-iconfont -D
+
+> npm install @fortawesome/fontawesome-free -D
+
+> npm install @mdi/js -D
