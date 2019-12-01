@@ -6,12 +6,12 @@
     >
         <v-system-bar lights-out></v-system-bar>
         <v-carousel
-                :continuous="false"
                 :cycle="cycle"
                 :show-arrows="false"
                 hide-delimiter-background
                 delimiter-icon="mdi-minus"
                 height="300"
+                v-model="carouselIndex"
         >
             <v-carousel-item
                     v-for="(slide, i) in slides"
@@ -32,21 +32,23 @@
                 </v-sheet>
             </v-carousel-item>
         </v-carousel>
+
         <v-list two-line>
             <v-list-item>
                 <v-list-item-avatar>
                     <v-img src=""></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                    <v-list-item-title>계정명</v-list-item-title>
+                    <v-list-item-title>
+                        <span>Current Index: {{carouselIndex}}</span>
+                    </v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-action>
-                    <v-btn text icon color="pink">
-                        <v-icon>mdi-heart</v-icon>
-                    </v-btn>
-                    <v-btn text icon color="pink">
-                        <v-icon>mdi-heart</v-icon>
-                    </v-btn>
+                    <v-switch
+                            v-model="cycle"
+                            label="Select Account"
+                            inset
+                    ></v-switch>
                 </v-list-item-action>
             </v-list-item>
         </v-list>
@@ -55,24 +57,24 @@
 
 <script>
     export default {
-        data () {
-            return {
-                colors: [
-                    'green',
-                    'secondary',
-                    'yellow darken-4',
-                    'red lighten-2',
-                    'orange darken-1',
-                ],
-                cycle: false,
-                slides: [
-                    'First',
-                    'Second',
-                    'Third',
-                    'Fourth',
-                    'Fifth',
-                ],
-            }
-        },
+        data: () => ({
+            colors: [
+                'green',
+                'secondary',
+                'yellow darken-4',
+                'red lighten-2',
+                'orange darken-1',
+            ],
+            cycle: false,
+            slides: [
+                '1 Account',
+                '2 Account',
+                '3 Account',
+                '4 Account',
+                '5 Account',
+            ],
+            carouselIndex: 0
+
+        }),
     }
 </script>

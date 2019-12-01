@@ -26,5 +26,12 @@
     "view": "ExplainList",
     "icon": "reorder",
     "title": "ExplainList"
+  },
+  {
+    "path": "/SelectAccount",
+    "name": "SelectAccount",
+    "view": "SelectAccount",
+    "icon": "account_tree",
+    "title": "SelectAccount"
   }
 ]
