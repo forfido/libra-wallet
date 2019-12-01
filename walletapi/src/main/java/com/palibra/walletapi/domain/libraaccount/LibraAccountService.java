@@ -1,6 +1,7 @@
 package com.palibra.walletapi.domain.libraaccount;
 
 import com.palibra.walletapi.domain.libraaccount.payload.LibraBalance;
+import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.exception.ResourceNotFoundException;
 import dev.jlibra.KeyUtils;
@@ -56,8 +57,9 @@ public class LibraAccountService {
         }
     }
 
-    public LibraAccount findAccount(Long userId) {
-        return libraAccountRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "id", userId));
+    public LibraAccount findAccount(Long userId, String libraAccountName) {
+
+        return libraAccountRepository.findByUserIdAndName(userId, libraAccountName).orElseThrow(() -> new ResourceNotFoundException(libraAccountName, "id", userId));
     }
 
     public LibraBalance getBalance(String libraAddress) {
@@ -68,12 +70,12 @@ public class LibraAccountService {
         return libraBalance;
     }
 
-    public Account createLibraUserAccount(User user) {
+    public Account createLibraUserAccount(User user, String libraAccountName) {
         //Create Libra Address by JLibra
         Account libraAccount = createAccount();
 
         //Save on Palibra wallet
-        LibraAccount account = LibraAccount.createAccount("LibraWallet", libraAccount.getAddress(), libraAccount.getPrivateKey(), libraAccount.getPublicKey(), user);
+        LibraAccount account = LibraAccount.createAccount(libraAccountName, libraAccount.getAddress(), libraAccount.getPrivateKey(), libraAccount.getPublicKey(), user);
         libraAccountRepository.save(account);
 
         //1000 Test LBR provided
@@ -82,17 +84,21 @@ public class LibraAccountService {
         return libraAccount;
     }
 
-    public PeerToPeerTransfer.PeerToPeerTransferReceipt.Status transfer(Long senderId, TransferRequest transferRequest) {
+    public PeerToPeerTransfer.PeerToPeerTransferReceipt.Status transferToMember(Long senderAccountId, TransferRequest transferRequest) {
         BigInteger gasUnitPrice = new BigInteger("-1");
         BigInteger maxGasAmount = new BigInteger("-1");
 
-        LibraAccount senderAccount = findAccount(senderId);
-        LibraAccount receiverAccount = findAccount(transferRequest.getReceiverUserId());
+        LibraAccount senderAccount = libraAccountRepository.findById(senderAccountId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "accountId", senderAccountId));
+        LibraAccount receiverAccount = findAccount(transferRequest.getReceiverUserId(), ""); //TODO: Receive account name
 
         String receiverAddress = Hex.toHexString(receiverAccount.getLibraAddress());
         PublicKey publicKey = KeyUtils.publicKeyFromHexString(new String(Hex.encode(senderAccount.getPublicKey())));
         PrivateKey privateKey = KeyUtils.privateKeyFromHexString(new String(Hex.encode(senderAccount.getPrivateKey())));
         PeerToPeerTransfer.PeerToPeerTransferReceipt receipt = peerToPeerTransfer.transferFunds(receiverAddress, transferRequest.getAmount().longValue() * 1_000_000, publicKey, privateKey, gasUnitPrice.longValue(), maxGasAmount.longValue());
         return receipt.getStatus();
+    }
+
+    public Long mint(String address, Long amount) {
+        return jLibraUtil.mint(address, amount);
     }
 }

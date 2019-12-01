@@ -2,7 +2,7 @@ package com.palibra.walletapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.palibra.walletapi.controller.common.ApiResponse;
-import com.palibra.walletapi.domain.libraaccount.TransferRequest;
+import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

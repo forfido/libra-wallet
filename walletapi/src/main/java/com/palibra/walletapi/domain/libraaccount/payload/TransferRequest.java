@@ -1,4 +1,4 @@
-package com.palibra.walletapi.domain.libraaccount;
+package com.palibra.walletapi.domain.libraaccount.payload;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;

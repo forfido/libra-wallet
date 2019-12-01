@@ -1,9 +1,10 @@
 package com.palibra.walletapi.security.oauth2;
 
-import com.palibra.walletapi.exception.OAuth2AuthenticationProcessingException;
 import com.palibra.walletapi.domain.auth.AuthProvider;
+import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.domain.user.UserRepository;
+import com.palibra.walletapi.exception.OAuth2AuthenticationProcessingException;
 import com.palibra.walletapi.security.UserPrincipal;
 import com.palibra.walletapi.security.oauth2.user.OAuth2UserInfo;
 import com.palibra.walletapi.security.oauth2.user.OAuth2UserInfoFactory;
@@ -24,6 +25,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private LibraAccountService libraAccountService;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -57,6 +61,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {
             user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
+            //libraAccountService.createLibraUserAccount(user);
         }
 
         return UserPrincipal.create(user, oAuth2User.getAttributes());

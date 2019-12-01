@@ -4,9 +4,6 @@ import com.palibra.walletapi.controller.common.ApiResponse;
 import com.palibra.walletapi.domain.auth.AuthResponse;
 import com.palibra.walletapi.domain.auth.LoginRequest;
 import com.palibra.walletapi.domain.auth.SignUpRequest;
-import com.palibra.walletapi.domain.auth.SignUpResponse;
-import com.palibra.walletapi.domain.libraaccount.Account;
-import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.domain.user.UserService;
 import com.palibra.walletapi.security.TokenProvider;
@@ -35,9 +32,6 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
-    private LibraAccountService libraAccountService;
-
-    @Autowired
     private TokenProvider tokenProvider;
 
     @PostMapping("/login")
@@ -57,12 +51,6 @@ public class AuthController {
     @PostMapping("/signUp")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         User user = userService.registerUser(signUpRequest);
-        Account account = libraAccountService.createLibraUserAccount(user);
-
-        SignUpResponse signUpResponse = new SignUpResponse();
-        signUpResponse.setUserId(user.getId());
-        signUpResponse.setLibraAccount(account);
-
-        return ApiResponse.Success(signUpResponse);
+        return ApiResponse.Success(user.getId());
     }
 }
