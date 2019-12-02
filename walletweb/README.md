@@ -31,3 +31,6 @@
 > npm install @fortawesome/fontawesome-free -D
 
 > npm install @mdi/js -D
+
+*QRCode Vue*
+> npm install --save qrcode.vue vue-qrcode-reader
