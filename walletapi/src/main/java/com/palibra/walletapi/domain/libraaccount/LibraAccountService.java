@@ -19,6 +19,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.List;
 
 import static com.sun.xml.fastinfoset.stax.events.Util.isEmptyString;
 
@@ -62,6 +63,11 @@ public class LibraAccountService {
     public LibraAccount findAccount(Long userId, String libraAccountName) {
 
         return libraAccountRepository.findByUserIdAndName(userId, libraAccountName).orElseThrow(() -> new ResourceNotFoundException(libraAccountName, "id", userId));
+    }
+
+    public List<LibraAccount> findAccounts(Long userId) {
+
+        return libraAccountRepository.findByUserId(userId);
     }
 
     public LibraBalance getBalance(String libraAddress) {
