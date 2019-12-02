@@ -33,5 +33,12 @@
     "view": "SelectAccount",
     "icon": "account_tree",
     "title": "SelectAccount"
+  },
+  {
+    "path": "/Redirect",
+    "name": "Redirect",
+    "view": "Redirect",
+    "icon": "person",
+    "title": "Redirect"
   }
 ]

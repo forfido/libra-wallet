@@ -54,7 +54,7 @@ public class LibraAccountServiceTest {
     @Test
     public void getBalanceTest() {
 
-        LibraAccount account = libraAccountService.findAccount(1L);
+        LibraAccount account = libraAccountService.findAccount(1L, "");
 
         LibraBalance balance = libraAccountService.getBalance(account.getLibraAddressToString());
 

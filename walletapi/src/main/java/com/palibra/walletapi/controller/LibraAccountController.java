@@ -5,9 +5,7 @@ import com.palibra.walletapi.controller.common.TokenBaseController;
 import com.palibra.walletapi.domain.libraaccount.Account;
 import com.palibra.walletapi.domain.libraaccount.LibraAccount;
 import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
-import com.palibra.walletapi.domain.libraaccount.payload.CreateAccountResponse;
-import com.palibra.walletapi.domain.libraaccount.payload.LibraBalance;
-import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
+import com.palibra.walletapi.domain.libraaccount.payload.*;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.domain.user.UserService;
 import com.palibra.walletapi.exception.ErrorHandlerException;
@@ -45,11 +43,11 @@ public class LibraAccountController extends TokenBaseController {
     }
 
     @PostMapping("/account")
-    public ResponseEntity<?> CreateAccount(@RequestParam String libraAccountName) {
+    public ResponseEntity<?> CreateAccount(@Valid @RequestBody CreateAccountRequest createAccountRequest) {
 
         User user = userService.getUserInfo(getAuthedUserInfo().getId());
 
-        Account account = libraAccountService.createLibraUserAccount(user, libraAccountName);
+        Account account = libraAccountService.createLibraUserAccount(user, createAccountRequest.getLibraAccountName());
         CreateAccountResponse createAccountResponse = new CreateAccountResponse(user.getId(), account.getAddress());
 
         return ApiResponse.Success(createAccountResponse);
@@ -76,11 +74,11 @@ public class LibraAccountController extends TokenBaseController {
     }
 
     @PostMapping("/mint")
-    public ResponseEntity<?> mintLibra(@RequestParam String libraAccountName, @RequestParam Long amount) {
+    public ResponseEntity<?> mintLibra(@Valid @RequestBody MintRequest mintRequest) {
 
-        LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId(), libraAccountName);
+        LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId(), mintRequest.getLibraAccountName());
 
-        Long responseAmount = libraAccountService.mint(libraAccount.getLibraAddressToString(), amount);
+        Long responseAmount = libraAccountService.mint(libraAccount.getLibraAddressToString(), mintRequest.getAmount());
 
         return ApiResponse.Success(responseAmount);
     }

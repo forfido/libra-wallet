@@ -20,6 +20,8 @@ import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
+import static com.sun.xml.fastinfoset.stax.events.Util.isEmptyString;
+
 @Service
 public class LibraAccountService {
 
@@ -74,6 +76,9 @@ public class LibraAccountService {
         //Create Libra Address by JLibra
         Account libraAccount = createAccount();
 
+        if (isEmptyString(libraAccountName)) {
+            libraAccountName = "LibraAccount";
+        }
         //Save on Palibra wallet
         LibraAccount account = LibraAccount.createAccount(libraAccountName, libraAccount.getAddress(), libraAccount.getPrivateKey(), libraAccount.getPublicKey(), user);
         libraAccountRepository.save(account);
