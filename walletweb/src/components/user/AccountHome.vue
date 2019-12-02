@@ -78,21 +78,39 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn
-                    icon
-                    @click="show = !show"
-                    color="purple darken-2"
-            >
-                <v-icon>{{ show ? 'close' : 'fa-qrcode' }}</v-icon>
+            <v-btn icon @click="showQRCode = !showQRCode" color="purple darken-2">
+                <v-icon>{{ showQRCode ? 'close' : 'fa-qrcode' }}</v-icon>
             </v-btn>
+
+            <v-btn icon @click="showQRSanner = !showQRSanner" color="purple darken-3">
+                <v-icon>{{ showQRSanner ? 'close' : 'linked_camera' }}</v-icon>
+            </v-btn>
+
+
         </v-card-actions>
 
         <v-expand-transition>
-            <div v-show="show">
+            <div v-show="showQRCode">
                 <v-divider></v-divider>
 
                 <v-card-text>
-                    I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+                    <v-layout>
+                        <v-flex xs12 sm12 md12 class="pb-2">
+                            <v-avatar :size="380">
+                                <qrcode-vue :value="'http://google.com'" :size="380" level="H"></qrcode-vue>
+                            </v-avatar>
+                        </v-flex>
+                    </v-layout>
+                    
+                </v-card-text>
+            </div>
+        </v-expand-transition>
+        <v-expand-transition>
+            <div v-show="showQRSanner">
+                <v-divider></v-divider>
+
+                <v-card-text>
+                    <qrcode-stream v-if="isShowingCamera" @init="onInit" @decode="onDecode" :size="300"></qrcode-stream>
                 </v-card-text>
             </div>
         </v-expand-transition>
@@ -100,12 +118,16 @@
 </template>
 
 <script>
+    import QrcodeVue from "qrcode.vue"
+
     export default {
         data: () => ({
-            show: false,
-            UserName: "Bigone",
+            showQRCode: false,
+            showQRSanner: false,
+            UserName:  "Bigone",
             Email: "trium10@gmail.com",
             balence: "1000",
+            isShowingCamera: true,
         }),
         methods: {
             // CreateAccount
@@ -128,6 +150,41 @@
             SelectAccount: () => {
                 alert("SelectAccount page");
             },
-        }
+            // Funtion running when QRCodeSannner run
+            onDecode: (decodedString) => {
+                console.log(decodedString);
+            },
+            onInit: async (promise) => {
+                try {
+                    await promise;
+                    console.log("init", promise);
+                }
+                catch(error) {
+                    console.log("init", error);
+
+                    if(error.name === 'DropImageFetchError') {
+                        //"can't process cross-origin image"
+                    }
+                    else if(error.name === 'DropImageDecodeError') {
+                        //"drag-and-dropped file is not of type image and can't be decoded"
+                    }
+                    else if(error.name === 'StreamApiNotSupportedError') {
+                        //"this browser has no Stream API support"
+                    }
+                    else if(error.name === 'InsecureContextError') {
+                        //"camera access is only permitted in secure context. Use HTTPS or localhost rather than HTTP."
+                    }
+                    else {
+                        //"notdefined"
+                    }
+                }
+                finally {
+                    //"notdefined"
+                }
+            },
+        },
+        components: {
+            QrcodeVue,
+        },
     }
 </script>

@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
 import Vue from "vue";
-
+import VueQRcodeReader from "vue-qrcode-reader";
 // Commponent Resgiter
 import "./components";
 // Plugins Resgiter
@@ -13,6 +13,8 @@ import router from "./router";
 import store from "./store/store";
 
 Vue.config.productionTip = false;
+
+Vue.use(VueQRcodeReader);
 
 new Vue({
   store,
