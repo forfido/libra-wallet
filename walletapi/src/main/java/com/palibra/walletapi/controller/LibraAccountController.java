@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -40,6 +41,14 @@ public class LibraAccountController extends TokenBaseController {
         outputStream.write(Objects.requireNonNull(ZXingHelper.getQRCodeImage(libraAccount.getLibraAddressToString(), 200, 200)));
 
         return outputStream.toByteArray();
+    }
+
+    @GetMapping("/account/list")
+    public ResponseEntity<?> getAccount() {
+
+        List<LibraAccount> libraAccounts = libraAccountService.findAccounts(getAuthedUserInfo().getId());
+
+        return ApiResponse.Success(libraAccounts);
     }
 
     @PostMapping("/account")
