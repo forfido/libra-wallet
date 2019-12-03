@@ -1,12 +1,5 @@
 [
   {
-    "path": "/Home",
-    "name": "Home",
-    "view": "Home",
-    "icon": "home",
-    "title": "Home"
-  },
-  {
     "path": "/Login",
     "name": "Login",
     "view": "Login",
@@ -14,18 +7,39 @@
     "title": "Login"
   },
   {
-    "path": "/About",
-    "name": "About",
-    "view": "About",
-    "icon": "done",
-    "title": "About"
+    "path": "/Home",
+    "name": "Home",
+    "view": "Home",
+    "icon": "home",
+    "title": "Home"
   },
   {
-    "path": "/ExplainList",
-    "name": "ExplainList",
-    "view": "ExplainList",
-    "icon": "reorder",
-    "title": "ExplainList"
+    "path": "/CreateAccount",
+    "name": "CreateAccount",
+    "view": "CreateAccount",
+    "icon": "fa-plus",
+    "title": "CreateAccount"
+  },
+  {
+    "path": "/SendLibra",
+    "name": "SendLibra",
+    "view": "SendLibra",
+    "icon": "waves",
+    "title": "SendLibra"
+  },
+  {
+    "path": "/LibraHistory",
+    "name": "LibraHistory",
+    "view": "LibraHistory",
+    "icon": "history",
+    "title": "LibraHistory"
+  },
+  {
+    "path": "/SmartContract",
+    "name": "SmartContract",
+    "view": "SmartContract",
+    "icon": "fa-handshake",
+    "title": "SmartContract"
   },
   {
     "path": "/SelectAccount",
@@ -33,6 +47,20 @@
     "view": "SelectAccount",
     "icon": "account_tree",
     "title": "SelectAccount"
+  },
+  {
+    "path": "/showQRCode",
+    "name": "showQRCode",
+    "view": "showQRCode",
+    "icon": "fa-qrcode",
+    "title": "showQRCode"
+  },
+  {
+    "path": "/showQRSanner",
+    "name": "showQRSanner",
+    "view": "showQRSanner",
+    "icon": "linked_camera",
+    "title": "showQRSanner"
   },
   {
     "path": "/Redirect",

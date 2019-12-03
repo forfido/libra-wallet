@@ -42,149 +42,126 @@
             <v-row class="flex-column ma-0 fill-height" justify="center">
                 <v-col class="px-0">
                     <!-- // Create Account -->
-                    <v-btn large icon color="red lighten-2" @click="CreateAccount()">
-                        <v-icon>fa-plus</v-icon>
-                    </v-btn>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" large icon color="red lighten-2" @click="CreateAccount()">
+                                <v-icon>fa-plus</v-icon>
+                            </v-btn>
+                        </template>
+                        <span small>CreateAccount</span>
+                    </v-tooltip>
                 </v-col>
 
                 <v-col class="px-0">
                     <!-- // Send Libra -->
-                    <v-btn large icon color="yellow darken-4" @click="SendLibra()">
-                        <v-icon>waves</v-icon>
-                    </v-btn>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" large icon color="yellow darken-4" @click="SendLibra()">
+                                <v-icon>waves</v-icon>
+                            </v-btn>
+                        </template>
+                        <span small>SendLibra</span>
+                    </v-tooltip>
                 </v-col>
 
                 <v-col class="px-0">
                     <!-- // Show Libra History -->
-                    <v-btn large icon color="blue" @click="LibraHistory()">
-                        <v-icon>history</v-icon>
-                    </v-btn>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" large icon color="blue" @click="LibraHistory()">
+                                <v-icon>history</v-icon>
+                            </v-btn>
+                        </template>
+                        <span small>LibraHistory</span>
+                    </v-tooltip>
                 </v-col>
 
                 <v-col class="px-0">
                     <!-- // Go Smart Contract -->
-                    <v-btn large icon color="green" @click="SmartContract()">
-                        <v-icon>fa-handshake</v-icon>
-                    </v-btn>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" large icon color="green" @click="SmartContract()">
+                                <v-icon>fa-handshake</v-icon>
+                            </v-btn>
+                        </template>
+                        <span small>SmartContract</span>
+                    </v-tooltip>
                 </v-col>
 
                 <v-col class="px-0">
                     <!-- // Select Account -->
-                    <v-btn large icon color="teal accent-4" @click="SelectAccount()">
-                        <v-icon>account_tree</v-icon>
-                    </v-btn>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" large icon color="teal accent-4" @click="SelectAccount()">
+                                <v-icon>account_tree</v-icon>
+                            </v-btn>
+                        </template>
+                        <span small>SelectAccount</span>
+                    </v-tooltip>
                 </v-col>
             </v-row>
 
             <v-spacer></v-spacer>
 
-            <v-btn icon @click="showQRCode = !showQRCode" color="purple darken-2">
-                <v-icon>{{ showQRCode ? 'close' : 'fa-qrcode' }}</v-icon>
-            </v-btn>
-
-            <v-btn icon @click="showQRSanner = !showQRSanner" color="purple darken-3">
-                <v-icon>{{ showQRSanner ? 'close' : 'linked_camera' }}</v-icon>
-            </v-btn>
-
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn v-on="on" icon @click="showQRCode()" color="purple darken-2">
+                        <v-icon>fa-qrcode</v-icon>
+                    </v-btn>
+                </template>
+                <span small>showQRCode</span>
+            </v-tooltip>
+            
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn v-on="on" icon @click="showQRSanner()" color="purple darken-3">
+                        <v-icon>linked_camera</v-icon>
+                    </v-btn>
+                </template>
+                <span small>showQRSanner</span>
+            </v-tooltip>
 
         </v-card-actions>
-
-        <v-expand-transition>
-            <div v-show="showQRCode">
-                <v-divider></v-divider>
-
-                <v-card-text>
-                    <v-layout>
-                        <v-flex xs12 sm12 md12 class="pb-2">
-                            <v-avatar :size="380">
-                                <qrcode-vue :value="'http://google.com'" :size="380" level="H"></qrcode-vue>
-                            </v-avatar>
-                        </v-flex>
-                    </v-layout>
-                    
-                </v-card-text>
-            </div>
-        </v-expand-transition>
-        <v-expand-transition>
-            <div v-show="showQRSanner">
-                <v-divider></v-divider>
-
-                <v-card-text>
-                    <qrcode-stream v-if="isShowingCamera" @init="onInit" @decode="onDecode" :size="300"></qrcode-stream>
-                </v-card-text>
-            </div>
-        </v-expand-transition>
     </v-card>
 </template>
 
 <script>
-    import QrcodeVue from "qrcode.vue"
-
     export default {
         data: () => ({
-            showQRCode: false,
-            showQRSanner: false,
             UserName:  "Bigone",
             Email: "trium10@gmail.com",
             balence: "1000",
-            isShowingCamera: true,
         }),
         methods: {
             // CreateAccount
             CreateAccount: () => {
-                alert("CreateAccount page");
+                this.$router.push("/CreateAccount");
             },
             // SendLibra
             SendLibra: () => {
-                alert("SendLibra page");
+                this.$router.push("/SendLibra");
             },
             // LibraHistory
             LibraHistory: () => {
-                alert("LibraHistory page");
+                this.$router.push("/LibraHistory");
             },
             // SmartContract
             SmartContract: () => {
-                alert("SmartContract page");
+                this.$router.push("/SmartContract");
             },
             // SelectAccount
             SelectAccount: () => {
-                alert("SelectAccount page");
+                this.$router.push("/SelectAccount");
             },
-            // Funtion running when QRCodeSannner run
-            onDecode: (decodedString) => {
-                console.log(decodedString);
+            // showQRCode
+            showQRCode: () => {
+                this.$router.push("/showQRCode");
             },
-            onInit: async (promise) => {
-                try {
-                    await promise;
-                    console.log("init", promise);
-                }
-                catch(error) {
-                    console.log("init", error);
-
-                    if(error.name === 'DropImageFetchError') {
-                        //"can't process cross-origin image"
-                    }
-                    else if(error.name === 'DropImageDecodeError') {
-                        //"drag-and-dropped file is not of type image and can't be decoded"
-                    }
-                    else if(error.name === 'StreamApiNotSupportedError') {
-                        //"this browser has no Stream API support"
-                    }
-                    else if(error.name === 'InsecureContextError') {
-                        //"camera access is only permitted in secure context. Use HTTPS or localhost rather than HTTP."
-                    }
-                    else {
-                        //"notdefined"
-                    }
-                }
-                finally {
-                    //"notdefined"
-                }
-            },
+            // showQRSanner
+            showQRSanner: () => {
+                this.$router.push("/showQRSanner");
+            }
         },
-        components: {
-            QrcodeVue,
-        },
+        
     }
 </script>
