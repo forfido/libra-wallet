@@ -19,9 +19,6 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.List;
-
-import static com.sun.xml.fastinfoset.stax.events.Util.isEmptyString;
 
 @Service
 public class LibraAccountService {
@@ -60,14 +57,9 @@ public class LibraAccountService {
         }
     }
 
-    public LibraAccount findAccount(Long userId, String libraAccountName) {
+    public LibraAccount findAccount(Long userId) {
 
-        return libraAccountRepository.findByUserIdAndName(userId, libraAccountName).orElseThrow(() -> new ResourceNotFoundException(libraAccountName, "id", userId));
-    }
-
-    public List<LibraAccount> findAccounts(Long userId) {
-
-        return libraAccountRepository.findByUserId(userId);
+        return libraAccountRepository.findByUserId(userId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "userId", userId));
     }
 
     public LibraBalance getBalance(String libraAddress) {
@@ -78,19 +70,14 @@ public class LibraAccountService {
         return libraBalance;
     }
 
-    public Account createLibraUserAccount(User user, String libraAccountName) {
+    public Account createLibraUserAccount(User user) {
         //Create Libra Address by JLibra
         Account libraAccount = createAccount();
+        String libraAccountName = "LibraAccount";
 
-        if (isEmptyString(libraAccountName)) {
-            libraAccountName = "LibraAccount";
-        }
         //Save on Palibra wallet
         LibraAccount account = LibraAccount.createAccount(libraAccountName, libraAccount.getAddress(), libraAccount.getPrivateKey(), libraAccount.getPublicKey(), user);
         libraAccountRepository.save(account);
-
-        //1000 Test LBR provided
-        jLibraUtil.mint(Hex.toHexString(account.getLibraAddress()), 1000L);
 
         return libraAccount;
     }
@@ -100,7 +87,7 @@ public class LibraAccountService {
         BigInteger maxGasAmount = new BigInteger("-1");
 
         LibraAccount senderAccount = libraAccountRepository.findById(senderAccountId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "accountId", senderAccountId));
-        LibraAccount receiverAccount = findAccount(transferRequest.getReceiverUserId(), ""); //TODO: Receive account name
+        LibraAccount receiverAccount = findAccount(transferRequest.getReceiverUserId());
 
         String receiverAddress = Hex.toHexString(receiverAccount.getLibraAddress());
         PublicKey publicKey = KeyUtils.publicKeyFromHexString(new String(Hex.encode(senderAccount.getPublicKey())));
