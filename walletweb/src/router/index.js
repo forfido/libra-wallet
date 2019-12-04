@@ -55,7 +55,7 @@ let loginCheck = function(next) {
 
 // Router진입시(전체체크)
 router.beforeResolve((to, from, next) => {
-  if (to.path === "/Login") {
+  if (to.path === "/Login" || to.path === "/Redirect") {
     return next();
   }
 

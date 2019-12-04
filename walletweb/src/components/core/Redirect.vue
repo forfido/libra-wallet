@@ -3,18 +3,16 @@
   import Constants from "@/constants";
 
   export default {
-    created() {
-      console.log('123123');
+    mounted() {
       let token = this.$route.query.token;
       let error = this.$route.query.error;
+        if(token) {
+            localStorage.setItem(Constants.ACCESS_TOKEN, token);
 
-      if(token) {
-        localStorage.setItem(Constants.ACCESS_TOKEN, token);
-        this.$router.push("/Home");
-      } else {
-        this.$router.push("/Login");
-      }
-
+            this.$router.replace("/Home");
+        } else {
+            this.$router.replace("/Login");
+        }
     },
 
     data: () => ({

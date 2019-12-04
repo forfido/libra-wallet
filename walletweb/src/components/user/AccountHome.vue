@@ -134,31 +134,31 @@
         }),
         methods: {
             // CreateAccount
-            CreateAccount: () => {
+            CreateAccount: function () {
                 this.$router.push("/CreateAccount");
             },
             // SendLibra
-            SendLibra: () => {
+            SendLibra: function () {
                 this.$router.push("/SendLibra");
             },
             // LibraHistory
-            LibraHistory: () => {
+            LibraHistory: function () {
                 this.$router.push("/LibraHistory");
             },
             // SmartContract
-            SmartContract: () => {
+            SmartContract: function () {
                 this.$router.push("/SmartContract");
             },
             // SelectAccount
-            SelectAccount: () => {
+            SelectAccount: function () {
                 this.$router.push("/SelectAccount");
             },
             // showQRCode
-            showQRCode: () => {
+            showQRCode: function () {
                 this.$router.push("/showQRCode");
             },
             // showQRSanner
-            showQRSanner: () => {
+            showQRSanner: function () {
                 this.$router.push("/showQRSanner");
             }
         },
