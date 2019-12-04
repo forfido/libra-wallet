@@ -69,7 +69,7 @@ const authHelper = createNamespacedHelpers("auth");
 
 export default {
   data: () => ({
-    email: null,
+    email: "ahin@palibra.net",
     password: null
   }),
   mounted() {
@@ -81,7 +81,14 @@ export default {
     ...authHelper.mapState(["isLogin", "isLoginError"])
   },
   methods: {
-    ...authHelper.mapActions(["TryLogin"])
+    TryLogin: function (payload) {
+      Promise.all([
+        this.$store.dispatch("user/ClearUserInfo"),
+        this.$store.dispatch("auth/TryLogin", payload)
+      ]).then(
+        this.$router.push("/Home")
+      )
+    }
   }
 };
 </script>
