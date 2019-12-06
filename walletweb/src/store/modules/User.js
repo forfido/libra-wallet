@@ -1,4 +1,5 @@
 import axios from "@/utils/AxiosHandler";
+import Constants from "@/constants";
 
 const state = {
   User: null
@@ -20,8 +21,6 @@ const actions = {
     axios
       .get("/user/me")
       .then(res => {
-        console.log(res);
-
         commit("SetUser", res.data.contents);
       })
       .catch(err => {
@@ -29,7 +28,8 @@ const actions = {
       });
   },
   ClearUserInfo({ commit }) {
-    localStorage.clear();
+    localStorage.removeItem(Constants.ACCESS_TOKEN);
+
     commit("ClaerUser");
   }
 };

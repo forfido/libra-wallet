@@ -40,26 +40,31 @@ const router = new Router({
 Vue.use(Meta);
 
 // Login여부체크
-let loginCheck = function(next) {
+let loginCheck = (next) => {
+  console.log(localStorage.getItem("accessToken"));
+  console.log(axios);
+
   axios
     .get("/user/me")
-    .then(res => {
+    .then(() => {
       next();
     })
     .catch(() => {
       alert("로그인이 필요합니다.");
 
-      next("/Login");
+      next({ path: '/Login' })
     });
 };
 
 // Router진입시(전체체크)
 router.beforeResolve((to, from, next) => {
   if (to.path === "/Login" || to.path === "/Redirect") {
-    return next();
+    if (from.path !== to.path)
+      return next();
   }
-
-  loginCheck(next);
+  else {
+    loginCheck(next);
+  }
 });
 
 export default router;

@@ -30,8 +30,12 @@ export default {
         this.$store.dispatch("user/ClearUserInfo"),
         this.$store.dispatch("auth/TryLogOut")
       ]).then(() => {
-        this.$router.push("/Login");
-      });
+        if(this.$router.name !== 'Login') {
+          this.$router.replace('/Login');
+        }
+      }).catch(err => {
+        alert(err);
+      })
     }
   }
 };

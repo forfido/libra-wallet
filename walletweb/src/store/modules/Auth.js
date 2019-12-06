@@ -23,7 +23,6 @@ const mutations = {
   LoginFail(state) {
     state.isLogin = false;
     state.isLoginError = true;
-
   },
   /// --------------------------------------------------------
   // LogOut
@@ -58,7 +57,7 @@ const actions = {
   // TODO : Login Page
   /// --------------------------------------------------------
   TryLogOut({ commit }) {
-    commit("LogOut").then(this.$router.push("/Login"));
+    commit("LogOut");
   },
 
   /// --------------------------------------------------------

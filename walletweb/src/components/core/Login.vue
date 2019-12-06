@@ -85,9 +85,13 @@ export default {
       Promise.all([
         this.$store.dispatch("user/ClearUserInfo"),
         this.$store.dispatch("auth/TryLogin", payload)
-      ]).then(
-        this.$router.push("/Home")
-      )
+      ]).then( () => {
+        this.$router.replace("/Home");
+      }).catch(err => {
+        alert(err);
+        this.$router.replace("/Login");
+      })
+
     }
   }
 };
