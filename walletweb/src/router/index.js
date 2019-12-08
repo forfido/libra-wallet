@@ -4,6 +4,10 @@ import Router from "vue-router";
 import Meta from "vue-meta";
 import axios from "@/utils/AxiosHandler";
 
+import { createNamespacedHelpers } from "vuex";
+const user = createNamespacedHelpers("user");
+
+
 // Routes
 import paths from "./paths";
 
@@ -41,16 +45,15 @@ Vue.use(Meta);
 
 // Login여부체크
 let loginCheck = (next) => {
-  console.log(localStorage.getItem("accessToken"));
-  console.log(axios);
 
   axios
     .get("/user/me")
-    .then(() => {
+    .then(res => {
+      //Vue.$store.userInfo = res.data.contents;
       next();
     })
-    .catch(() => {
-      alert("로그인이 필요합니다.");
+    .catch((ex) => {
+      alert("로그인이 필요합니다.(ex:" + ex + ")");
 
       next({ path: '/Login' })
     });
@@ -67,4 +70,4 @@ router.beforeResolve((to, from, next) => {
   }
 });
 
-export default router;
+export default router

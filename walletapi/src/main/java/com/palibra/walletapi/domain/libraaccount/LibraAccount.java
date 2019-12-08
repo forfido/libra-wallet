@@ -14,9 +14,11 @@ public class LibraAccount {
 
     private String name;
 
-    private byte[] libraAddress;
+    @JsonIgnore
     private byte[] privateKey;
+
     private byte[] publicKey;
+    private byte[] libraAddress;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")

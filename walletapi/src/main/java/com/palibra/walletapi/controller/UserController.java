@@ -26,7 +26,7 @@ public class UserController extends TokenBaseController {
 
         User user = userService.getUserInfo(getAuthedUserInfo().getId());
 
-        return ApiResponse.Success(user.getEmail());
+        return ApiResponse.Success(user);
     }
 
     @GetMapping("/search/email/{keyword}")
