@@ -17,6 +17,7 @@ const actions = {
         .get("libra/balance")
         .then(res => {
           let balance = res.data.contents;
+
           commit("setBalance", balance);
         })
         .catch(err => {
