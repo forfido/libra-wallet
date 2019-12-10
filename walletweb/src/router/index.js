@@ -3,9 +3,11 @@ import Vue from "vue";
 import Router from "vue-router";
 import Meta from "vue-meta";
 import axios from "@/utils/AxiosHandler";
+import Constants from "@/constants";
 
 // Routes
 import paths from "./paths";
+import AxiosHandler from "../utils/AxiosHandler";
 
 // eslint-disable-next-line space-before-function-paren
 function route(path, view, name) {
@@ -40,9 +42,13 @@ const router = new Router({
 Vue.use(Meta);
 
 // Login여부체크
+// TODO : axios Vue Instance 적용
 let loginCheck = (next) => {
-  console.log(localStorage.getItem("accessToken"));
-  console.log(axios);
+  if (localStorage.getItem(Constants.ACCESS_TOKEN)) {
+    axios.defaults.headers.common[Constants.AUTHORIZTION] =  "Bearer " + localStorage.getItem(Constants.ACCESS_TOKEN);
+  } else {
+    axios.defaults.headers.common[Constants.AUTHORIZTION] = "";
+  }
 
   axios
     .get("/user/me")

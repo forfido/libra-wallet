@@ -54,12 +54,5 @@
     "view": "showQRSanner",
     "icon": "linked_camera",
     "title": "showQRSanner"
-  },
-  {
-    "path": "/Redirect",
-    "name": "Redirect",
-    "view": "Redirect",
-    "icon": "person",
-    "title": "Redirect"
   }
 ]

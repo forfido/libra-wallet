@@ -17,11 +17,9 @@
                 localStorage.setItem(Constants.ACCESS_TOKEN, token);
                 this.$store.dispatch("auth/CheckAuthState");
             }
-        },
-        mounted() {
+
             this.$router.replace("/Home");
         },
-
         props: {
             source: String
         },
