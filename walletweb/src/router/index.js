@@ -5,6 +5,9 @@ import Meta from "vue-meta";
 import axios from "@/utils/AxiosHandler";
 import Constants from "@/constants";
 
+import { createNamespacedHelpers } from "vuex";
+const user = createNamespacedHelpers("user");
+
 // Routes
 import paths from "./paths";
 import AxiosHandler from "../utils/AxiosHandler";
@@ -36,39 +39,37 @@ const router = new Router({
     }
     return { x: 0, y: 0 };
   }
-
 });
 
 Vue.use(Meta);
 
 // Login여부체크
 // TODO : axios Vue Instance 적용
-let loginCheck = (next) => {
+let loginCheck = next => {
   if (localStorage.getItem(Constants.ACCESS_TOKEN)) {
-    axios.defaults.headers.common[Constants.AUTHORIZTION] =  "Bearer " + localStorage.getItem(Constants.ACCESS_TOKEN);
+    axios.defaults.headers.common[Constants.AUTHORIZTION] =
+      "Bearer " + localStorage.getItem(Constants.ACCESS_TOKEN);
   } else {
     axios.defaults.headers.common[Constants.AUTHORIZTION] = "";
   }
 
   axios
     .get("/user/me")
-    .then(() => {
+    .then(res => {
       next();
     })
-    .catch(() => {
-      alert("로그인이 필요합니다.");
+    .catch(ex => {
+      alert("로그인이 필요합니다.(ex:" + ex + ")");
 
-      next({ path: '/Login' })
+      next({ path: "/Login" });
     });
 };
 
 // Router진입시(전체체크)
 router.beforeResolve((to, from, next) => {
   if (to.path === "/Login" || to.path === "/Redirect") {
-    if (from.path !== to.path)
-      return next();
-  }
-  else {
+    if (from.path !== to.path) return next();
+  } else {
     loginCheck(next);
   }
 });

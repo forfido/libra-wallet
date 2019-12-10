@@ -31,7 +31,7 @@
                     <b class="grey--text font-italic">&nbsp;{{Email}}</b>
                     <v-spacer></v-spacer>
                     <v-icon color="success">money</v-icon>
-                    <b class="grey--text font-italic">&nbsp;{{balence}} &nbsp; Libra</b>
+                    <b class="grey--text font-italic">&nbsp;{{balance}} &nbsp;Libra</b>
                     <v-spacer></v-spacer>
                 </v-flex>
              </v-layout>
@@ -126,12 +126,21 @@
 </template>
 
 <script>
+    import { createNamespacedHelpers } from "vuex";
+    const libraAccountHelper = createNamespacedHelpers("libraAccount");
+
     export default {
         data: () => ({
             UserName:  "Bigone",
             Email: "trium10@gmail.com",
-            balence: "1000",
         }),
+        computed: {
+            ...libraAccountHelper.mapState(['balance']),
+            ...libraAccountHelper.mapState(['microBalance'])
+        },
+        created() {
+            this.$store.dispatch("libraAccount/getBalance");
+        },
         methods: {
             // CreateAccount
             CreateAccount: function () {
