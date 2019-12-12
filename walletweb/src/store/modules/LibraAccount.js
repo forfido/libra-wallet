@@ -1,4 +1,5 @@
-import axios from "@/utils/AxiosHandler";
+import axios from "axios";
+import {authHeader} from "@/utils/authHeader";
 
 const state = {
   balance: 0,
@@ -13,7 +14,13 @@ const mutations = {
 };
 const actions = {
   getBalance({ commit }) {
-    axios
+      const httpaxios = axios.create({
+          baseURL: Constants.ENDPOINT,
+          timeout: Constants.HTTPTIMEOUT,
+          headers: authHeader()
+      });
+
+      httpaxios
         .get("libra/balance")
         .then(res => {
           let balance = res.data.contents;

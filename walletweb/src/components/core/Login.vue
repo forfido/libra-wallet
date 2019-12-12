@@ -67,6 +67,9 @@
 import { createNamespacedHelpers } from "vuex";
 const authHelper = createNamespacedHelpers("auth");
 
+import axios from "axios";
+import Constants from "@/constants";
+
 export default {
   data: () => ({
     email: "ahin@palibra.net",
@@ -81,17 +84,26 @@ export default {
     ...authHelper.mapState(["isLogin", "isLoginError"])
   },
   methods: {
+    // 동기적으로 처리 하기 위해 vuex에서 처리 하지 않음.
     TryLogin: function (payload) {
-      Promise.all([
-        this.$store.dispatch("user/ClearUserInfo"),
-        this.$store.dispatch("auth/TryLogin", payload)
-      ]).then( () => {
-        this.$router.replace("/Home");
-      }).catch(err => {
-        alert(err);
-        this.$router.replace("/Login");
-      })
+      const httpaxios = axios.create({
+        baseURL: Constants.ENDPOINT,
+        timeout: Constants.HTTPTIMEOUT,
+      });
 
+      httpaxios
+        .post("/auth/login", {
+          email: payload.email,
+          password: payload.password
+        })
+        .then(res => {
+          localStorage.setItem(Constants.ACCESS_TOKEN, res.data.contents.accessToken);
+          this.$store.dispatch("auth/LoginSuccess");
+        })
+        .catch(err => {
+          this.$store.dispatch("auth/LoginFail");
+        })
+        .then( () => this.$router.replace("/Home") );
     }
   }
 };

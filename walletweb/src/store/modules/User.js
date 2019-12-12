@@ -1,4 +1,5 @@
-import axios from "@/utils/AxiosHandler";
+import axios from "axios"
+import {authHeader} from "@/utils/authHeader"
 import Constants from "@/constants";
 
 const state = {
@@ -18,7 +19,13 @@ const actions = {
   // Get UserInfo Method
   /// --------------------------------------------------------
   GetUserInfo({ commit }) {
-    axios
+    const httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+
+    httpaxios
       .get("/user/me")
       .then(res => {
         commit("SetUser", res.data.contents);

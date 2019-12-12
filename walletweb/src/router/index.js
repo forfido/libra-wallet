@@ -2,7 +2,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Meta from "vue-meta";
-import axios from "@/utils/AxiosHandler";
+import axios from "axios";
+import {authHeader} from "@/utils/authHeader";
 import Constants from "@/constants";
 
 import { createNamespacedHelpers } from "vuex";
@@ -10,7 +11,6 @@ const user = createNamespacedHelpers("user");
 
 // Routes
 import paths from "./paths";
-import AxiosHandler from "../utils/AxiosHandler";
 
 // eslint-disable-next-line space-before-function-paren
 function route(path, view, name) {
@@ -45,24 +45,23 @@ Vue.use(Meta);
 
 // Login여부체크
 // TODO : axios Vue Instance 적용
-let loginCheck = next => {
-  if (localStorage.getItem(Constants.ACCESS_TOKEN)) {
-    axios.defaults.headers.common[Constants.AUTHORIZTION] =
-      "Bearer " + localStorage.getItem(Constants.ACCESS_TOKEN);
-  } else {
-    axios.defaults.headers.common[Constants.AUTHORIZTION] = "";
-  }
+let loginCheck = function (next) {
+  let httpaxios = axios.create({
+    baseURL: Constants.ENDPOINT,
+    timeout: Constants.HTTPTIMEOUT,
+    headers: authHeader()
+  });
 
-  axios
-    .get("/user/me")
-    .then(res => {
-      next();
-    })
-    .catch(ex => {
-      alert("로그인이 필요합니다.(ex:" + ex + ")");
+  httpaxios
+      .get("/user/me")
+      .then(res => {
+        next();
+      })
+      .catch(ex => {
+        alert("로그인이 필요합니다.(ex:" + ex + ")");
 
-      next({ path: "/Login" });
-    });
+        next({ path: "/Login" });
+      });
 };
 
 // Router진입시(전체체크)

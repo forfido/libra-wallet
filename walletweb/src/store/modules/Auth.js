@@ -1,4 +1,3 @@
-import axios from "@/utils/AxiosHandler";
 import Constants from "@/constants";
 
 const state = {
@@ -34,27 +33,19 @@ const mutations = {
 };
 const actions = {
   /// --------------------------------------------------------
-  // TryLogin Method
+  // LoginSuccess Method
   /// --------------------------------------------------------
-  TryLogin({ commit }, payload) {
-    axios
-      .post("/auth/login", {
-        email: payload.email,
-        password: payload.password
-      })
-      .then(res => {
-        localStorage.setItem(Constants.ACCESS_TOKEN, res.data.contents.accessToken);
-        commit("LoginSuccess");
-      })
-      .catch(err => {
-        console.log(err);
-        commit("LoginFail");
-      });
+  LoginSuccess({ commit }) {
+    commit("LoginSuccess");
   },
-
+  /// --------------------------------------------------------
+  // LoginFail Method
+  /// --------------------------------------------------------
+  LoginFail({ commit }) {
+    commit("LoginFail");
+  },
   /// --------------------------------------------------------
   // LogOut Method
-  // TODO : Login Page
   /// --------------------------------------------------------
   TryLogOut({ commit }) {
     commit("LogOut");
