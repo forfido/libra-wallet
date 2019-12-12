@@ -7,6 +7,7 @@ import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
 import com.palibra.walletapi.domain.libraaccount.payload.LibraBalance;
 import com.palibra.walletapi.domain.libraaccount.payload.MintRequest;
 import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
+import com.palibra.walletapi.domain.user.UserService;
 import com.palibra.walletapi.exception.ErrorHandlerException;
 import com.palibra.walletapi.util.ZXingHelper;
 import dev.jlibra.spring.action.PeerToPeerTransfer;
@@ -26,6 +27,9 @@ public class LibraAccountController extends TokenBaseController {
 
     @Autowired
     LibraAccountService libraAccountService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/account")
     public byte[] getAccount() throws IOException {
@@ -51,7 +55,20 @@ public class LibraAccountController extends TokenBaseController {
 
         return ApiResponse.Success(createAccountResponse);
     }
+
+    @PutMapping("/account/{userId}")
+    public ResponseEntity<?> CreateAccount(@Valid @PathVariable Long userId) {
+
+        User user = userService.getUserInfo(userId);
+
+        Account account = libraAccountService.createLibraUserAccount(user);
+        CreateAccountResponse createAccountResponse = new CreateAccountResponse(user.getId(), account.getAddress());
+
+        return ApiResponse.Success(createAccountResponse);
+    }
     */
+
+
 
     @GetMapping("/balance")
     public ResponseEntity<?> getBalance() {
