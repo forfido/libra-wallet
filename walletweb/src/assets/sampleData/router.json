@@ -14,11 +14,11 @@
     "title": "Home"
   },
   {
-    "path": "/CreateAccount",
-    "name": "CreateAccount",
-    "view": "CreateAccount",
+    "path": "/Mint",
+    "name": "Mint",
+    "view": "Mint",
     "icon": "fa-plus",
-    "title": "CreateAccount"
+    "title": "Mint"
   },
   {
     "path": "/SendLibra",

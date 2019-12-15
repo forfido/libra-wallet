@@ -44,11 +44,11 @@
                     <!-- // Create Account -->
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
-                            <v-btn v-on="on" large icon color="red lighten-2" @click="CreateAccount()">
+                            <v-btn v-on="on" large icon color="red lighten-2" @click="Mint()">
                                 <v-icon>fa-plus</v-icon>
                             </v-btn>
                         </template>
-                        <span small>CreateAccount</span>
+                        <span small>Mint</span>
                     </v-tooltip>
                 </v-col>
 
@@ -142,9 +142,9 @@
             this.$store.dispatch("libraAccount/getBalance");
         },
         methods: {
-            // CreateAccount
-            CreateAccount: function () {
-                this.$router.push("/CreateAccount");
+            // Mint Libra
+            Mint: function () {
+                this.$router.push("/Mint");
             },
             // SendLibra
             SendLibra: function () {

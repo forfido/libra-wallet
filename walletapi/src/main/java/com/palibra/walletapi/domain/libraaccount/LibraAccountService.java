@@ -67,6 +67,7 @@ public class LibraAccountService {
         Long balance = jLibraUtil.findBalance(libraAddress);
         libraBalance.setLibra(balance/1000000);
         libraBalance.setLibraMicro(balance);
+        libraBalance.setLibraAddress(libraAddress);
         return libraBalance;
     }
 

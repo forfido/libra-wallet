@@ -76,6 +76,7 @@ public class LibraAccountController extends TokenBaseController {
         LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
 
         LibraBalance balance = libraAccountService.getBalance(libraAccount.getLibraAddressToString());
+        balance.setUserId(getAuthedUserInfo().getId());
         return ApiResponse.Success(balance);
     }
 
