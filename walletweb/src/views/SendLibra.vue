@@ -37,7 +37,6 @@
     <v-expand-transition>
       <v-list v-if="model" class="red lighten-3">
         <v-list-tile
-
                 v-for="(field, i) in fields"
                 :key="i"
         >
@@ -76,7 +75,7 @@
       search: null,
     }),
     created() {
-      this.$store.dispatch("libraaccount/getBalance");
+      this.$store.dispatch("libraAccount/getBalance");
     },
     computed: {
       ...libraAccountHelper.mapState(['balance']),
