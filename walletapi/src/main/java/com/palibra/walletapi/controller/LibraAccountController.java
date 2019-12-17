@@ -10,7 +10,7 @@ import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
 import com.palibra.walletapi.domain.user.UserService;
 import com.palibra.walletapi.exception.ErrorHandlerException;
 import com.palibra.walletapi.util.ZXingHelper;
-import dev.jlibra.spring.action.PeerToPeerTransfer;
+import dev.jlibra.admissioncontrol.transaction.result.LibraTransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -82,13 +82,19 @@ public class LibraAccountController extends TokenBaseController {
 
     @PostMapping("/transfer")
     public ResponseEntity<?> transferLibra(@Valid @RequestBody TransferRequest transferRequest) {
+        String result;
         Long senderId = getAuthedUserInfo().getId();
         if (senderId.equals(transferRequest.getReceiverUserId())) {
             throw new ErrorHandlerException("Not available transfer to yourself");
         }
-        PeerToPeerTransfer.PeerToPeerTransferReceipt.Status status = libraAccountService.transferToMember( senderId, transferRequest);
 
-        return ApiResponse.Success(status);
+        try {
+            result = libraAccountService.transferToMember( senderId, transferRequest);
+        } catch(LibraTransactionException ex) {
+            throw new ErrorHandlerException("Not available transfer : " + ex.getMessage());
+        }
+
+        return ApiResponse.Success(result);
     }
 
     @PostMapping("/mint")
