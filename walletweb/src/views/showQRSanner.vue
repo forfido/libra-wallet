@@ -5,14 +5,16 @@
 </template>
 
 <script>
-  import VueQRcodeReader from "vue-qrcode-reader";
+  import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from "vue-qrcode-reader";
 
   export default {
     data: () => ({
       isShowingCamera: true,
     }),
     components: {
-      VueQRcodeReader
+      QrcodeStream,
+      QrcodeDropZone,
+      QrcodeCapture
     },
     method: {
       // Funtion running when QRCodeSannner run

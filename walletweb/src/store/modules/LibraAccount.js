@@ -1,21 +1,22 @@
 import axios from "axios";
 import {authHeader} from "@/utils/authHeader";
+import Constants from "@/constants";
 
 const state = {
   libraAddress: null,
   balance: 0,
   microBalance: 0,
-  addedLibra:0
 };
 const getters = {};
 const mutations = {
   setBalance : function (state, payload) {
     state.balance = payload.libra;
-    state.microBalance = payload.libraMicro;
+    state.microBalance = payload.libra * Constants.MICORLIBRARATE;
     state.libraAddress = payload.libraAddress;
   },
   setAddedLibra : function (state, payload) {
-    state.addedLibra = payload.addedLibra;
+    state.microBalance = state.microBalance + payload.addedMicroLibra;
+    state.balance = state.balance + (payload.addedMicroLibra / Constants.MICORLIBRARATE);
   }
 };
 const actions = {
@@ -37,7 +38,7 @@ const actions = {
           commit("setBalance", 0);
         });
   },
-  mint({commit}, mintAmount) {
+  mint({commit}, payload) {
     const httpaxios = axios.create({
       baseURL: Constants.ENDPOINT,
       timeout: Constants.HTTPTIMEOUT,
@@ -45,13 +46,14 @@ const actions = {
     });
   
     httpaxios
-      .post("libra/mint", { amount: mintAmount })
+      .post("libra/mint", payload)
       .then(res => {
-        let addedLibra = res.data.contents;
-      
-        commit("setAddedLibra", addedLibra);
+        let addedMicroLibra = res.data.contents;
+        console.log(addedMicroLibra);
+        commit("setAddedLibra", addedMicroLibra);
       })
       .catch(err => {
+        console.log(err);
         commit("setAddedLibra", 0);
       });
   }

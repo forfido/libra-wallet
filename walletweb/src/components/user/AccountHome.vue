@@ -16,19 +16,20 @@
                         size="100px"
                     >
                         <v-img
-                            :src="require('@/assets/bigone.png')"
+                            :src=getUserImage
                             contain
                             height="200px"
                         ></v-img>
                     </v-avatar>
                 </v-flex>
 
+
                 <v-flex xs12 sm8 md4 class="pb-2">
                     <v-icon color="info">face</v-icon>
-                    <b class="grey--text font-italic">&nbsp;{{UserName}}</b>
+                    <b class="grey--text font-italic">&nbsp;{{User.name}}</b>
                     <v-spacer></v-spacer>
                     <v-icon color="warning">email</v-icon>
-                    <b class="grey--text font-italic">&nbsp;{{Email}}</b>
+                    <b class="grey--text font-italic">&nbsp;{{User.email}}</b>
                     <v-spacer></v-spacer>
                     <v-icon color="success">money</v-icon>
                     <b class="grey--text font-italic">&nbsp;{{balance}} &nbsp;Libra</b>
@@ -128,18 +129,20 @@
 <script>
     import { createNamespacedHelpers } from "vuex";
     const libraAccountHelper = createNamespacedHelpers("libraAccount");
+    const userHelper = createNamespacedHelpers("user");
 
     export default {
         data: () => ({
-            UserName:  "Bigone",
-            Email: "trium10@gmail.com",
         }),
         computed: {
             ...libraAccountHelper.mapState(['balance']),
-            ...libraAccountHelper.mapState(['microBalance'])
+            ...libraAccountHelper.mapState(['microBalance']),
+            ...userHelper.mapState(['User']),
+            ...userHelper.mapGetters(['getUserImage']),
         },
         created() {
             this.$store.dispatch("libraAccount/getBalance");
+            this.$store.dispatch("user/GetUserInfo");
         },
         methods: {
             // Mint Libra

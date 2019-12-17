@@ -13,6 +13,8 @@ import dev.jlibra.util.JLibraUtil;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPrivateKey;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPublicKey;
 import org.bouncycastle.util.encoders.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ import java.security.PublicKey;
 
 @Service
 public class LibraAccountService {
+
+    private static final Logger log = LoggerFactory.getLogger(LibraAccountService.class);
 
     @Autowired
     private LibraAccountRepository libraAccountRepository;
@@ -70,6 +74,9 @@ public class LibraAccountService {
         libraBalance.setLibra(balance/1000000);
         libraBalance.setLibraMicro(balance);
         libraBalance.setLibraAddress(libraAddress);
+
+        log.info(libraBalance.toString());
+
         return libraBalance;
     }
 

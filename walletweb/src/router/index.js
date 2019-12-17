@@ -6,9 +6,6 @@ import axios from "axios";
 import {authHeader} from "@/utils/authHeader";
 import Constants from "@/constants";
 
-import { createNamespacedHelpers } from "vuex";
-const user = createNamespacedHelpers("user");
-
 // Routes
 import paths from "./paths";
 
