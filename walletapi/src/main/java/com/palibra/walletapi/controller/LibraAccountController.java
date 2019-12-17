@@ -9,16 +9,12 @@ import com.palibra.walletapi.domain.libraaccount.payload.MintRequest;
 import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
 import com.palibra.walletapi.domain.user.UserService;
 import com.palibra.walletapi.exception.ErrorHandlerException;
-import com.palibra.walletapi.util.ZXingHelper;
 import dev.jlibra.admissioncontrol.transaction.result.LibraTransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Objects;
 
 
 @RestController
@@ -77,13 +73,14 @@ public class LibraAccountController extends TokenBaseController {
         return ApiResponse.Success(balance);
     }
 
+    //맴버십 아이디가 아닌 리브라 주소로 송금하도록 변경 필요
     @PostMapping("/transfer")
     public ResponseEntity<?> transferLibra(@Valid @RequestBody TransferRequest transferRequest) {
         String result;
         Long senderId = getAuthedUserInfo().getId();
-        if (senderId.equals(transferRequest.getReceiverUserId())) {
-            throw new ErrorHandlerException("Not available transfer to yourself");
-        }
+//        if (senderId.equals(transferRequest.getReceiverUserId())) {
+//            throw new ErrorHandlerException("Not available transfer to yourself");
+//        }
 
         try {
             result = libraAccountService.transferToMember( senderId, transferRequest);
@@ -91,7 +88,12 @@ public class LibraAccountController extends TokenBaseController {
             throw new ErrorHandlerException("Not available transfer : " + ex.getMessage());
         }
 
-        return ApiResponse.Success(result);
+        LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
+
+        LibraBalance balance = libraAccountService.getBalance(libraAccount.getLibraAddressToString());
+        balance.setUserId(getAuthedUserInfo().getId());
+
+        return ApiResponse.Success(balance);
     }
 
     @PostMapping("/mint")

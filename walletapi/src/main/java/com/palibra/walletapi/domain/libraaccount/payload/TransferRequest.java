@@ -5,19 +5,20 @@ import javax.validation.constraints.Positive;
 import java.math.BigInteger;
 
 public class TransferRequest {
+
     @NotNull
-    private Long receiverUserId;
+    private String libraAddress;
 
     @Positive
     private BigInteger amount;
 
 
-    public Long getReceiverUserId() {
-        return receiverUserId;
+    public String getLibraAddress() {
+        return libraAddress;
     }
 
-    public void setReceiverUserId(Long receiverUserId) {
-        this.receiverUserId = receiverUserId;
+    public void setLibraAddress(String libraAddress) {
+        this.libraAddress = libraAddress;
     }
 
     public BigInteger getAmount() {

@@ -13,6 +13,8 @@
     <v-card-text>
       <v-text-field
         label="Send Amount"
+        type="text"
+        v-model="amount"
       ></v-text-field>
     </v-card-text>
 
@@ -35,7 +37,7 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-expand-transition>
-      <v-list v-if="model" class="red lighten-3">
+      <v-list v-if="model" class="blue lighten-3">
         <v-list-tile
                 v-for="(field, i) in fields"
                 :key="i"
@@ -50,11 +52,11 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
-              :disabled="!model"
+              :disabled="!model || amount <= 0"
               color="grey darken-3"
-              @click="model = null"
+              @click="SendLibra()"
       >
-        Clear
+        Send LIB
         <v-icon right>mdi-close-circle</v-icon>
       </v-btn>
     </v-card-actions>
@@ -63,11 +65,16 @@
 
 <script>
   import { createNamespacedHelpers } from "vuex";
-  const libraAccountHelper = createNamespacedHelpers("libraAccount");
+  import { authHeader } from "@/utils/authHeader";
 
+  import axios from "axios";
+  import Constants from "@/constants";
+
+  const libraAccountHelper = createNamespacedHelpers("libraAccount");
 
   export default {
     data: () => ({
+      amount:0,
       emailLimit: 60,
       contents: [],
       isLoading: false,
@@ -117,17 +124,22 @@
 
         this.isLoading = true;
 
-        // Lazily load input items
-        fetch('http://localhost:8090/user/search/email/' + val)
-                .then(res => res.json())
-                .then(res => {
-                  const { success, contents } = res;
-                  this.contents = contents;
-                })
-                .catch(err => {
-                  console.log(err);
-                })
-                .finally(() => (this.isLoading = false))
+          const httpaxios = axios.create({
+            baseURL: Constants.ENDPOINT,
+            timeout: Constants.HTTPTIMEOUT,
+            headers: authHeader()
+          });
+
+          httpaxios
+            .get("user/search/email/"+ val)
+            .then(res => {
+              this.contents = res.data.contents;
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            .finally(() => (this.isLoading = false));
+
       },
     },
   }

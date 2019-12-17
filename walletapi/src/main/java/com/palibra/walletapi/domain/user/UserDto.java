@@ -5,12 +5,14 @@ public class UserDto {
     private String name;
     private String email;
     private String imageUrl;
+    private String libraAddress;
 
-    public UserDto(Long id, String name, String email, String imageUrl) {
+    public UserDto(Long id, String name, String email, String imageUrl, String libraAddress) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.imageUrl = imageUrl;
+        this.libraAddress = libraAddress;
     }
 
     public Long getId() {
@@ -45,4 +47,11 @@ public class UserDto {
         this.imageUrl = imageUrl;
     }
 
+    public String getLibraAddress() {
+        return libraAddress;
+    }
+
+    public void setLibraAddress(String libraAddress) {
+        this.libraAddress = libraAddress;
+    }
 }

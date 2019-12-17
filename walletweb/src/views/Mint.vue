@@ -67,8 +67,6 @@
       //     .catch(err => {
       //       console.log(err);
       //     });
-      //...libraAccountHelper.mapActions("mint", payload)
-      //this.$store.dispatch("user/ClearUserInfo")
       }
     },
   }

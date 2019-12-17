@@ -97,12 +97,18 @@ public class LibraAccountService {
         BigInteger maxGasAmount = new BigInteger("-1");
 
         LibraAccount senderAccount = libraAccountRepository.findById(senderAccountId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "accountId", senderAccountId));
-        LibraAccount receiverAccount = findAccount(transferRequest.getReceiverUserId());
+//        LibraAccount receiverAccount = findAccount(transferRequest.getLibraAddress());
+//        if (senderAccount.getLibraAddressToString().equals(transferRequest.getLibraAddress()) ) {
+//            throw new LibraTransactionException("Unfair");
+//        }
 
-        String receiverAddress = Hex.toHexString(receiverAccount.getLibraAddress());
+        String receiverAddress = transferRequest.getLibraAddress();
         PublicKey publicKey = KeyUtils.publicKeyFromHexString(new String(Hex.encode(senderAccount.getPublicKey())));
         PrivateKey privateKey = KeyUtils.privateKeyFromHexString(new String(Hex.encode(senderAccount.getPrivateKey())));
         SubmitTransactionResult receipt = peerToPeerTransfer.transferFunds(receiverAddress, transferRequest.getAmount().longValue() * 1_000_000, publicKey, privateKey, gasUnitPrice.longValue(), maxGasAmount.longValue());
+
+        log.info(receipt.toString());
+
         //new String(receipt.getValidatorId()) validateId 가 빈값인 상태, validatorId는 gRpc의 응답메세지 값
         return receipt.toString();
     }
