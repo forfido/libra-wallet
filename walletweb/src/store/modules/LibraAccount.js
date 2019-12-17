@@ -2,14 +2,20 @@ import axios from "axios";
 import {authHeader} from "@/utils/authHeader";
 
 const state = {
+  libraAddress: null,
   balance: 0,
   microBalance: 0,
+  addedLibra:0
 };
 const getters = {};
 const mutations = {
   setBalance : function (state, payload) {
     state.balance = payload.libra;
     state.microBalance = payload.libraMicro;
+    state.libraAddress = payload.libraAddress;
+  },
+  setAddedLibra : function (state, payload) {
+    state.addedLibra = payload.addedLibra;
   }
 };
 const actions = {
@@ -30,6 +36,24 @@ const actions = {
         .catch(err => {
           commit("setBalance", 0);
         });
+  },
+  mint({commit}, mintAmount) {
+    const httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+  
+    httpaxios
+      .post("libra/mint", { amount: mintAmount })
+      .then(res => {
+        let addedLibra = res.data.contents;
+      
+        commit("setAddedLibra", addedLibra);
+      })
+      .catch(err => {
+        commit("setAddedLibra", 0);
+      });
   }
 };
 
