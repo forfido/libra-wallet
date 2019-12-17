@@ -37,4 +37,14 @@ public class LibraBalance {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "LibraBalance{" +
+                "libra=" + libra +
+                ", libraMicro=" + libraMicro +
+                ", libraAddress='" + libraAddress + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 }

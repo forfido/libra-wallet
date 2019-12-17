@@ -32,14 +32,11 @@ public class LibraAccountController extends TokenBaseController {
     UserService userService;
 
     @GetMapping("/account")
-    public byte[] getAccount() throws IOException {
+    public ResponseEntity<?> getAccount() {
 
         LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(Objects.requireNonNull(ZXingHelper.getQRCodeImage(libraAccount.getLibraAddressToString(), 200, 200)));
-
-        return outputStream.toByteArray();
+        return ApiResponse.Success(libraAccount.getLibraAddressToString());
     }
 
     /*

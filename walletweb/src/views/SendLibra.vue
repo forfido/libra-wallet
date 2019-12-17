@@ -76,7 +76,7 @@
       search: null,
     }),
     created() {
-      this.$store.dispatch("libraaccount/getBalance");
+      this.$store.dispatch("libraAccount/getBalance");
     },
     computed: {
       ...libraAccountHelper.mapState(['balance']),
