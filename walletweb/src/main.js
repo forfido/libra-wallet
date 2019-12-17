@@ -10,8 +10,10 @@ import "./plugins";
 import App from "./App";
 import router from "./router";
 import store from "./store/store";
+import Constants from "@/constants";
 
 Vue.config.productionTip = false;
+Vue.prototype.$const = Constants;
 
 new Vue({
   store,
