@@ -31,13 +31,12 @@
 <script>
   import { CommonViews } from "@/Mixins/CommonViews";
   import QrcodeVue from "qrcode.vue";
-  import Constants from "@/constants";
 
   export default {
     mixins: [CommonViews],
     data: () => ({
       QRCodeValue: "google.com"
-      // Constants.FRONTPOINT + "/SendLibra"
+      // this.$const.FRONTPOINT + "/SendLibra"
     }),
     components: {
       QrcodeVue,

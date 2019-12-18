@@ -69,9 +69,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 const authHelper = createNamespacedHelpers("auth");
-
 import axios from "axios";
-import Constants from "@/constants";
 
 export default {
   data: () => ({
@@ -87,8 +85,8 @@ export default {
     // 동기적으로 처리 하기 위해 vuex에서 처리 하지 않음.
     TryLogin: function (payload) {
       const httpaxios = axios.create({
-        baseURL: Constants.ENDPOINT,
-        timeout: Constants.HTTPTIMEOUT,
+        baseURL: this.$const.ENDPOINT,
+        timeout: this.$const.HTTPTIMEOUT,
       });
 
       httpaxios
@@ -97,7 +95,7 @@ export default {
           password: payload.password
         })
         .then(res => {
-          localStorage.setItem(Constants.ACCESS_TOKEN, res.data.contents.accessToken);
+          localStorage.setItem(this.$const.ACCESS_TOKEN, res.data.contents.accessToken);
           this.$store.dispatch("auth/LoginSuccess");
         })
         .catch(err => {

@@ -73,7 +73,6 @@
   import { authHeader } from "@/utils/authHeader";
 
   import axios from "axios";
-  import Constants from "@/constants";
 
   const libraAccountHelper = createNamespacedHelpers("libraAccount");
 
@@ -131,8 +130,8 @@
         this.isLoading = true;
 
           const httpaxios = axios.create({
-            baseURL: Constants.ENDPOINT,
-            timeout: Constants.HTTPTIMEOUT,
+            baseURL: this.$const.ENDPOINT,
+            timeout: this.$const.HTTPTIMEOUT,
             headers: authHeader()
           });
 

@@ -2,8 +2,6 @@
 </template>
 
 <script>
-    import Constants from "@/constants";
-
     export default {
         data: () => ({
         }),
@@ -13,8 +11,8 @@
             let error = this.$route.query.error;
 
             if (token) {
-                localStorage.removeItem(Constants.ACCESS_TOKEN);
-                localStorage.setItem(Constants.ACCESS_TOKEN, token);
+                localStorage.removeItem(this.$const.ACCESS_TOKEN);
+                localStorage.setItem(this.$const.ACCESS_TOKEN, token);
                 this.$store.dispatch("auth/CheckAuthState");
             }
 
