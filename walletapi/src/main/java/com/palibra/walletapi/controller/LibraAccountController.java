@@ -9,16 +9,12 @@ import com.palibra.walletapi.domain.libraaccount.payload.MintRequest;
 import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
 import com.palibra.walletapi.domain.user.UserService;
 import com.palibra.walletapi.exception.ErrorHandlerException;
-import com.palibra.walletapi.util.ZXingHelper;
-import dev.jlibra.spring.action.PeerToPeerTransfer;
+import dev.jlibra.admissioncontrol.transaction.result.LibraTransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Objects;
 
 
 @RestController
@@ -32,14 +28,11 @@ public class LibraAccountController extends TokenBaseController {
     UserService userService;
 
     @GetMapping("/account")
-    public byte[] getAccount() throws IOException {
+    public ResponseEntity<?> getAccount() {
 
         LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(Objects.requireNonNull(ZXingHelper.getQRCodeImage(libraAccount.getLibraAddressToString(), 200, 200)));
-
-        return outputStream.toByteArray();
+        return ApiResponse.Success(libraAccount.getLibraAddressToString());
     }
 
     /*
@@ -80,15 +73,27 @@ public class LibraAccountController extends TokenBaseController {
         return ApiResponse.Success(balance);
     }
 
+    //맴버십 아이디가 아닌 리브라 주소로 송금하도록 변경 필요
     @PostMapping("/transfer")
     public ResponseEntity<?> transferLibra(@Valid @RequestBody TransferRequest transferRequest) {
+        String result;
         Long senderId = getAuthedUserInfo().getId();
-        if (senderId.equals(transferRequest.getReceiverUserId())) {
-            throw new ErrorHandlerException("Not available transfer to yourself");
-        }
-        PeerToPeerTransfer.PeerToPeerTransferReceipt.Status status = libraAccountService.transferToMember( senderId, transferRequest);
+//        if (senderId.equals(transferRequest.getReceiverUserId())) {
+//            throw new ErrorHandlerException("Not available transfer to yourself");
+//        }
 
-        return ApiResponse.Success(status);
+        try {
+            result = libraAccountService.transferToMember( senderId, transferRequest);
+        } catch(LibraTransactionException ex) {
+            throw new ErrorHandlerException("Not available transfer : " + ex.getMessage());
+        }
+
+        LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
+
+        LibraBalance balance = libraAccountService.getBalance(libraAccount.getLibraAddressToString());
+        balance.setUserId(getAuthedUserInfo().getId());
+
+        return ApiResponse.Success(balance);
     }
 
     @PostMapping("/mint")

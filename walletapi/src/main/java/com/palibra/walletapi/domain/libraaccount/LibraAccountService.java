@@ -5,12 +5,16 @@ import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.exception.ResourceNotFoundException;
 import dev.jlibra.KeyUtils;
+import dev.jlibra.admissioncontrol.transaction.result.LibraTransactionException;
+import dev.jlibra.admissioncontrol.transaction.result.SubmitTransactionResult;
 import dev.jlibra.mnemonic.*;
 import dev.jlibra.spring.action.PeerToPeerTransfer;
 import dev.jlibra.util.JLibraUtil;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPrivateKey;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPublicKey;
 import org.bouncycastle.util.encoders.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +26,8 @@ import java.security.PublicKey;
 
 @Service
 public class LibraAccountService {
+
+    private static final Logger log = LoggerFactory.getLogger(LibraAccountService.class);
 
     @Autowired
     private LibraAccountRepository libraAccountRepository;
@@ -68,6 +74,9 @@ public class LibraAccountService {
         libraBalance.setLibra(balance/1000000);
         libraBalance.setLibraMicro(balance);
         libraBalance.setLibraAddress(libraAddress);
+
+        log.info(libraBalance.toString());
+
         return libraBalance;
     }
 
@@ -83,18 +92,25 @@ public class LibraAccountService {
         return libraAccount;
     }
 
-    public PeerToPeerTransfer.PeerToPeerTransferReceipt.Status transferToMember(Long senderAccountId, TransferRequest transferRequest) {
+    public String transferToMember(Long senderAccountId, TransferRequest transferRequest) throws LibraTransactionException {
         BigInteger gasUnitPrice = new BigInteger("-1");
         BigInteger maxGasAmount = new BigInteger("-1");
 
         LibraAccount senderAccount = libraAccountRepository.findById(senderAccountId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "accountId", senderAccountId));
-        LibraAccount receiverAccount = findAccount(transferRequest.getReceiverUserId());
+//        LibraAccount receiverAccount = findAccount(transferRequest.getLibraAddress());
+//        if (senderAccount.getLibraAddressToString().equals(transferRequest.getLibraAddress()) ) {
+//            throw new LibraTransactionException("Unfair");
+//        }
 
-        String receiverAddress = Hex.toHexString(receiverAccount.getLibraAddress());
+        String receiverAddress = transferRequest.getLibraAddress();
         PublicKey publicKey = KeyUtils.publicKeyFromHexString(new String(Hex.encode(senderAccount.getPublicKey())));
         PrivateKey privateKey = KeyUtils.privateKeyFromHexString(new String(Hex.encode(senderAccount.getPrivateKey())));
-        PeerToPeerTransfer.PeerToPeerTransferReceipt receipt = peerToPeerTransfer.transferFunds(receiverAddress, transferRequest.getAmount().longValue() * 1_000_000, publicKey, privateKey, gasUnitPrice.longValue(), maxGasAmount.longValue());
-        return receipt.getStatus();
+        SubmitTransactionResult receipt = peerToPeerTransfer.transferFunds(receiverAddress, transferRequest.getAmount().longValue() * 1_000_000, publicKey, privateKey, gasUnitPrice.longValue(), maxGasAmount.longValue());
+
+        log.info(receipt.toString());
+
+        //new String(receipt.getValidatorId()) validateId 가 빈값인 상태, validatorId는 gRpc의 응답메세지 값
+        return receipt.toString();
     }
 
     public Long mint(String address, Long amount) {

@@ -19,7 +19,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>dev.jlibra</groupId>
             <artifactId>jlibra-spring-boot-starter</artifactId>
@@ -28,12 +27,12 @@
         <dependency>
             <groupId>dev.jlibra</groupId>
             <artifactId>jlibra-core</artifactId>
-            <version>0.5.0</version>
+            <version>0.6.0</version>
         </dependency>
         <dependency>
             <groupId>dev.jlibra</groupId>
             <artifactId>jlibra-grpc</artifactId>
-            <version>0.5.0</version>
+            <version>0.6.0</version>
         </dependency>
         <dependency>
             <groupId>dev.jlibra.extension</groupId>
