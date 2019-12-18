@@ -7,3 +7,12 @@
     </v-layout>
   </v-container>
 </template>
+
+<script>
+  import { CommonViews } from "@/Mixins/CommonViews";
+  export default {
+    mixins: [CommonViews],
+    data: () => ({
+    }),
+  }
+</script>

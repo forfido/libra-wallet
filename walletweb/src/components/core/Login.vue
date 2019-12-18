@@ -6,7 +6,10 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-                <v-toolbar-title>Login</v-toolbar-title>
+                <v-toolbar-title>
+                  <v-icon>person</v-icon>
+                  <b class="font-italic">&nbsp;{{this.$router.currentRoute.name}}</b>
+                </v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
@@ -76,9 +79,6 @@ export default {
     password: null
   }),
   mounted() {
-  },
-  props: {
-    source: String
   },
   computed: {
     ...authHelper.mapState(["isLogin", "isLoginError"])

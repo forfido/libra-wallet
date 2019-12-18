@@ -3,8 +3,12 @@
             elevation="24"
             max-width="444"
             class="mx-auto"
+            color="teal accent-4"
     >
-        <v-system-bar lights-out></v-system-bar>
+        <v-card-title class="headline teal accent-4">
+            <v-icon>account_tree</v-icon>
+            <b class="font-italic">&nbsp;{{this.$router.currentRoute.name}}</b>
+        </v-card-title>
         <v-carousel
                 :cycle="cycle"
                 :show-arrows="false"

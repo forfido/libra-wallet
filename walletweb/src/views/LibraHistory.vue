@@ -8,7 +8,7 @@
               large
       >
         <template v-slot:icon>
-          <span>JL</span>
+          <v-icon>history</v-icon>
         </template>
         <v-text-field
                 v-model="input"
@@ -140,7 +140,10 @@
 </template>
 
 <script>
+  import { CommonViews } from "@/Mixins/CommonViews";
+
   export default {
+    mixins: [CommonViews],
     data: () => ({
       events: [],
       input: null,

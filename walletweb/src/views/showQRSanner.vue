@@ -1,7 +1,9 @@
 <template>
-  <v-sheet height="400">
-    <qrcode-stream v-if="isShowingCamera" @init="onInit" @decode="onDecode" :size="400"></qrcode-stream>
-  </v-sheet>
+  <v-container fluid>
+    <v-sheet height="100%">
+      <qrcode-stream v-if="isShowingCamera" @init="onInit" @decode="onDecode" :size="400"></qrcode-stream>
+    </v-sheet>
+  </v-container>
 </template>
 
 <script>

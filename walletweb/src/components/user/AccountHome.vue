@@ -4,9 +4,8 @@
             max-width="500"
     >
         <v-system-bar light color="grey darken-2">
-            <v-card-title>
-                <b>UserInfo</b>
-            </v-card-title>
+            <v-icon>home</v-icon>
+            <b class="font-italic">&nbsp;{{this.$router.currentRoute.name}}</b>
         </v-system-bar>
 
         <v-card-subtitle>

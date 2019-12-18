@@ -1,69 +1,74 @@
 <template>
-  <v-card
-          color="blue lighten-2"
-          dark
-  >
-    <v-card-title class="headline blue lighten-3">
-      Send
-    </v-card-title>
-    <v-card-text>
-      My Libra Balance {{balance}}
-    </v-card-text>
+  <v-container fluid>
+    <v-card
+            color="yellow darken-4"
+            dark
+    >
+      <v-card-title class="headline yellow darken-3">
+        <v-icon>waves</v-icon>
+        <b class="font-italic">&nbsp;{{title}}</b>
+      </v-card-title>
 
-    <v-card-text>
-      <v-text-field
-        label="Send Amount"
-        type="text"
-        v-model="amount"
-      ></v-text-field>
-    </v-card-text>
+      <v-card-text>
+        My Libra Balance {{balance}}
+      </v-card-text>
 
-    <v-card-text>
-      <v-autocomplete
-              v-model="model"
-              :items="items"
-              :loading="isLoading"
-              :search-input.sync="search"
-              color="white"
-              hide-no-data
-              hide-selected
-              item-text="email"
-              item-value="API"
-              label="Receiver"
-              placeholder="Start typing to Search"
-              prepend-icon="mdi-database-search"
-              return-object
-      ></v-autocomplete>
-    </v-card-text>
-    <v-divider></v-divider>
-    <v-expand-transition>
-      <v-list v-if="model" class="blue lighten-3">
-        <v-list-tile
-                v-for="(field, i) in fields"
-                :key="i"
+      <v-card-text>
+        <v-text-field
+          label="Send Amount"
+          type="text"
+          v-model="amount"
+        ></v-text-field>
+      </v-card-text>
+
+      <v-card-text>
+        <v-autocomplete
+                v-model="model"
+                :items="items"
+                :loading="isLoading"
+                :search-input.sync="search"
+                color="white"
+                hide-no-data
+                hide-selected
+                item-text="email"
+                item-value="API"
+                label="Receiver"
+                placeholder="Start typing to Search"
+                prepend-icon="mdi-database-search"
+                return-object
+        ></v-autocomplete>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-expand-transition>
+        <v-list v-if="model" class="blue lighten-3">
+          <v-list-tile
+                  v-for="(field, i) in fields"
+                  :key="i"
+          >
+            <v-list-tile-content>
+              <v-list-tile-title v-text="field.value"></v-list-tile-title>
+              <v-list-tile-sub-title v-text="field.key"></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-expand-transition>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+                :disabled="!model || amount <= 0"
+                color="grey darken-3"
+                @click="SendLibra()"
         >
-          <v-list-tile-content>
-            <v-list-tile-title v-text="field.value"></v-list-tile-title>
-            <v-list-tile-sub-title v-text="field.key"></v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-expand-transition>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-              :disabled="!model || amount <= 0"
-              color="grey darken-3"
-              @click="SendLibra()"
-      >
-        Send LIB
-        <v-icon right>mdi-close-circle</v-icon>
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+          Send LIB
+          <v-icon right>mdi-close-circle</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
+  import { CommonViews } from "@/Mixins/CommonViews";
   import { createNamespacedHelpers } from "vuex";
   import { authHeader } from "@/utils/authHeader";
 
@@ -73,6 +78,7 @@
   const libraAccountHelper = createNamespacedHelpers("libraAccount");
 
   export default {
+    mixins: [CommonViews],
     data: () => ({
       amount:0,
       emailLimit: 60,
