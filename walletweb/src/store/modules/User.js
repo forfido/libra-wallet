@@ -5,12 +5,7 @@ import Constants from "@/constants";
 const state = {
   User: null
 };
-const getters = {
-  getUserImage: state => {
-    return (state.User.imageUrl) ? state.User.imageUrl : "@/assets/bigone.png";
-  },
-
-};
+const getters = {};
 const mutations = {
   SetUser(state, payLoad) {
     state.User = payLoad;

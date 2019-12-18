@@ -16,7 +16,7 @@
                         size="100px"
                     >
                         <v-img
-                            :src=getUserImage
+                            :src="User.imageUrl"
                             contain
                             height="200px"
                         ></v-img>
@@ -138,7 +138,6 @@
             ...libraAccountHelper.mapState(['balance']),
             ...libraAccountHelper.mapState(['microBalance']),
             ...userHelper.mapState(['User']),
-            ...userHelper.mapGetters(['getUserImage']),
         },
         created() {
             this.$store.dispatch("libraAccount/getBalance");
