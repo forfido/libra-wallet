@@ -37,7 +37,7 @@ public class LibraAccountControllerTest {
         headers.set("Authorization", AUTHORIZATION_AHIN_TOKEN);
 
         TransferRequest param = new TransferRequest();
-        param.setReceiverUserId(2L);
+        //param.setReceiverUserId(2L);
         param.setAmount(new BigInteger("150"));
 
         HttpEntity<TransferRequest> request = new HttpEntity<>(param, headers);

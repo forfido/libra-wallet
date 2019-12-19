@@ -7,6 +7,13 @@ public class UserDto {
     private String imageUrl;
     private String libraAddress;
 
+    public UserDto(Long id, String name, String email, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.imageUrl = imageUrl;
+    }
+
     public UserDto(Long id, String name, String email, String imageUrl, String libraAddress) {
         this.id = id;
         this.name = name;
