@@ -137,6 +137,7 @@
             ...libraAccountHelper.mapState(['balance']),
             ...libraAccountHelper.mapState(['microBalance']),
             ...userHelper.mapState(['User']),
+            //...userHelper.mapGetters(['userImage']),
         },
         created() {
             this.$store.dispatch("libraAccount/getBalance");

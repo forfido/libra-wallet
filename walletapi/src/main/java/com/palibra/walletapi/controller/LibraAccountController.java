@@ -73,14 +73,10 @@ public class LibraAccountController extends TokenBaseController {
         return ApiResponse.Success(balance);
     }
 
-    //맴버십 아이디가 아닌 리브라 주소로 송금하도록 변경 필요
     @PostMapping("/transfer")
     public ResponseEntity<?> transferLibra(@Valid @RequestBody TransferRequest transferRequest) {
         String result;
         Long senderId = getAuthedUserInfo().getId();
-//        if (senderId.equals(transferRequest.getReceiverUserId())) {
-//            throw new ErrorHandlerException("Not available transfer to yourself");
-//        }
 
         try {
             result = libraAccountService.transferToMember( senderId, transferRequest);

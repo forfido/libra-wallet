@@ -83,6 +83,9 @@ public class User extends BaseEntity implements Serializable {
     }
 
     public String getImageUrl() {
+        if (imageUrl == null || imageUrl.isEmpty())
+            return "https://ui-avatars.com/api/?name=" + name;
+
         return imageUrl;
     }
 

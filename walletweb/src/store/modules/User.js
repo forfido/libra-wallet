@@ -5,7 +5,18 @@ import Constants from "@/constants";
 const state = {
   User: null
 };
-const getters = {};
+const getters = {
+  userImage: state => {
+    if (state.User != null) {
+      if (state.User.imageUrl == null || state.User.imageUrl == '') {
+        return 'https://ui-avatars.com/api/?name=' + User.name;
+      } else {
+        return state.User.imageUrl;
+      }
+      
+    }
+  }
+};
 const mutations = {
   SetUser(state, payLoad) {
     state.User = payLoad;

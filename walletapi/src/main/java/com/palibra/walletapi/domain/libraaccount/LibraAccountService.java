@@ -3,6 +3,7 @@ package com.palibra.walletapi.domain.libraaccount;
 import com.palibra.walletapi.domain.libraaccount.payload.LibraBalance;
 import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
 import com.palibra.walletapi.domain.user.User;
+import com.palibra.walletapi.exception.ErrorHandlerException;
 import com.palibra.walletapi.exception.ResourceNotFoundException;
 import dev.jlibra.KeyUtils;
 import dev.jlibra.admissioncontrol.transaction.result.LibraTransactionException;
@@ -97,12 +98,14 @@ public class LibraAccountService {
         BigInteger maxGasAmount = new BigInteger("-1");
 
         LibraAccount senderAccount = libraAccountRepository.findById(senderAccountId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "accountId", senderAccountId));
-//        LibraAccount receiverAccount = findAccount(transferRequest.getLibraAddress());
-//        if (senderAccount.getLibraAddressToString().equals(transferRequest.getLibraAddress()) ) {
-//            throw new LibraTransactionException("Unfair");
-//        }
-
         String receiverAddress = transferRequest.getLibraAddress();
+
+
+        if (senderAccount.getLibraAddressToString().compareToIgnoreCase(receiverAddress) == 0) {
+            //log.info("Sender : " + senderAccount.getLibraAddressToString() + " Receiver :  " + receiverAddress);
+            throw new ErrorHandlerException("Not available transfer to yourself");
+        }
+
         PublicKey publicKey = KeyUtils.publicKeyFromHexString(new String(Hex.encode(senderAccount.getPublicKey())));
         PrivateKey privateKey = KeyUtils.privateKeyFromHexString(new String(Hex.encode(senderAccount.getPrivateKey())));
         SubmitTransactionResult receipt = peerToPeerTransfer.transferFunds(receiverAddress, transferRequest.getAmount().longValue() * 1_000_000, publicKey, privateKey, gasUnitPrice.longValue(), maxGasAmount.longValue());

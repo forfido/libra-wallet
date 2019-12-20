@@ -26,10 +26,35 @@
           :disabled="amount <= 0"
           color="grey darken-3"
           @click="MintLibra({amount})"
+          :loading="waitDialog"
         >
           Mint
           <v-icon right>mdi-close-circle</v-icon>
         </v-btn>
+
+
+        <v-dialog
+          v-model="waitDialog"
+          hide-overlay
+          persistent
+          width="300"
+        >
+          <v-card
+            color="primary"
+            dark
+          >
+            <v-card-text>
+              Please stand by
+              <v-progress-linear
+                indeterminate
+                color="white"
+                class="mb-0"
+              ></v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
+
       </v-card-actions>
     </v-card>
   </v-container>
@@ -43,12 +68,19 @@
     mixins: [CommonViews],
     data: () => ({
       amount: 0,
+      waitDialog: false
     }),
     created() {
     },
     methods: {
       MintLibra: function (payload) {
+        this.waitDialog = true;
         this.$store.dispatch("libraAccount/mint", payload);
+
+        setTimeout(() => {
+          this.waitDialog = false;
+          this.$router.push("/Home");
+        }, 2000);
       }
     },
   }

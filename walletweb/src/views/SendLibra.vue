@@ -16,8 +16,16 @@
       <v-card-text>
         <v-text-field
           label="Send Amount"
-          type="text"
+          type="number"
           v-model="amount"
+        ></v-text-field>
+      </v-card-text>
+
+      <v-card-text>
+        <v-text-field
+          label="Receiver Address"
+          type="text"
+          v-model="receiverAddress"
         ></v-text-field>
       </v-card-text>
 
@@ -28,6 +36,7 @@
                 :loading="isLoading"
                 :search-input.sync="search"
                 color="white"
+                @change="chooseId()"
                 hide-no-data
                 hide-selected
                 item-text="email"
@@ -41,6 +50,17 @@
       <v-divider></v-divider>
       <v-expand-transition>
         <v-list v-if="model" class="blue lighten-3">
+          <v-list-tile-content>
+            <v-avatar
+              size="50px"
+            >
+              <v-img
+                :src="model['imageUrl']"
+                contain
+                height="100px"
+              ></v-img>
+            </v-avatar>
+          </v-list-tile-content>
           <v-list-tile
                   v-for="(field, i) in fields"
                   :key="i"
@@ -53,15 +73,46 @@
         </v-list>
       </v-expand-transition>
       <v-card-actions>
+
+        <v-btn
+          color="grey darken-3"
+          @click="clearSet()"
+        >
+          Clear
+          <v-icon right>mdi-close-circle</v-icon>
+        </v-btn>
+
         <v-spacer></v-spacer>
         <v-btn
                 :disabled="!model || amount <= 0"
-                color="grey darken-3"
-                @click="SendLibra()"
+                color="blue"
+                @click="sendLibra()"
+                :loading="waitDialog"
         >
           Send LIB
-          <v-icon right>mdi-close-circle</v-icon>
         </v-btn>
+
+        <v-dialog
+          v-model="waitDialog"
+          hide-overlay
+          persistent
+          width="300"
+        >
+          <v-card
+            color="primary"
+            dark
+          >
+            <v-card-text>
+              Please stand by
+              <v-progress-linear
+                indeterminate
+                color="white"
+                class="mb-0"
+              ></v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
       </v-card-actions>
     </v-card>
   </v-container>
@@ -72,19 +123,30 @@
   import { createNamespacedHelpers } from "vuex";
   import { authHeader } from "@/utils/authHeader";
 
+  import Constants from "@/constants";
   import axios from "axios";
 
   const libraAccountHelper = createNamespacedHelpers("libraAccount");
 
+  const httpaxios = axios.create({
+    baseURL: Constants.ENDPOINT,
+    timeout: Constants.HTTPTIMEOUT,
+    headers: authHeader()
+  });
+
   export default {
+
+
     mixins: [CommonViews],
     data: () => ({
       amount:0,
+      receiverAddress: '',
       emailLimit: 60,
       contents: [],
       isLoading: false,
       model: null,
       search: null,
+      waitDialog: false
     }),
     created() {
       this.$store.dispatch("libraAccount/getBalance");
@@ -102,7 +164,7 @@
             key,
             value: this.model[key] || 'n/a',
           }
-        });
+        }).filter(x => x.key == 'name');
       },
       items () {
         return this.contents.map(entry => {
@@ -113,6 +175,50 @@
           return Object.assign({}, entry, { email })
         })
       },
+    },
+    methods:{
+      clearSet() {
+        this.amount = 0;
+        this.receiverAddress = '';
+        this.model = null;
+        this.contents = [];
+      },
+
+      sendLibra() {
+        this.waitDialog = true;
+
+        httpaxios
+          .post("libra/transfer/", {
+            libraAddress: this.receiverAddress,
+            amount: this.amount
+          })
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err.response);
+            /* 자기자신에게 전송했을 때 실패 응답 메세지 셈플
+            err.response.data 에 해당하는 값
+            {
+              "timestamp": "2019-12-20T14:02:20.000+0000",
+              "status": 416,
+              "error": "Requested range not satisfiable",
+              "message": "Not available transfer to yourself",
+              "path": "/libra/transfer"
+            }
+             */
+          })
+          .finally(() => {
+            setTimeout(() => {
+              this.waitDialog = false;
+              this.$router.push("/Home");
+            }, 1000);
+          })
+      },
+
+      chooseId() {
+        this.receiverAddress =  this.model['libraAddress'].libraAddressToString;
+      }
     },
 
     watch: {
@@ -129,21 +235,15 @@
 
         this.isLoading = true;
 
-          const httpaxios = axios.create({
-            baseURL: this.$const.ENDPOINT,
-            timeout: this.$const.HTTPTIMEOUT,
-            headers: authHeader()
-          });
-
-          httpaxios
-            .get("user/search/email/"+ val)
-            .then(res => {
-              this.contents = res.data.contents;
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => (this.isLoading = false));
+        httpaxios
+          .get("user/search/email/"+ val)
+          .then(res => {
+            this.contents = res.data.contents;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => (this.isLoading = false));
 
       },
     },

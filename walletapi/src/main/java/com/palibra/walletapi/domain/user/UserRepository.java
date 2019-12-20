@@ -14,8 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Boolean existsByEmail(String email);
 
-    //@Query("SELECT new com.palibra.walletapi.domain.user.UserDto(u.id, u.name, u.email, u.imageUrl, lb.libraAddress) FROM User u INNER JOIN u.LibraAccount lb WHERE u.id = lb.user_id and u.email LIKE CONCAT(:keyword,'%') AND u.enabled = true")
-    @Query("SELECT new com.palibra.walletapi.domain.user.UserDto(u.id, u.name, u.email, u.imageUrl) FROM User u WHERE u.email LIKE CONCAT(:keyword,'%') AND u.enabled = true")
+    @Query("SELECT new com.palibra.walletapi.domain.user.UserDto(u.id, u.name, u.email, u.imageUrl, lb) FROM User u JOIN u.libraAccounts lb WHERE u.email LIKE CONCAT(:keyword,'%') AND u.enabled = true")
     List<UserDto> searchEmailsByKeyword(String keyword);
 
 }
