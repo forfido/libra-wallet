@@ -34,12 +34,15 @@
 
   export default {
     mixins: [CommonViews],
-    data: () => ({
-      QRCodeValue: "google.com"
-      // this.$const.FRONTPOINT + "/SendLibra"
-    }),
     components: {
       QrcodeVue,
     },
+    data: () => ({
+      QRCodeValue: this.$store.state.libraAccount.libraAddress
+    }),
+    created() {
+      this.$store.dispatch("libraAccount/getAccount");
+    }
+
   }
 </script>

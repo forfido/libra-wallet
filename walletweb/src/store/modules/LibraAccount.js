@@ -24,6 +24,9 @@ const mutations = {
     state.microBalance = state.microBalance + payload.addedMicroLibra;
     state.balance = state.balance + (payload.addedMicroLibra / Constants.MICORLIBRARATE);
   },
+  getAccount : function (state, payload) {
+    state.libraAddress = payload;
+  }
 };
 const actions = {
   getBalance({ commit }) {
@@ -59,7 +62,20 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
-  }
+  },
+  getAccount({commit}) {
+    httpaxios
+        .get("libra/account")
+        .then(res => {
+          let accountAddress = res.data.contents;
+          commit("getAccount", accountAddress);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+  },
+    
+
 };
 
 export default {
