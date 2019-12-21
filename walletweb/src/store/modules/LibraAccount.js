@@ -10,10 +10,26 @@ const httpaxios = axios.create({
 
 const state = {
   libraAddress: null,
+  libraTransactions: null,
   balance: 0,
   microBalance: 0,
 };
-const getters = {};
+const getters = {
+  myTransactions: state => {
+    state.libraTransactions.forEach(function(libraTransaction) {
+      let action = "";
+
+      if(libraTransaction.to === state.libraAddress)
+        action = "recv"
+      else
+        action = "send"
+
+      libraTransaction.action = action;
+    });
+
+    return state.libraTransactions
+  }
+};
 const mutations = {
   setBalance : function (state, payload) {
     state.balance = payload.libra;
@@ -24,11 +40,17 @@ const mutations = {
     state.microBalance = state.microBalance + payload.addedMicroLibra;
     state.balance = state.balance + (payload.addedMicroLibra / Constants.MICORLIBRARATE);
   },
-  getAccount : function (state, payload) {
+  setAccount : function (state, payload) {
     state.libraAddress = payload;
+  },
+  setTransactions : function (state, payload) {
+    state.libraTransactions = payload;
   }
 };
 const actions = {
+  /// --------------------------------------------------------
+  // getBalance Method
+  /// --------------------------------------------------------
   getBalance({ commit }) {
       httpaxios
         .get("libra/balance")
@@ -40,6 +62,9 @@ const actions = {
           commit("setBalance", 0);
         });
   },
+  /// --------------------------------------------------------
+  // mint Method
+  /// --------------------------------------------------------
   mint({commit}, payload) {
     httpaxios
       .post("libra/mint", payload)
@@ -52,6 +77,9 @@ const actions = {
         commit("setAddedLibra", 0);
       });
   },
+  /// --------------------------------------------------------
+  // send Method
+  /// --------------------------------------------------------
   send({commit}, payload) {
     httpaxios
       .post("libra/transfer", payload)
@@ -63,18 +91,47 @@ const actions = {
         console.log(err);
       });
   },
+  /// --------------------------------------------------------
+  // getAccount Method
+  /// --------------------------------------------------------
   getAccount({commit}) {
     httpaxios
         .get("libra/account")
         .then(res => {
           let accountAddress = res.data.contents;
-          commit("getAccount", accountAddress);
+          commit("setAccount", accountAddress);
         })
         .catch(err => {
           console.log(err);
         });
   },
-    
+  /// --------------------------------------------------------
+  // LoginSuccess Method
+  /// --------------------------------------------------------
+  getListTransaction({commit}, payload) {
+    axios
+      .get('https://api-test.libexplorer.com/api', {
+        params: {
+          module  : payload.module,
+          action  : payload.action,
+          address : payload.address,
+          sort    : payload.sort,
+        },
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+        }
+      })
+      .then(res => {
+        console.log(res);
+        let TransactionList = res.result;
+        commit("setTransactions", TransactionList);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
 };
 
