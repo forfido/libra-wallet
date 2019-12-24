@@ -4,17 +4,22 @@ import com.palibra.walletapi.controller.common.ApiResponse;
 import com.palibra.walletapi.controller.common.TokenBaseController;
 import com.palibra.walletapi.domain.libraaccount.LibraAccount;
 import com.palibra.walletapi.domain.libraaccount.LibraAccountService;
-import com.palibra.walletapi.domain.libraaccount.payload.LibraBalance;
-import com.palibra.walletapi.domain.libraaccount.payload.MintRequest;
-import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
+import com.palibra.walletapi.domain.libraaccount.payload.*;
 import com.palibra.walletapi.domain.user.UserService;
 import com.palibra.walletapi.exception.ErrorHandlerException;
 import dev.jlibra.admissioncontrol.transaction.result.LibraTransactionException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 
 @RestController
@@ -61,8 +66,6 @@ public class LibraAccountController extends TokenBaseController {
     }
     */
 
-
-
     @GetMapping("/balance")
     public ResponseEntity<?> getBalance() {
 
@@ -102,4 +105,27 @@ public class LibraAccountController extends TokenBaseController {
         return ApiResponse.Success(responseAmount);
     }
 
+    @PostMapping("/Transactions")
+    public ResponseEntity<?> LibraTransactions(@Valid @RequestBody TransactionsRequest transactionsRequest) {
+        RestTemplate restTemplate = new RestTemplate();
+        String baseUrl = "https://api-test.libexplorer.com/api";
+
+        UriComponents builder = UriComponentsBuilder.fromHttpUrl(baseUrl)
+                .queryParam("module", transactionsRequest.getModule())
+                .queryParam("action", transactionsRequest.getAction())
+                .queryParam("address", transactionsRequest.getAddress())
+                .queryParam("sort", transactionsRequest.getSort())
+                .build(false);
+
+
+        HttpEntity<?> entity = new HttpEntity<>("");
+
+        ResponseEntity<Map> resultMap = restTemplate.exchange(
+                builder.toUriString(),
+                HttpMethod.GET,
+                entity,
+                Map.class);
+
+        return ApiResponse.Success(resultMap.getBody());
+    }
 }

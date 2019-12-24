@@ -14,6 +14,7 @@ const state = {
   balance: 0,
   microBalance: 0,
 };
+
 const getters = {
   myTransactions: state => {
     state.libraTransactions.forEach(function(libraTransaction) {
@@ -30,6 +31,7 @@ const getters = {
     return state.libraTransactions
   }
 };
+
 const mutations = {
   setBalance : function (state, payload) {
     state.balance = payload.libra;
@@ -109,19 +111,14 @@ const actions = {
   // LoginSuccess Method
   /// --------------------------------------------------------
   getListTransaction({commit}, payload) {
-    axios
-      .get('https://api-test.libexplorer.com/api', {
+    httpaxios
+      .get('/libra/Transactions', {
         params: {
           module  : payload.module,
           action  : payload.action,
           address : payload.address,
           sort    : payload.sort,
         },
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
-        }
       })
       .then(res => {
         console.log(res);

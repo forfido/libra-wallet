@@ -78,7 +78,7 @@
     },
     computed: {
       timeline () {
-        return this.$store.getters["libraAccount/myTransactions"].slice().reverse();
+        //return this.$store.getters["libraAccount/myTransactions"].slice().reverse();
       },
     },
     methods: {
@@ -90,6 +90,7 @@
           // address : this.$store.state.libraAccount.libraAddress,
           sort    : "asc",
         };
+
         this.$store.dispatch("libraAccount/getListTransaction", payload);
       },
     },
