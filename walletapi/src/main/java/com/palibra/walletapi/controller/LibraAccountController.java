@@ -105,10 +105,15 @@ public class LibraAccountController extends TokenBaseController {
         return ApiResponse.Success(responseAmount);
     }
 
-    @PostMapping("/Transactions")
-    public ResponseEntity<?> LibraTransactions(@Valid @RequestBody TransactionsRequest transactionsRequest) {
+    @GetMapping("/Transactions")
+    public ResponseEntity<?> LibraTransactions() {
         RestTemplate restTemplate = new RestTemplate();
+        TransactionsRequest transactionsRequest = new TransactionsRequest();
         String baseUrl = "https://api-test.libexplorer.com/api";
+
+        LibraAccount libraAccount = libraAccountService.findAccount(getAuthedUserInfo().getId());
+
+        transactionsRequest.setAddress(libraAccount.getLibraAddressToString());
 
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .queryParam("module", transactionsRequest.getModule())
@@ -116,7 +121,6 @@ public class LibraAccountController extends TokenBaseController {
                 .queryParam("address", transactionsRequest.getAddress())
                 .queryParam("sort", transactionsRequest.getSort())
                 .build(false);
-
 
         HttpEntity<?> entity = new HttpEntity<>("");
 

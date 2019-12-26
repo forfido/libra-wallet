@@ -10,7 +10,7 @@ const httpaxios = axios.create({
 
 const state = {
   libraAddress: null,
-  libraTransactions: null,
+  libraTransactions: [],
   balance: 0,
   microBalance: 0,
 };
@@ -108,28 +108,19 @@ const actions = {
         });
   },
   /// --------------------------------------------------------
-  // LoginSuccess Method
+  // getListTransaction Method
   /// --------------------------------------------------------
-  getListTransaction({commit}, payload) {
+  getListTransaction({commit}) {
     httpaxios
-      .get('/libra/Transactions', {
-        params: {
-          module  : payload.module,
-          action  : payload.action,
-          address : payload.address,
-          sort    : payload.sort,
-        },
-      })
+      .get('/libra/Transactions')
       .then(res => {
-        console.log(res);
-        let TransactionList = res.result;
+        let TransactionList = res.data.contents.result;
         commit("setTransactions", TransactionList);
       })
       .catch(err => {
         console.log(err);
       });
   }
-
 };
 
 export default {

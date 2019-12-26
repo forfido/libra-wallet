@@ -42,6 +42,17 @@
                     color="purple"
                     label
                     small
+                    v-if="transaction.action == 'send'"
+            >
+              {{transaction.action}}
+            </v-chip>
+
+            <v-chip
+                    class="white--text ml-0"
+                    color="blue"
+                    label
+                    small
+                    v-if="transaction.action != 'send'"
             >
               {{transaction.action}}
             </v-chip>
@@ -78,20 +89,12 @@
     },
     computed: {
       timeline () {
-        //return this.$store.getters["libraAccount/myTransactions"].slice().reverse();
+        return this.$store.getters["libraAccount/myTransactions"].slice().reverse();
       },
     },
     methods: {
       getTransacionHistory () {
-        let payload = {
-          module  : "account",
-          action  : "txlist",
-          address : "d1ecca696749316a1ebe71ecee2012ae004cd4427d0a043fcf700689924309b2",
-          // address : this.$store.state.libraAccount.libraAddress,
-          sort    : "asc",
-        };
-
-        this.$store.dispatch("libraAccount/getListTransaction", payload);
+        this.$store.dispatch("libraAccount/getListTransaction");
       },
     },
   }
