@@ -39,7 +39,7 @@
           <v-row justify="space-between">
             <v-chip
                     class="white--text ml-0"
-                    color="purple"
+                    color="red"
                     label
                     small
                     v-if="transaction.action == 'send'"
@@ -52,11 +52,20 @@
                     color="blue"
                     label
                     small
-                    v-if="transaction.action != 'send'"
+                    v-else-if="transaction.action == 'mint'"
             >
               {{transaction.action}}
             </v-chip>
-            <v-col cols="7" v-text="transaction.value"></v-col>
+            <v-chip
+                    class="white--text ml-0"
+                    color="purple"
+                    label
+                    small
+                    v-else
+            >
+              {{transaction.action}}
+            </v-chip>
+            <v-col cols="7" v-text="transaction.balance"></v-col>
             <v-col class="text-right" cols="5" v-text=""> Libra </v-col>
           </v-row>
         </v-timeline-item>

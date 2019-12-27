@@ -10,7 +10,7 @@
       </v-card-title>
 
       <v-card-text>
-        My Libra Balance {{balance}}
+        My Libra Balance <b>{{balance}}</b>
       </v-card-text>
 
       <v-card-text>
@@ -135,8 +135,6 @@
   });
 
   export default {
-
-
     mixins: [CommonViews],
     data: () => ({
       amount:0,
@@ -148,9 +146,13 @@
       search: null,
       waitDialog: false
     }),
+
     created() {
       this.$store.dispatch("libraAccount/getBalance");
+      // QRCode 스캔 시 queryString 값으로 넘어옴.
+      this.receiverAddress = this.$route.query.receiverAddress;
     },
+
     computed: {
       ...libraAccountHelper.mapState(['balance']),
 
@@ -158,7 +160,6 @@
         if (!this.model) {
           return [];
         }
-
         return Object.keys(this.model).map(key => {
           return {
             key,
@@ -176,6 +177,7 @@
         })
       },
     },
+
     methods:{
       clearSet() {
         this.amount = 0;
@@ -183,39 +185,20 @@
         this.model = null;
         this.contents = [];
       },
-
       sendLibra() {
         this.waitDialog = true;
 
-        httpaxios
-          .post("libra/transfer/", {
-            libraAddress: this.receiverAddress,
-            amount: this.amount
-          })
-          .then(res => {
-            console.log(res);
-          })
-          .catch(err => {
-            console.log(err.response);
-            /* 자기자신에게 전송했을 때 실패 응답 메세지 셈플
-            err.response.data 에 해당하는 값
-            {
-              "timestamp": "2019-12-20T14:02:20.000+0000",
-              "status": 416,
-              "error": "Requested range not satisfiable",
-              "message": "Not available transfer to yourself",
-              "path": "/libra/transfer"
-            }
-             */
-          })
-          .finally(() => {
-            setTimeout(() => {
-              this.waitDialog = false;
-              this.$router.push("/Home");
-            }, 1000);
-          })
+        this.$store.dispatch("libraAccount/send", {
+          libraAddress: this.receiverAddress,
+          amount: this.amount
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.waitDialog = false;
+            this.$router.push("/Home");
+          }, 1000);
+        })
       },
-
       chooseId() {
         this.receiverAddress =  this.model['libraAddress'].libraAddressToString;
       }
@@ -239,6 +222,7 @@
           .get("user/search/email/"+ val)
           .then(res => {
             this.contents = res.data.contents;
+            console.log(this.contents);
           })
           .catch(err => {
             console.log(err);

@@ -21,9 +21,7 @@
     method: {
       // Funtion running when QRCodeSannner run
       onDecode: (decodedString) => {
-        let SendUrlInfo = this.$const.FRONTPOINT + "/SendLibra?fromLibraAddress=" + decodedString;
-
-        this.$router.push(SendUrlInfo);
+        this.$router.replace({ name: 'SendLibra',  query: { receiverAddress: decodedString }});
       },
       onInit: async (promise) => {
         try {

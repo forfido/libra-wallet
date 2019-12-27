@@ -1,6 +1,7 @@
 import axios from "axios";
 import {authHeader} from "@/utils/authHeader";
 import Constants from "@/constants";
+import LibraHistory from "../../views/LibraHistory";
 
 const httpaxios = axios.create({
   baseURL: Constants.ENDPOINT,
@@ -10,22 +11,34 @@ const httpaxios = axios.create({
 
 const state = {
   libraAddress: null,
-  libraTransactions: [],
   balance: 0,
   microBalance: 0,
+  libraTransactions: [],
 };
 
 const getters = {
   myTransactions: state => {
     state.libraTransactions.forEach(function(libraTransaction) {
       let action = "";
+      let balance = null;
+      let microBalance = null;
 
-      if(libraTransaction.to === state.libraAddress)
-        action = "recv"
+      console.log(libraTransaction.from);
+      console.log(Constants.LIBRAROOTADDRESS);
+
+      if (libraTransaction.from === Constants.LIBRAROOTADDRESS)
+        action = "mint";
+      else if(libraTransaction.to === state.libraAddress)
+        action = "recv";
       else
-        action = "send"
+        action = "send";
+
+      balance = (libraTransaction.value / Constants.MICORLIBRARATE);
+      microBalance = libraTransaction.value;
 
       libraTransaction.action = action;
+      libraTransaction.balance = balance;
+      libraTransaction.microBalance = microBalance;
     });
 
     return state.libraTransactions
@@ -39,8 +52,8 @@ const mutations = {
     state.libraAddress = payload.libraAddress;
   },
   setAddedLibra : function (state, payload) {
-    state.microBalance = state.microBalance + payload.addedMicroLibra;
-    state.balance = state.balance + (payload.addedMicroLibra / Constants.MICORLIBRARATE);
+    state.microBalance =+ payload.addedMicroLibra;
+    state.balance =+ (payload.addedMicroLibra / Constants.MICORLIBRARATE);
   },
   setAccount : function (state, payload) {
     state.libraAddress = payload;
@@ -115,6 +128,7 @@ const actions = {
       .get('/libra/Transactions')
       .then(res => {
         let TransactionList = res.data.contents.result;
+        console.log(TransactionList);
         commit("setTransactions", TransactionList);
       })
       .catch(err => {

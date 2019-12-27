@@ -2,6 +2,13 @@ import axios from "axios"
 import {authHeader} from "@/utils/authHeader"
 import Constants from "@/constants";
 
+
+const httpaxios = axios.create({
+  baseURL: Constants.ENDPOINT,
+  timeout: Constants.HTTPTIMEOUT,
+  headers: authHeader()
+});
+
 const state = {
   User: null
 };
@@ -30,12 +37,6 @@ const actions = {
   // Get UserInfo Method
   /// --------------------------------------------------------
   GetUserInfo({ commit }) {
-    const httpaxios = axios.create({
-      baseURL: Constants.ENDPOINT,
-      timeout: Constants.HTTPTIMEOUT,
-      headers: authHeader()
-    });
-
     httpaxios
       .get("/user/me")
       .then(res => {
@@ -49,7 +50,18 @@ const actions = {
     localStorage.removeItem(Constants.ACCESS_TOKEN);
 
     commit("ClaerUser");
+  },
+  getUserInfoByEmail({commit}, paylaod) {
+    httpaxios
+        .get("user/search/email/"+ paylaod)
+        .then(res => {
+          this.contents = res.data.contents;
+        })
+        .catch(err => {
+          console.log(err);
+        })
   }
+
 };
 
 export default {
