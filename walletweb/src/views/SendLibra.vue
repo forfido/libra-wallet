@@ -151,6 +151,9 @@
       this.$store.dispatch("libraAccount/getBalance");
       // QRCode 스캔 시 queryString 값으로 넘어옴.
       this.receiverAddress = this.$route.query.receiverAddress;
+
+      if (this.receiverAddress != null)
+        this.model = [];
     },
 
     computed: {
@@ -222,7 +225,6 @@
           .get("user/search/email/"+ val)
           .then(res => {
             this.contents = res.data.contents;
-            console.log(this.contents);
           })
           .catch(err => {
             console.log(err);
