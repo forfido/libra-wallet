@@ -7,7 +7,7 @@
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
                 <v-toolbar-title>
-                  <v-icon>person</v-icon>
+                  <v-icon>fa-user-plus</v-icon>
                   <b class="font-italic">&nbsp;{{this.$router.currentRoute.name}}</b>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -15,9 +15,16 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
+                    prepend-icon="person"
+                    name="Name"
+                    label="Name"
+                    type="text"
+                    v-model="name"
+                  ></v-text-field>
+                  <v-text-field
                     prepend-icon="email"
-                    name="login"
-                    label="Login"
+                    name="Email"
+                    label="Email"
                     type="text"
                     v-model="email"
                   ></v-text-field>
@@ -33,35 +40,16 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" large @click="GoSignUp()">
+                <v-btn color="primary" large @click="TrySignUp({name, email, password})">
                   <b>SignUp</b>
                 </v-btn>
-                <v-btn color="primary" large @click="TryLogin({email, password})">
-                  <b>Login</b>
+                <v-btn color="primary" large @click="Cancel()">
+                  <b>Cancel</b>
                 </v-btn>
               </v-card-actions>
-
-              <v-system-bar light color="grey darken-2">
-                <v-card-actions>
-                  <v-btn color="deep-orange darken-4" round small href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Redirect">
-                    <v-icon left>fab fa-google-plus</v-icon>
-                    <v-spacer></v-spacer>
-                    <span>Google Login</span>
-                  </v-btn>
-                  <v-btn color="light-blue accent-2" round small href="http://localhost:8090/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/Redirect">
-                    <!--<v-icon left>assignment_ind</v-icon>-->
-                    <v-icon left>fab fa-facebook</v-icon>
-                    <v-spacer></v-spacer>
-                    <span>FaceBook Login</span>
-                  </v-btn>
-                </v-card-actions>
-              </v-system-bar>
-
-
             </v-card>
 
-            <v-alert class="mt-3" :value="isLogin" type="success">로그인에 성공했습니다.</v-alert>
-            <v-alert class="mt-3" :value="isLoginError" type="error">아이디와 비밀번호를 확인해주세요.</v-alert>
+            <v-alert class="mt-3" :value="isValid" type="error">아이디와 비밀번호를 확인해주세요.</v-alert>
           </v-flex>
         </v-layout>
       </v-container>
@@ -76,38 +64,39 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    email: "ahin@palibra.net",
-    password: null
+    name: null,
+    email: null,
+    password: null,
+    isValid: false,
   }),
   mounted() {
   },
   computed: {
-    ...authHelper.mapState(["isLogin", "isLoginError"])
   },
   methods: {
     // 동기적으로 처리 하기 위해 vuex에서 처리 하지 않음.
-    TryLogin: function (payload) {
+    TrySignUp: function (payload) {
       const httpaxios = axios.create({
         baseURL: this.$const.ENDPOINT,
         timeout: this.$const.HTTPTIMEOUT,
       });
 
       httpaxios
-        .post("/auth/login", {
+        .post("/auth/signUp", {
+          name: payload.name,
           email: payload.email,
           password: payload.password
         })
         .then(res => {
-          localStorage.setItem(this.$const.ACCESS_TOKEN, res.data.contents.accessToken);
-          this.$store.dispatch("auth/LoginSuccess");
+          console.log(res);
+          this.$router.replace("/Login")
         })
         .catch(err => {
-          this.$store.dispatch("auth/LoginFail");
+          alert(err);
         })
-        .then( () => this.$router.replace("/Home") );
     },
-    GoSignUp: function () {
-      this.$router.push("/Signup");
+    Cancel: function () {
+      this.$router.back();
     }
   }
 };

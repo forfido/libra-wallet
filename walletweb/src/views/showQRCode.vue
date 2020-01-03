@@ -17,7 +17,7 @@
               <v-icon>fa-qrcode</v-icon>
               <b class="font-italic">&nbsp;{{title}}</b>
             </v-card-title>
-            <qrcode-vue :value="QRCodeValue" :size="400" level="H"></qrcode-vue>
+            <qrcode-vue :value="QRCodeValue" :size="400" level="L"></qrcode-vue>
           </v-card>
         </v-hover>
       </v-col>
@@ -38,7 +38,7 @@
       QrcodeVue,
     },
     data: () => ({
-      QRCodeValue: this.$store.state.libraAccount.libraAddress
+      QRCodeValue: "http://google.com"//this.$store.state.libraAccount.libraAddress
     }),
     created() {
       this.$store.dispatch("libraAccount/getAccount");

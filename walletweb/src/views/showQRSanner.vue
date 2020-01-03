@@ -7,21 +7,17 @@
 </template>
 
 <script>
-  import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from "vue-qrcode-reader";
-
   export default {
     data: () => ({
       isShowingCamera: true,
     }),
-    components: {
-      QrcodeStream,
-      QrcodeDropZone,
-      QrcodeCapture
-    },
     method: {
       // Funtion running when QRCodeSannner run
       onDecode: (decodedString) => {
-        this.$router.replace({ name: 'SendLibra',  query: { receiverAddress: decodedString }});
+        alert(decodedString);
+        //let SendUrlInfo = this.$const.FRONTPOINT + "/SendLibra?fromLibraAddress=" + decodedString;
+
+        //this.$router.push(SendUrlInfo);
       },
       onInit: async (promise) => {
         try {

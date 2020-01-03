@@ -7,6 +7,13 @@
     "title": "Login"
   },
   {
+    "path": "/Signup",
+    "name": "Signup",
+    "view": "Signup",
+    "icon": "fa-user-plus",
+    "title": "Signup"
+  },
+  {
     "path": "/Home",
     "name": "Home",
     "view": "Home",
