@@ -11,11 +11,9 @@ import App from "./App";
 import router from "./router";
 import store from "./store/store";
 import Constants from "@/constants";
-import VueQrcodeReader from "vue-qrcode-reader";
 
 Vue.config.productionTip = false;
 Vue.prototype.$const = Constants;
-Vue.use(VueQrcodeReader);
 
 new Vue({
   store,

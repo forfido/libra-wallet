@@ -7,10 +7,21 @@
       <v-card-title class="headline yellow darken-3">
         <v-icon>waves</v-icon>
         <b class="font-italic">&nbsp;{{title}}</b>
+
+
       </v-card-title>
 
       <v-card-text>
-        My Libra Balance <b>{{balance}}</b>
+        <v-row class="mb-6" no-gutters>
+          <v-col cols="8" >
+            My Libra Balance <b>{{balance}}</b>
+          </v-col>
+          <v-col cols="4" >
+            <v-btn v-on="on" icon @click="showQRSanner()" color="purple darken-3">
+              <v-icon>linked_camera</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-card-text>
 
       <v-card-text>
@@ -138,7 +149,7 @@
     mixins: [CommonViews],
     data: () => ({
       amount:0,
-      receiverAddress: '',
+      receiverAddress: null,
       emailLimit: 60,
       contents: [],
       isLoading: false,
@@ -149,10 +160,9 @@
 
     created() {
       this.$store.dispatch("libraAccount/getBalance");
-      // QRCode 스캔 시 queryString 값으로 넘어옴.
-      this.receiverAddress = this.$route.query.receiverAddress;
 
-      if (this.receiverAddress != null)
+      this.receiverAddress = this.$route.params.fromLibraAddress;
+      if(this.receiverAddress)
         this.model = [];
     },
 
@@ -204,6 +214,10 @@
       },
       chooseId() {
         this.receiverAddress =  this.model['libraAddress'].libraAddressToString;
+      },
+      // showQRSanner
+      showQRSanner: function () {
+        this.$router.push("/showQRSanner");
       }
     },
 
