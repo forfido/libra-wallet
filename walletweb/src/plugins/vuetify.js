@@ -9,6 +9,8 @@ import Vuetify, {
   VIcon,
   VDialog,
   VCard,
+  VCol,
+  VRow,
   VCardTitle,
   VCardSubtitle,
   VCardText,
@@ -17,8 +19,10 @@ import Vuetify, {
   VBtn,
   VToolbar,
   VToolbarTitle,
-  VAlert
+  VAlert,
+
 } from "vuetify/lib";
+
 import "vuetify/src/stylus/app.styl";
 
 Vue.use(Vuetify, {
@@ -27,6 +31,8 @@ Vue.use(Vuetify, {
     VIcon,
     VDialog,
     VCard,
+    VCol,
+    VRow,
     VCardTitle,
     VCardSubtitle,
     VCardText,
@@ -35,7 +41,7 @@ Vue.use(Vuetify, {
     VBtn,
     VToolbar,
     VToolbarTitle,
-    VAlert
+    VAlert,
   },
   iconfont: "md" || "fa" || "mdi"
 });

@@ -40,8 +40,20 @@ const router = new Router({
 
 Vue.use(Meta);
 
+// ------------------------------
+// Router진입시(전체체크)
+// ------------------------------
+router.beforeResolve((to, from, next) => {
+  if (to.path === "/Login" || to.path === "/Redirect" || to.path === "/Signup") {
+    if (from.path !== to.path) return next();
+  } else {
+    loginCheck(next);
+  }
+});
+
+// ------------------------------
 // Login여부체크
-// TODO : axios Vue Instance 적용
+// ------------------------------
 let loginCheck = function (next) {
   let httpaxios = axios.create({
     baseURL: Constants.ENDPOINT,
@@ -60,14 +72,5 @@ let loginCheck = function (next) {
         next({ path: "/Login" });
       });
 };
-
-// Router진입시(전체체크)
-router.beforeResolve((to, from, next) => {
-  if (to.path === "/Login" || to.path === "/Redirect") {
-    if (from.path !== to.path) return next();
-  } else {
-    loginCheck(next);
-  }
-});
 
 export default router;

@@ -17,14 +17,12 @@
               <v-icon>fa-qrcode</v-icon>
               <b class="font-italic">&nbsp;{{title}}</b>
             </v-card-title>
-            <qrcode-vue :value="QRCodeValue" :size="400" level="H"></qrcode-vue>
+
+            <qrcode-vue :value="qrCodeValue" :size="size" level="H"></qrcode-vue>
           </v-card>
         </v-hover>
       </v-col>
     </v-row>
-
-
-
   </v-container>
 </template>
 
@@ -37,12 +35,21 @@
     components: {
       QrcodeVue,
     },
-    data: () => ({
-      QRCodeValue: this.$store.state.libraAccount.libraAddress
-    }),
+    data() {
+      return {
+        qrCodeValue: this.$store.state.libraAccount.libraAddress,
+        size: 300,
+      }
+    },
     created() {
       this.$store.dispatch("libraAccount/getAccount");
-    }
 
+      // Page reload시 vuex를 접근하지 못함. ( vue 생명주기 확인해야함. )
+      if(!this.$store.state.libraAccount.libraAddress) {
+        alert("다시 접속 하세요.")
+        this.$router.replace("/Home");
+      }
+
+    },
   }
 </script>
