@@ -8,7 +8,7 @@ LABEL maintainer="younghok@gmail.com"
 VOLUME /tmp
 
 # Make port 8090 available to the world outside this container
-EXPOSE 8080
+EXPOSE 8090
 
 # The application's jar file
 ARG JAR_FILE=target/*.jar
