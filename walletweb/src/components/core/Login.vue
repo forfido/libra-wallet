@@ -43,12 +43,12 @@
 
               <v-system-bar light color="grey darken-2">
                 <v-card-actions>
-                  <v-btn color="deep-orange darken-4" round small href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:3000/Redirect">
+                  <v-btn color="deep-orange darken-4" round small @click="GoogleSign()">
                     <v-icon left>fab fa-google-plus</v-icon>
                     <v-spacer></v-spacer>
                     <span>Google Login</span>
                   </v-btn>
-                  <v-btn color="light-blue accent-2" round small href="http://localhost:8090/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/Redirect">
+                  <v-btn color="light-blue accent-2" round small @click="FacebookSign()">
                     <!--<v-icon left>assignment_ind</v-icon>-->
                     <v-icon left>fab fa-facebook</v-icon>
                     <v-spacer></v-spacer>
@@ -73,6 +73,8 @@
 import { createNamespacedHelpers } from "vuex";
 const authHelper = createNamespacedHelpers("auth");
 import axios from "axios";
+import Constants from "@/constants";
+
 
 export default {
   data: () => ({
@@ -85,6 +87,12 @@ export default {
     ...authHelper.mapState(["isLogin", "isLoginError"])
   },
   methods: {
+    GoogleSign: function() {
+      window.location.href = Constants.ENDPOINT + "/oauth2/authorize/google?redirect_uri=" + Constants.FRONTPOINT + "/Redirect";
+    },
+    FacebookSign: function() {
+      window.location.href = Constants.ENDPOINT + "/oauth2/authorize/facebook?redirect_uri=" + Constants.FRONTPOINT + "/Redirect";
+    },
     // 동기적으로 처리 하기 위해 vuex에서 처리 하지 않음.
     TryLogin: function (payload) {
       const httpaxios = axios.create({

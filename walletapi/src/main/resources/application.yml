@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: aws
+    active: local
 
   security:
     oauth2:
