@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --open --port 3000",
+    "serve": "vue-cli-service serve --open --port 3000 --mode development",
+    "serve_prod": "vue-cli-service serve --open --port 3000 --mode production",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "aws s3 sync ./dist s3://palibra-front"
@@ -49,10 +50,9 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/strongly-recommended",
       "@vue/standard"
     ],
-    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
     }

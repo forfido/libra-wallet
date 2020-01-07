@@ -2,7 +2,7 @@
 <template>
   <v-toolbar app fixed clipped-left>
     <v-toolbar-side-icon @click.stop="ShowToggle"></v-toolbar-side-icon>
-    <v-toolbar-title>Palibra</v-toolbar-title>
+    <v-toolbar-title>{{tittle}}</v-toolbar-title>
 
     <v-spacer></v-spacer>
 
@@ -17,9 +17,9 @@ import { createNamespacedHelpers } from "vuex";
 const appHelper = createNamespacedHelpers("app");
 
 export default {
-  data() {
-    return {};
-  },
+  data: () => ({
+    tittle: process.env.VUE_APP_TITTLE,
+  }),
   methods: {
     ...appHelper.mapMutations(["setDrawer", "toggleDrawer"]),
     ShowToggle() {
