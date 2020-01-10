@@ -1,13 +1,6 @@
 import axios from "axios";
 import {authHeader} from "@/utils/authHeader";
 import Constants from "@/constants";
-import LibraHistory from "../../views/LibraHistory";
-
-const httpaxios = axios.create({
-  baseURL: Constants.ENDPOINT,
-  timeout: Constants.HTTPTIMEOUT,
-  headers: authHeader()
-});
 
 const state = {
   libraAddress: null,
@@ -67,6 +60,12 @@ const actions = {
   // getBalance Method
   /// --------------------------------------------------------
   getBalance({ commit }) {
+    let httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+
       httpaxios
         .get("libra/balance")
         .then(res => {
@@ -81,6 +80,12 @@ const actions = {
   // mint Method
   /// --------------------------------------------------------
   mint({commit}, payload) {
+    let httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+
     httpaxios
       .post("libra/mint", payload)
       .then(res => {
@@ -96,6 +101,12 @@ const actions = {
   // send Method
   /// --------------------------------------------------------
   send({commit}, payload) {
+    let httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+
     httpaxios
       .post("libra/transfer", payload)
       .then(res => {
@@ -110,6 +121,12 @@ const actions = {
   // getAccount Method
   /// --------------------------------------------------------
   getAccount({commit}) {
+    let httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+
     httpaxios
         .get("libra/account")
         .then(res => {
@@ -124,6 +141,12 @@ const actions = {
   // getListTransaction Method
   /// --------------------------------------------------------
   getListTransaction({commit}) {
+    let httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+
     httpaxios
       .get('/libra/Transactions')
       .then(res => {

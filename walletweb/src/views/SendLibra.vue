@@ -139,12 +139,6 @@
 
   const libraAccountHelper = createNamespacedHelpers("libraAccount");
 
-  const httpaxios = axios.create({
-    baseURL: Constants.ENDPOINT,
-    timeout: Constants.HTTPTIMEOUT,
-    headers: authHeader()
-  });
-
   export default {
     mixins: [CommonViews],
     data: () => ({
@@ -234,6 +228,12 @@
         }
 
         this.isLoading = true;
+
+        let httpaxios = axios.create({
+          baseURL: Constants.ENDPOINT,
+          timeout: Constants.HTTPTIMEOUT,
+          headers: authHeader()
+        });
 
         httpaxios
           .get("user/search/email/"+ val)

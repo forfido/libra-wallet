@@ -2,13 +2,6 @@ import axios from "axios"
 import {authHeader} from "@/utils/authHeader"
 import Constants from "@/constants";
 
-
-const httpaxios = axios.create({
-  baseURL: Constants.ENDPOINT,
-  timeout: Constants.HTTPTIMEOUT,
-  headers: authHeader()
-});
-
 const state = {
   User: null
 };
@@ -37,6 +30,12 @@ const actions = {
   // Get UserInfo Method
   /// --------------------------------------------------------
   GetUserInfo({ commit }) {
+    let httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+
     httpaxios
       .get("/user/me")
       .then(res => {
@@ -52,6 +51,12 @@ const actions = {
     commit("ClaerUser");
   },
   getUserInfoByEmail({commit}, paylaod) {
+    let httpaxios = axios.create({
+      baseURL: Constants.ENDPOINT,
+      timeout: Constants.HTTPTIMEOUT,
+      headers: authHeader()
+    });
+
     httpaxios
         .get("user/search/email/"+ paylaod)
         .then(res => {

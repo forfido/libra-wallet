@@ -9,3 +9,13 @@
   </v-container>
 </template>
 
+<script>
+  export default {
+    data: () => ({
+    }),
+    created() {
+      this.$store.dispatch("user/GetUserInfo");
+      this.$store.dispatch("libraAccount/getBalance");
+    }
+  }
+</script>

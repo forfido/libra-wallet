@@ -88,14 +88,14 @@ export default {
   },
   methods: {
     GoogleSign: function() {
-      window.location.href = Constants.ENDPOINT + "/oauth2/authorize/google?redirect_uri=" + Constants.FRONTPOINT + "/Redirect";
+      window.location.href = this.$const.ENDPOINT + "/oauth2/authorize/google?redirect_uri=" + this.$const.FRONTPOINT + "/Redirect";
     },
     FacebookSign: function() {
-      window.location.href = Constants.ENDPOINT + "/oauth2/authorize/facebook?redirect_uri=" + Constants.FRONTPOINT + "/Redirect";
+      window.location.href = this.$const.ENDPOINT + "/oauth2/authorize/facebook?redirect_uri=" + this.$const.FRONTPOINT + "/Redirect";
     },
     // 동기적으로 처리 하기 위해 vuex에서 처리 하지 않음.
     TryLogin: function (payload) {
-      const httpaxios = axios.create({
+      let httpaxios = axios.create({
         baseURL: this.$const.ENDPOINT,
         timeout: this.$const.HTTPTIMEOUT,
       });
@@ -108,11 +108,12 @@ export default {
         .then(res => {
           localStorage.setItem(this.$const.ACCESS_TOKEN, res.data.contents.accessToken);
           this.$store.dispatch("auth/LoginSuccess");
+
+          this.$router.replace("/Home");
         })
         .catch(err => {
           this.$store.dispatch("auth/LoginFail");
         })
-        .then( () => this.$router.replace("/Home") );
     },
     GoSignUp: function () {
       this.$router.push("/Signup");

@@ -67,7 +67,7 @@ let loginCheck = function (next) {
         next();
       })
       .catch(ex => {
-        alert("로그인이 필요합니다.(ex:" + ex + ")");
+        alert("로그인이 필요합니다.");
 
         next({ path: "/Login" });
       });

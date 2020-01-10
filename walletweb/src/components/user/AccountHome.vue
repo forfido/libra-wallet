@@ -137,11 +137,8 @@
             ...libraAccountHelper.mapState(['balance']),
             ...libraAccountHelper.mapState(['microBalance']),
             ...userHelper.mapState(['User']),
-            //...userHelper.mapGetters(['userImage']),
         },
         created() {
-            this.$store.dispatch("libraAccount/getBalance");
-            this.$store.dispatch("user/GetUserInfo");
         },
         methods: {
             // Mint Libra
