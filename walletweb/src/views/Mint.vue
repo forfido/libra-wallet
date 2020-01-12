@@ -1,12 +1,12 @@
 <template>
   <v-container fluid>
     <v-card
-      color="red lighten-2"
+      color="gray lighten-3"
       dark
     >
-      <v-card-title >
-        <v-icon>fa-plus</v-icon>
-        <b class="font-italic">&nbsp;{{title}}</b>
+      <v-card-title>
+        <v-icon color="red lighten-2">fa-plus</v-icon>
+        <b class="font-italic white--text">&nbsp;{{title}}</b>
       </v-card-title>
 
       <v-card-text>

@@ -1,27 +1,20 @@
 <template>
   <v-container fluid>
     <v-card
-            color="yellow darken-4"
+            color="gray darken-2"
             dark
     >
-      <v-card-title class="headline yellow darken-3">
-        <v-icon>waves</v-icon>
-        <b class="font-italic">&nbsp;{{title}}</b>
-
-
+      <v-card-title class="headline gray darken-3">
+        <v-icon color="yellow lighten-2">waves</v-icon>
+        <b class="font-italic while--text">&nbsp;{{title}}</b>
       </v-card-title>
 
       <v-card-text>
-        <v-row class="mb-6" no-gutters>
-          <v-col cols="8" >
-            My Libra Balance <b>{{balance}}</b>
-          </v-col>
-          <v-col cols="4" >
-            <v-btn v-on="on" icon @click="showQRSanner()" color="purple darken-3">
-              <v-icon>linked_camera</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
+        <p>My Balance <b class="green--text">{{balance}}</b> Libra
+          <v-btn v-on="on" icon @click="showQRSanner()" color="purple darken-3">
+            <v-icon>linked_camera</v-icon>
+          </v-btn>
+        </p>
       </v-card-text>
 
       <v-card-text>
@@ -100,7 +93,7 @@
                 @click="sendLibra()"
                 :loading="waitDialog"
         >
-          Send LIB
+          Send
         </v-btn>
 
         <v-dialog

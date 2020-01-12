@@ -11,11 +11,11 @@
                   class="mx-auto"
                   height="400"
                   max-width="400"
-                  color="purple darken-2"
+                  color="gray lighten-2"
           >
-            <v-card-title class="headline purple darken-1">
-              <v-icon>fa-qrcode</v-icon>
-              <b class="font-italic">&nbsp;{{title}}</b>
+            <v-card-title class="headline gray lighten-1">
+              <v-icon color="purple darken-2">fa-qrcode</v-icon>
+              <b class="font-italic while--text">&nbsp;{{title}}</b>
             </v-card-title>
 
             <qrcode-vue :value="qrCodeValue" :size="size" level="H"></qrcode-vue>
@@ -38,7 +38,7 @@
     data() {
       return {
         qrCodeValue: this.$store.state.libraAccount.libraAddress,
-        size: 300,
+        size: 250,
       }
     },
     created() {

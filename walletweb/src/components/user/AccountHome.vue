@@ -4,8 +4,8 @@
             max-width="500"
     >
         <v-system-bar light color="grey darken-2">
-            <v-icon>home</v-icon>
-            <b class="font-italic">&nbsp;{{this.$router.currentRoute.name}}</b>
+            <v-icon color="green lighten-2">home</v-icon>
+            <b class="font-italic while--text">&nbsp;{{this.$router.currentRoute.name}}</b>
         </v-system-bar>
 
         <v-card-subtitle>

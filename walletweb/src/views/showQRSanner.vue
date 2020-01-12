@@ -11,11 +11,11 @@
                   class="mx-auto"
                   height="100%"
                   max-width="500"
-                  color="purple darken-2"
+                  color="gray lighten-3"
           >
-            <v-card-title class="headline purple darken-1">
-              <v-icon>fa-qrcode</v-icon>
-              <b class="font-italic">&nbsp;{{title}}</b>
+            <v-card-title class="headline gray lighten-2">
+              <v-icon color="purple darken-1">linked_camera</v-icon>
+              <b class="font-italic while--text">&nbsp;{{title}}</b>
             </v-card-title>
 
             <qrcode-stream @decode="onDecode" @init="onInit" :size="size" />
@@ -24,7 +24,7 @@
               <v-spacer></v-spacer>
               <p class="error">{{ error }}</p>
 
-              <v-btn color="purple darken-1" large @click="Cancel()">
+              <v-btn large @click="Cancel()">
                 <b>Cancel</b>
               </v-btn>
             </v-card-actions>
@@ -47,7 +47,7 @@
       return {
         result: '',
         error: '',
-        size: 400,
+        size: 250,
       }
     },
 
