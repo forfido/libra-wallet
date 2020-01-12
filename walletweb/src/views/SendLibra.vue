@@ -22,6 +22,7 @@
           label="Send Amount"
           type="number"
           v-model="amount"
+          min="0"
         ></v-text-field>
       </v-card-text>
 

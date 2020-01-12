@@ -14,8 +14,9 @@
           id="amount"
           label="Amount"
           name="amount"
-          type="text"
+          type="number"
           v-model="amount"
+          min="0"
         ></v-text-field>
       </v-card-text>
 
