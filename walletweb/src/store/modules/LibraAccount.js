@@ -12,26 +12,32 @@ const state = {
 const getters = {
   myTransactions: state => {
     state.libraTransactions.forEach(function(libraTransaction) {
-      let action = "";
-      let balance = null;
-      let microBalance = null;
+      let type = "";
+      let balance = (libraTransaction.value / Constants.MICORLIBRARATE);
+      let microBalance = libraTransaction.value;
+      let toAddr = libraTransaction.to;
+      let fromAddr = libraTransaction.from;
 
-      console.log(libraTransaction.from);
-      console.log(Constants.LIBRAROOTADDRESS);
+      if (fromAddr === Constants.LIBRAROOTADDRESS)
+      {
+        type = "mint";
 
-      if (libraTransaction.from === Constants.LIBRAROOTADDRESS)
-        action = "mint";
-      else if(libraTransaction.to === state.libraAddress)
-        action = "recv";
+        libraTransaction.from = "minter";
+        libraTransaction.to   = toAddr.substr( 0, 6 ) + "..." + toAddr.substr( toAddr.length-6, 6 );
+      }
       else
-        action = "send";
+      {
+        (toAddr === state.libraAddress) ? type = "recv" : type = "send";
 
-      balance = (libraTransaction.value / Constants.MICORLIBRARATE);
-      microBalance = libraTransaction.value;
+        libraTransaction.from = fromAddr.substr( 0, 6 ) + "..." + fromAddr.substr( fromAddr.length-6, 6 );
+        libraTransaction.to   = toAddr.substr( 0, 6 ) + "..." + toAddr.substr( toAddr.length-6, 6 );
+      }
 
-      libraTransaction.action = action;
+      type = (libraTransaction.status == 1) ? "Fail" : type;
+
       libraTransaction.balance = balance;
       libraTransaction.microBalance = microBalance;
+      libraTransaction.type = type;
     });
 
     return state.libraTransactions

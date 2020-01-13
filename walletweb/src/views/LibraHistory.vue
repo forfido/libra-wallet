@@ -37,45 +37,58 @@
                 small
         >
           <v-row justify="space-between">
-            <div v-if="transaction.action == 'send'">
-              <v-chip
-                      class="white--text ml-0"
-                      color="red"
-                      label
-                      small
-              >
-                {{transaction.action}}
-              </v-chip>
-              <v-col cols="7" v-text="transaction.balance"></v-col>
-              <v-col class="text-right" cols="5" v-text=""> Libra </v-col>
-              <v-col color="red" class="text-right" cols="5" v-text="transaction.to"></v-col>
-            </div>
-            <div v-else-if="transaction.action == 'mint'">
+            <div v-if="transaction.type == 'send'">
               <v-chip
                       class="white--text ml-0"
                       color="blue"
                       label
                       small
               >
-                {{transaction.action}}
+                {{transaction.type}}
               </v-chip>
-              <v-col cols="7" v-text="transaction.balance"></v-col>
-              <v-col class="text-right" cols="5" v-text=""> Libra </v-col>
-              <v-col color="red" class="text-right" cols="5" v-text="transaction.from"></v-col>
+              {{transaction.version}}
+            </div>
+            <div v-else-if="transaction.type == 'mint'">
+              <v-chip
+                      class="white--text ml-0"
+                      color="teal accent-4"
+                      label
+                      small
+              >
+                {{transaction.type}}
+              </v-chip>
+              {{transaction.version}}
+            </div>
+            <div v-else-if="transaction.type == 'recv'">
+              <v-chip
+                      class="white--text ml-0"
+                      color="green"
+                      label
+                      small
+              >
+                {{transaction.type}}
+              </v-chip>
+              {{transaction.version}}
             </div>
             <div v-else>
               <v-chip
                       class="white--text ml-0"
-                      color="purple"
+                      color="red lighten-2"
                       label
                       small
               >
-                {{transaction.action}}
+                {{transaction.type}}
               </v-chip>
-              <v-col cols="7" v-text="transaction.balance"></v-col>
-              <v-col class="text-right" cols="5" v-text=""> Libra </v-col>
-              <v-col color="red" class="text-right" cols="5" v-text="transaction.from"></v-col>
+              {{transaction.version}}
             </div>
+
+            <v-col color="red" class="text-right" cols="5" v-text="transaction.from"></v-col>
+            &nbsp;<v-icon>redo</v-icon>&nbsp;
+            <v-col color="red" class="text-right" cols="5" v-text="transaction.to"></v-col>
+            <br />
+            <v-col cols="7" v-text="transaction.balance"></v-col>
+            <v-col class="text-right" cols="5" v-text=""> Libra </v-col>
+
           </v-row>
         </v-timeline-item>
       </v-slide-x-transition>
