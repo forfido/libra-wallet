@@ -78,7 +78,7 @@ import Constants from "@/constants";
 
 export default {
   data: () => ({
-    email: "ahin@palibra.net",
+    email: null,
     password: null
   }),
   mounted() {
