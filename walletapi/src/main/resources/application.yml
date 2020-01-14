@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: aws
 
   security:
     oauth2:
@@ -108,8 +108,8 @@ spring:
   jpa:
     # Hibernate ddl auto (create, create-drop, validate, update)
     hibernate:
-      ddl-auto: update
-    generate-ddl: true
+      ##ddl-auto: update
+    #generate-ddl: true
     show-sql: true
     properties:
       hibernate:
@@ -126,6 +126,8 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+      springframework:
+        web: INFO
 
 jLibra:
   service-url: ac.testnet.libra.org

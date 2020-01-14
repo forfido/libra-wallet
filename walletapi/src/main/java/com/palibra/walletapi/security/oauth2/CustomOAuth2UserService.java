@@ -61,7 +61,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {
             user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
-            //libraAccountService.createLibraUserAccount(user);
+            libraAccountService.createLibraUserAccount(user);
         }
 
         return UserPrincipal.create(user, oAuth2User.getAttributes());
