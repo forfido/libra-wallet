@@ -5,6 +5,7 @@ import Constants from "@/constants";
 
 const state = {
   libraAddress: null,
+  fromLibraAddress:null,
   balance: 0,
   microBalance: 0,
   libraTransactions: [],
@@ -58,6 +59,10 @@ const mutations = {
   setAccount : function (state, payload) {
     state.libraAddress = payload;
   },
+  setFromAccount : function (state, payload) {
+    state.fromLibraAddress = payload;
+  },
+
   setTransactions : function (state, payload) {
     state.libraTransactions = payload;
   }
@@ -168,7 +173,7 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
-  }
+  },
 };
 
 export default {
