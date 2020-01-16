@@ -134,6 +134,7 @@
                     }
                     else {
                         this.isValue = false;
+
                         let httpaxios = axios.create({
                             baseURL: this.$const.ENDPOINT,
                             timeout: this.$const.HTTPTIMEOUT,

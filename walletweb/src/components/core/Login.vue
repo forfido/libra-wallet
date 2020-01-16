@@ -73,7 +73,6 @@
 import { createNamespacedHelpers } from "vuex";
 const authHelper = createNamespacedHelpers("auth");
 import axios from "axios";
-import Constants from "@/constants";
 
 
 export default {

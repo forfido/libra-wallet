@@ -128,7 +128,6 @@
   import { createNamespacedHelpers } from "vuex";
   import { authHeader } from "@/utils/authHeader";
 
-  import Constants from "@/constants";
   import axios from "axios";
 
   const libraAccountHelper = createNamespacedHelpers("libraAccount");
@@ -193,12 +192,10 @@
           libraAddress: this.receiverAddress,
           amount: this.amount
         })
-        .finally(() => {
-          setTimeout(() => {
-            this.waitDialog = false;
-            this.$router.push("/Home");
-          }, 1000);
-        })
+
+        setTimeout(() => {
+          this.waitDialog = false;
+        }, 2000);
       },
       chooseId() {
         this.receiverAddress =  this.model['libraAddress'].libraAddressToString;
@@ -224,8 +221,8 @@
         this.isLoading = true;
 
         let httpaxios = axios.create({
-          baseURL: Constants.ENDPOINT,
-          timeout: Constants.HTTPTIMEOUT,
+          baseURL: this.$const.ENDPOINT,
+          timeout: this.$const.HTTPTIMEOUT,
           headers: authHeader()
         });
 

@@ -1,6 +1,5 @@
 import axios from "axios"
 import {authHeader} from "@/utils/authHeader"
-import Constants from "@/constants";
 
 const state = {
   User: null
@@ -31,8 +30,8 @@ const actions = {
   /// --------------------------------------------------------
   GetUserInfo({ commit }) {
     let httpaxios = axios.create({
-      baseURL: Constants.ENDPOINT,
-      timeout: Constants.HTTPTIMEOUT,
+      baseURL: this._vm.$const.ENDPOINT,
+      timeout: this._vm.$const.HTTPTIMEOUT,
       headers: authHeader()
     });
 
@@ -46,14 +45,14 @@ const actions = {
       });
   },
   ClearUserInfo({ commit }) {
-    localStorage.removeItem(Constants.ACCESS_TOKEN);
+    localStorage.removeItem(this._vm.$const.ACCESS_TOKEN);
 
     commit("ClaerUser");
   },
   getUserInfoByEmail({commit}, paylaod) {
     let httpaxios = axios.create({
-      baseURL: Constants.ENDPOINT,
-      timeout: Constants.HTTPTIMEOUT,
+      baseURL: this._vm.$const.ENDPOINT,
+      timeout: this._vm.$const.HTTPTIMEOUT,
       headers: authHeader()
     });
 

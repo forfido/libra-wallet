@@ -2,6 +2,7 @@ import axios from "axios";
 import {authHeader} from "@/utils/authHeader";
 import Constants from "@/constants";
 
+
 const state = {
   libraAddress: null,
   balance: 0,
@@ -10,7 +11,7 @@ const state = {
 };
 
 const getters = {
-  myTransactions: state => {
+  myTransactions: (state) => {
     state.libraTransactions.forEach(function(libraTransaction) {
       let type = "";
       let balance = (libraTransaction.value / Constants.MICORLIBRARATE);
@@ -47,12 +48,12 @@ const getters = {
 const mutations = {
   setBalance : function (state, payload) {
     state.balance = payload.libra;
-    state.microBalance = payload.libra * Constants.MICORLIBRARATE;
+    state.microBalance = payload.libra * this._vm.$const.MICORLIBRARATE;
     state.libraAddress = payload.libraAddress;
   },
   setAddedLibra : function (state, payload) {
     state.microBalance =+ payload.addedMicroLibra;
-    state.balance =+ (payload.addedMicroLibra / Constants.MICORLIBRARATE);
+    state.balance =+ (payload.addedMicroLibra / this._vm.$const.MICORLIBRARATE);
   },
   setAccount : function (state, payload) {
     state.libraAddress = payload;
@@ -67,8 +68,8 @@ const actions = {
   /// --------------------------------------------------------
   getBalance({ commit }) {
     let httpaxios = axios.create({
-      baseURL: Constants.ENDPOINT,
-      timeout: Constants.HTTPTIMEOUT,
+      baseURL: this._vm.$const.ENDPOINT,
+      timeout: this._vm.$const.HTTPTIMEOUT,
       headers: authHeader()
     });
 
@@ -87,8 +88,8 @@ const actions = {
   /// --------------------------------------------------------
   mint({commit}, payload) {
     let httpaxios = axios.create({
-      baseURL: Constants.ENDPOINT,
-      timeout: Constants.HTTPTIMEOUT,
+      baseURL: this._vm.$const.ENDPOINT,
+      timeout: this._vm.$const.HTTPTIMEOUT,
       headers: authHeader()
     });
 
@@ -97,6 +98,8 @@ const actions = {
       .then(res => {
         let addedMicroLibra = res.data.contents;
         commit("setAddedLibra", addedMicroLibra);
+
+        this._vm.$vmrouter.push("/Home");
       })
       .catch(err => {
         console.log(err);
@@ -108,8 +111,8 @@ const actions = {
   /// --------------------------------------------------------
   send({commit}, payload) {
     let httpaxios = axios.create({
-      baseURL: Constants.ENDPOINT,
-      timeout: Constants.HTTPTIMEOUT,
+      baseURL: this._vm.$const.ENDPOINT,
+      timeout: this._vm.$const.HTTPTIMEOUT,
       headers: authHeader()
     });
 
@@ -118,6 +121,8 @@ const actions = {
       .then(res => {
         let balance = res.data.contents;
         commit("setBalance", balance);
+
+        this._vm.$vmrouter.push("/Home");
       })
       .catch(err => {
         console.log(err);
@@ -128,8 +133,8 @@ const actions = {
   /// --------------------------------------------------------
   getAccount({commit}) {
     let httpaxios = axios.create({
-      baseURL: Constants.ENDPOINT,
-      timeout: Constants.HTTPTIMEOUT,
+      baseURL: this._vm.$const.ENDPOINT,
+      timeout: this._vm.$const.HTTPTIMEOUT,
       headers: authHeader()
     });
 
@@ -148,8 +153,8 @@ const actions = {
   /// --------------------------------------------------------
   getListTransaction({commit}) {
     let httpaxios = axios.create({
-      baseURL: Constants.ENDPOINT,
-      timeout: Constants.HTTPTIMEOUT,
+      baseURL: this._vm.$const.ENDPOINT,
+      timeout: this._vm.$const.HTTPTIMEOUT,
       headers: authHeader()
     });
 
@@ -157,7 +162,7 @@ const actions = {
       .get('/libra/Transactions')
       .then(res => {
         let TransactionList = res.data.contents.result;
-        console.log(TransactionList);
+
         commit("setTransactions", TransactionList);
       })
       .catch(err => {

@@ -1,5 +1,3 @@
-import Constants from "@/constants";
-
 const state = {
   isLogin: false,
   isLoginError: false
@@ -55,7 +53,7 @@ const actions = {
   // Auth State Check
   /// --------------------------------------------------------
   CheckAuthState({ commit }) {
-    if (localStorage.getItem(Constants.ACCESS_TOKEN)) {
+    if (localStorage.getItem(this._vm.$const.ACCESS_TOKEN)) {
       commit("LoginSuccess");
     } else {
       commit("LogOut");

@@ -80,7 +80,7 @@
 
         setTimeout(() => {
           this.waitDialog = false;
-          this.$router.push("/Home");
+          //this.$router.push("/Home");
         }, 2000);
       }
     },
