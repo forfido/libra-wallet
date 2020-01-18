@@ -147,7 +147,6 @@ app:
     # redirectUri mentioned by the client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
-      - http://palibra.net/oauth2/redirect
-      - http://www.palibra.net/oauth2/redirect
+      - https://www.palibra.net/oauth2/redirect
       - myandroidapp://oauth2/redirect        # Need to change
       - myiosapp://oauth2/redirect            # Need to change
