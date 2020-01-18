@@ -18,7 +18,9 @@
               <b class="font-italic while--text">&nbsp;{{title}}</b>
             </v-card-title>
 
-            <qrcode-stream @decode="onDecode" @init="onInit" :size="size" />
+            <v-card-text>
+              <qrcode-stream @decode="onDecode" @init="onInit" :size="size" />
+            </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -53,9 +55,10 @@
 
     methods: {
       onDecode (result) {
-        this.result = result;
+        let urlParse = result.split("fromLibraAddress=");
+        this.result = urlParse[1];
 
-        this.$router.push({ name: 'SendLibra', params: {fromLibraAddress: result}})
+        this.$router.push({ name: 'SendLibra', params: {fromLibraAddress: result}});
       },
 
       async onInit (promise) {

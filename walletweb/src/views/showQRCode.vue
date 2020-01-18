@@ -18,7 +18,9 @@
               <b class="font-italic while--text">&nbsp;{{title}}</b>
             </v-card-title>
 
-            <qrcode-vue :value="qrCodeValue" :size="size" level="H"></qrcode-vue>
+            <v-card-text>
+              <qrcode-vue :value="qrCodeValue" :size="size"></qrcode-vue>
+            </v-card-text>
           </v-card>
         </v-hover>
       </v-col>
@@ -37,7 +39,7 @@
     },
     data() {
       return {
-        qrCodeValue: this.$store.state.libraAccount.libraAddress,
+        qrCodeValue: this.$const.ENDPOINT + "/Redirect?fromLibraAddress=" + this.$store.state.libraAccount.libraAddress,
         size: 250,
       }
     },
@@ -49,7 +51,6 @@
         alert("다시 접속 하세요.")
         this.$router.replace("/Home");
       }
-
     },
   }
 </script>
