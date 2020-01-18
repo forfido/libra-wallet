@@ -68,7 +68,7 @@
   export default {
     mixins: [CommonViews],
     data: () => ({
-      amount: 0,
+      amount: null,
       waitDialog: false
     }),
     created() {
@@ -80,7 +80,6 @@
 
         setTimeout(() => {
           this.waitDialog = false;
-          this.$router.push("/Home");
         }, 2000);
       }
     },
