@@ -1,7 +1,6 @@
-
 <template>
-  <v-container grid-list-md text-center>
-    <v-layout wrap>
+  <v-container justify-center grid-list-xs fill-height >
+    <v-layout row wrap >
       <v-flex xs12>
         <user-AccountHome />
       </v-flex>

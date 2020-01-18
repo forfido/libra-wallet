@@ -1,7 +1,7 @@
 <template>
-  <v-container grid-list-md text-center>
-    <v-layout wrap>
-      <v-flex xs12>
+  <v-container justify-center grid-list-xs fill-height >
+    <v-layout row wrap>
+      <v-flex xs12 >
         <core-NewSignup />
       </v-flex>
     </v-layout>
@@ -10,6 +10,7 @@
 
 <script>
   import { CommonViews } from "@/Mixins/CommonViews";
+
   export default {
     mixins: [CommonViews],
     data: () => ({
