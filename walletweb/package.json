@@ -2,13 +2,16 @@
   "name": "palibra",
   "version": "0.1.0",
   "private": true,
+  "description": "*Move Project Root Path* > cd ./libra-wallet/walletweb",
+  "author": "",
   "scripts": {
     "serve": "vue-cli-service serve --open --port 3000 --mode development",
-    "serve_prod": "vue-cli-service serve --open --port 3000 --mode production",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "aws s3 sync ./dist s3://palibra-front"
+    "deploy": "vue-cli-service s3-deploy",
+    "serve_prod": "vue-cli-service serve --open --port 3000 --mode production"
   },
+  "main": "babel.config.js",
   "dependencies": {
     "@vue/cli": "^4.1.2",
     "axios": "^0.19.0",
@@ -67,9 +70,6 @@
     "> 1%",
     "last 2 versions"
   ],
-  "description": "*Move Project Root Path* > cd ./libra-wallet/walletweb",
-  "main": "babel.config.js",
   "keywords": [],
-  "author": "",
   "license": "ISC"
 }
