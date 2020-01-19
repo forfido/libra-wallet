@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: aws
+    active: local
 
   security:
     oauth2:
@@ -134,7 +134,7 @@ jLibra:
   service-port: 8000
   faucet-url: http://faucet.testnet.libra.org
   faucet-port: 80
-  gas-unit-price: 5
+  gas-unit-price: 1
   max-gas-amount: 600000
 
 app:

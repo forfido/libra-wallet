@@ -5,15 +5,14 @@ import com.palibra.walletapi.domain.libraaccount.payload.TransferRequest;
 import com.palibra.walletapi.domain.user.User;
 import com.palibra.walletapi.exception.ErrorHandlerException;
 import com.palibra.walletapi.exception.ResourceNotFoundException;
-import dev.jlibra.KeyUtils;
 import dev.jlibra.admissioncontrol.transaction.result.LibraTransactionException;
 import dev.jlibra.admissioncontrol.transaction.result.SubmitTransactionResult;
 import dev.jlibra.mnemonic.*;
+import dev.jlibra.serialization.ByteSequence;
 import dev.jlibra.spring.action.PeerToPeerTransfer;
 import dev.jlibra.util.JLibraUtil;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPrivateKey;
 import org.bouncycastle.jcajce.provider.asymmetric.edec.BCEdDSAPublicKey;
-import org.bouncycastle.util.encoders.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,9 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+
+import static dev.jlibra.KeyUtils.privateKeyFromByteSequence;
+import static dev.jlibra.KeyUtils.publicKeyFromByteSequence;
 
 @Service
 public class LibraAccountService {
@@ -106,8 +108,9 @@ public class LibraAccountService {
             throw new ErrorHandlerException("Not available transfer to yourself");
         }
 
-        PublicKey publicKey = KeyUtils.publicKeyFromHexString(new String(Hex.encode(senderAccount.getPublicKey())));
-        PrivateKey privateKey = KeyUtils.privateKeyFromHexString(new String(Hex.encode(senderAccount.getPrivateKey())));
+        PublicKey publicKey = publicKeyFromByteSequence(ByteSequence.from(senderAccount.getPublicKey()));
+        PrivateKey privateKey = privateKeyFromByteSequence(ByteSequence.from(senderAccount.getPrivateKey()));
+
         SubmitTransactionResult receipt = peerToPeerTransfer.transferFunds(receiverAddress, transferRequest.getAmount().longValue() * 1_000_000, publicKey, privateKey, gasUnitPrice.longValue(), maxGasAmount.longValue());
 
         log.info(receipt.toString());
@@ -117,6 +120,6 @@ public class LibraAccountService {
     }
 
     public Long mint(String address, Long amount) {
-        return jLibraUtil.mint(address, amount);
+        return jLibraUtil.mint( address, amount);
     }
 }
