@@ -48,11 +48,11 @@
                     <v-spacer></v-spacer>
                     <span>Google Login</span>
                   </v-btn>
-                  <v-btn color="light-blue accent-2" round small @click="FacebookSign()">
+                  <v-btn color="light-blue accent-2" round small @click="GithubSign()">
                     <!--<v-icon left>assignment_ind</v-icon>-->
-                    <v-icon left>fab fa-facebook</v-icon>
+                    <v-icon left>fab fa-github</v-icon>
                     <v-spacer></v-spacer>
-                    <span>FaceBook Login</span>
+                    <span>Github Login</span>
                   </v-btn>
                 </v-card-actions>
               </v-system-bar>
@@ -89,8 +89,8 @@ export default {
     GoogleSign: function() {
       window.location.href = this.$const.ENDPOINT + "/oauth2/authorize/google?redirect_uri=" + this.$const.FRONTPOINT + "/Redirect";
     },
-    FacebookSign: function() {
-      window.location.href = this.$const.ENDPOINT + "/oauth2/authorize/facebook?redirect_uri=" + this.$const.FRONTPOINT + "/Redirect";
+    GithubSign: function() {
+      window.location.href = this.$const.ENDPOINT + "/oauth2/authorize/github?redirect_uri=" + this.$const.FRONTPOINT + "/Redirect";
     },
     // 동기적으로 처리 하기 위해 vuex에서 처리 하지 않음.
     TryLogin: function (payload) {

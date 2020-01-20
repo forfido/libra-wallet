@@ -13,11 +13,6 @@ public abstract class OAuth2UserInfo {
         return attributes;
     }
 
-    // TODO: 사용자 가입 시, SiteId 식별
-    public Long getSiteId() {
-        return 1L;
-    }
-
     public abstract String getId();
 
     public abstract String getName();
