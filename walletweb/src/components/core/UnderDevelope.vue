@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-layout>
         <v-row>
             <v-col cols="6" sm="6">
                 <v-avatar
@@ -22,7 +22,7 @@
                 <div class="subheading">Comming soon</div>
             </v-col>
         </v-row>
-    </v-container>
+    </v-layout>
 </template>
 
 <script>

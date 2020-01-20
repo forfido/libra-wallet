@@ -1,7 +1,7 @@
 <template>
     <v-card
             class="mx-auto"
-            max-width="500"
+            max-width="600"
     >
         <v-system-bar light color="grey darken-2">
             <v-icon color="green lighten-2">home</v-icon>

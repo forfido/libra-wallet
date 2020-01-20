@@ -18,7 +18,7 @@ public class GeneratedAccount extends Account {
 
     @Override
     public byte[] getAddress() {
-        return KeyUtils.toByteArrayLibraAddress(publicKey.getEncoded());
+        return publicKey.getEncoded();
     }
 
     @Override

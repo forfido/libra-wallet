@@ -4,6 +4,11 @@ Libra Wallet
 오픈소스 jlibra 를 활용한 리브라 화폐에 대한 전자지갑 어플리케이션  
 Libra Blockchain 은 현재 출시 전으로 TestNet 망을 이용
 
+## Live Demo
+
+https://www.palibra.net
+
+
 ## 기능   
 - 회원 계정당 가입 시 한개 리브라 계좌 생성
 - 소셜 로그인(Google, Facebook)

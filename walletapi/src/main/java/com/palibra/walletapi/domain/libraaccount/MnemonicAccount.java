@@ -1,6 +1,5 @@
 package com.palibra.walletapi.domain.libraaccount;
 
-import dev.jlibra.KeyUtils;
 import dev.jlibra.mnemonic.ExtendedPrivKey;
 
 public class MnemonicAccount extends Account {
@@ -14,7 +13,8 @@ public class MnemonicAccount extends Account {
 
     @Override
     public byte[] getAddress() {
-        return KeyUtils.toByteArrayLibraAddress(extendedPrivKey.publicKey.getEncoded());
+        //TODO : not yet completed
+        return extendedPrivKey.publicKey.getEncoded();
     }
 
     @Override
