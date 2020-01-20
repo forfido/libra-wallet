@@ -7,9 +7,3 @@
 [submodule "libra-message-signing"]
 	path = libra-message-signing
 	url = https://github.com/ice09/libra-message-signing.git
-[submodule "java-libra-client"]
-	path = java-libra-client
-	url = https://github.com/ice09/java-libra-client.git
-[submodule "libra-payment-processor"]
-	path = libra-payment-processor
-	url = https://github.com/ice09/libra-payment-processor.git
