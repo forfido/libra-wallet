@@ -9,6 +9,9 @@ module.exports = {
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
         'no-multiple-empty-lines': [ 'error', { 'max': 2, 'maxBOF': 1 }],
         'quotes': ['error', 'single'],
+        'semi': [2, "always"],
+        "template-curly-spacing" : "off",
+        indent : "off",
         "space-before-function-paren": [
             "error",
             {
@@ -17,8 +20,6 @@ module.exports = {
                 asyncArrow: "always"
             }
         ],
-        quotes: [2, "double", { avoidEscape: false }],
-        semi: [2, "always"]
     },
     parserOptions: {
         parser: "babel-eslint"
