@@ -39,7 +39,7 @@
     },
     data() {
       return {
-        qrCodeValue: this.$const.ENDPOINT + "/Redirect?fromLibraAddress=" + this.$store.state.libraAccount.libraAddress,
+        qrCodeValue: this.$const.FRONTPOINT + "/Redirect?fromLibraAddress=" + this.$store.state.libraAccount.libraAddress,
         size: 250,
       }
     },

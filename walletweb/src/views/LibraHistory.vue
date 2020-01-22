@@ -87,7 +87,7 @@
             <v-col color="red" class="text-right" cols="5" v-text="transaction.to"></v-col>
             <br />
             <v-col cols="7" v-text="transaction.balance"></v-col>
-            <v-col class="text-right" cols="5" v-text=""> Libra </v-col>
+            <v-col class="text-right" cols="5"> Libra </v-col>
 
           </v-row>
         </v-timeline-item>
