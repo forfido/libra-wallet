@@ -2,7 +2,6 @@ package com.palibra.walletapi.domain.libraaccount;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palibra.walletapi.domain.user.User;
-import org.bouncycastle.util.encoders.Hex;
 
 import javax.persistence.*;
 
@@ -18,7 +17,7 @@ public class LibraAccount {
     private byte[] privateKey;
 
     private byte[] publicKey;
-    private byte[] libraAddress;
+    private String libraAddress;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
@@ -28,7 +27,7 @@ public class LibraAccount {
     private LibraAccount(){}
 
     //생성자 메서드
-    public static LibraAccount createAccount(String name, byte[] libraAddress, byte[] privateKey, byte[] publicKey, User user) {
+    public static LibraAccount createAccount(String name, String libraAddress, byte[] privateKey, byte[] publicKey, User user) {
         LibraAccount account = new LibraAccount();
         account.setName(name);
         account.setLibraAddress(libraAddress);
@@ -56,11 +55,8 @@ public class LibraAccount {
         return name;
     }
 
-    public byte[] getLibraAddress() {
-        return libraAddress;
-    }
     public String getLibraAddressToString() {
-        return Hex.toHexString(libraAddress);
+        return libraAddress;
     }
 
     public byte[] getPrivateKey() {
@@ -81,7 +77,7 @@ public class LibraAccount {
         this.name = name;
     }
 
-    public void setLibraAddress(byte[] libraAddress) {
+    public void setLibraAddress(String libraAddress) {
         this.libraAddress = libraAddress;
     }
 

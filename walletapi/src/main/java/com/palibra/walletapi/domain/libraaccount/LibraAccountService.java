@@ -95,11 +95,11 @@ public class LibraAccountService {
         return libraAccount;
     }
 
-    public String transferToMember(Long senderAccountId, TransferRequest transferRequest) throws LibraTransactionException {
+    public String transferToMember(Long senderUserId, TransferRequest transferRequest) throws LibraTransactionException {
         BigInteger gasUnitPrice = new BigInteger("-1");
         BigInteger maxGasAmount = new BigInteger("-1");
 
-        LibraAccount senderAccount = libraAccountRepository.findById(senderAccountId).orElseThrow(() -> new ResourceNotFoundException("LibraAccount", "accountId", senderAccountId));
+        LibraAccount senderAccount = findAccount(senderUserId);
         String receiverAddress = transferRequest.getLibraAddress();
 
 

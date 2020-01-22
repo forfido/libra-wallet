@@ -7,14 +7,13 @@ public class MnemonicAccount extends Account {
     private final ExtendedPrivKey extendedPrivKey;
 
     public MnemonicAccount(ExtendedPrivKey extendedPrivKey) {
-        this.accountType = AccountType.MNEMONIC;
         this.extendedPrivKey = extendedPrivKey;
     }
 
     @Override
-    public byte[] getAddress() {
+    public String getAddress() {
         //TODO : not yet completed
-        return extendedPrivKey.publicKey.getEncoded();
+        return "";
     }
 
     @Override
