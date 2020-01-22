@@ -86,7 +86,7 @@ export default {
           this.$router.replace("/Login");
         })
         .catch(err => {
-          alert(err);
+          alert(err.message);
         });
     },
     Cancel: function () {
