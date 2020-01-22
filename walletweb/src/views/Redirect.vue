@@ -22,7 +22,7 @@
 
             // QRCode Scan 유입된 경우
             if (fromLibraAddress) {
-                this.$router.push({ name: 'SendLibra', params: {fromLibraAddress: fromLibraAddress}})
+                this.$router.push({ name: 'SendLibra', params: {fromLibraAddress: fromLibraAddress}});
             }
         },
         props: {

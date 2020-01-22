@@ -137,7 +137,7 @@
         this.$store.dispatch("libraAccount/send", {
           libraAddress: this.receiverAddress,
           amount: this.amount
-        })
+        });
 
         setTimeout(() => {
           this.waitDialog = false;

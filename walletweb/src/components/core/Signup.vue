@@ -61,7 +61,7 @@ export default {
     name: null,
     email: null,
     password: null,
-    isValid: false,
+    isValid: false
   }),
   mounted() {
   },
@@ -72,7 +72,7 @@ export default {
     TrySignUp: function (payload) {
       let httpaxios = axios.create({
         baseURL: this.$const.ENDPOINT,
-        timeout: this.$const.HTTPTIMEOUT,
+        timeout: this.$const.HTTPTIMEOUT
       });
 
       httpaxios
@@ -83,11 +83,11 @@ export default {
         })
         .then(res => {
           console.log(res);
-          this.$router.replace("/Login")
+          this.$router.replace("/Login");
         })
         .catch(err => {
           alert(err);
-        })
+        });
     },
     Cancel: function () {
       this.$router.back();
