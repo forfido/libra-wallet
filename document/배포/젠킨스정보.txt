@@ -1,0 +1,8 @@
+* URL 
+	jenkins.palibra.net:8080
+
+* ID/PW
+	ccami/qwer12#$
+
+
+	

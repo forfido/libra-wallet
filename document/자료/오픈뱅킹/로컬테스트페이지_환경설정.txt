@@ -1,0 +1,32 @@
+﻿
+※ properties 관련 설정 방법
+	* SVN 체크아웃시 url.properties 파일이 같이 들어옴. 이 파일을 target 폴더 바로밑에 복사후 실행
+
+
+※ 로컬테스트페이지 실행&종료 방법(Windows)
+    
+	* java 설치경로가 이미 Path에 등록되어있는 경우에는 jar파일 경로에서 아래 명령어로 실행(Java 1.8 이상 필요)
+	  - 기본포트 888
+	  - jar파일경로> java -jar local-test-boot-1.0.jar 
+	   
+	* 실행 포트변경 시 다음 명령어 실행(예, 8890)
+	  - jar파일경로> java -Dserver.port=8890 -jar local-test-boot-1.0.jar
+		
+	* 실행스크립트 이용 시 
+              - 내 컴퓨터 환경변수에 JAVA_PATH를 설정(ex. C:\Program Files\Java\jdk1.8.0_181\bin;)
+	  - 실행 포트 지정 PORT=8880
+	  - 실행 스크립트 실행(run-local-test.bat)	  
+		
+	* 종료 방법
+		- 구동 창을 닫거나 "컨트롤+C"키를 입력하여 중지
+
+	- 주의* 
+		--disable-web-security 옵션은 브라우저의 보안 제한사항을 완화하는 옵션이므로, 로컬 테스트 용도 외에 타 사이트에서는 사용하지 마십시오.
+	   	이로 인해 발생하는 문제는 책임지지 않습니다.
+	
+	
+* 로컬테스트페이지 메인 URL
+
+	- http://localhost:8880/html/index.html
+	- http://localhost:8880/
+
