@@ -15,6 +15,7 @@
     created() {
       this.$store.dispatch("user/GetUserInfo");
       this.$store.dispatch("libraAccount/getBalance");
+      this.$store.dispatch("app/hideAlert");
     }
   }
 </script>

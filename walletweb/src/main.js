@@ -15,6 +15,7 @@ import Constants from "@/constants";
 Vue.config.productionTip = false;
 Vue.prototype.$const = Constants;
 Vue.prototype.$vmrouter = router;
+Vue.prototype.$vmstore = store;
 
 new Vue({
   store,

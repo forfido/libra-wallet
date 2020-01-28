@@ -117,6 +117,7 @@
     }),
     created() {
       this.$store.dispatch("libraAccount/getAccount");
+      this.$store.dispatch("app/hideAlert");
     },
     computed: {
       timeline () {

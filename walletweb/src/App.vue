@@ -24,6 +24,7 @@ export default {
   },
   created() {
     this.$store.dispatch("auth/CheckAuthState");
+    this.$store.dispatch("app/hideAlert");
   },
   computed: {
     ...authHelper.mapState(["isLogin"]),

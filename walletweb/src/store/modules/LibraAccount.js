@@ -104,11 +104,14 @@ const actions = {
         let addedMicroLibra = res.data.contents;
         commit("setAddedLibra", addedMicroLibra);
 
+        this._vm.$vmstore.dispatch("app/showSuccessAlert", "작업 성공");
+
         this._vm.$vmrouter.push("/Home");
       })
       .catch(err => {
+        this._vm.$vmstore.dispatch("app/showErrorAlert", "작업 실패");
+
         console.log(err);
-        commit("setAddedLibra", 0);
       });
   },
   /// --------------------------------------------------------
@@ -127,9 +130,13 @@ const actions = {
         let balance = res.data.contents;
         commit("setBalance", balance);
 
+        this._vm.$vmstore.dispatch("app/showSuccessAlert", "작업 성공");
+
         this._vm.$vmrouter.push("/Home");
       })
       .catch(err => {
+        this._vm.$vmstore.dispatch("app/showErrorAlert", "작업 실패");
+
         console.log(err);
       });
   },
@@ -168,9 +175,13 @@ const actions = {
       .then(res => {
         let TransactionList = res.data.contents.result;
 
+        this._vm.$vmstore.dispatch("app/hideAlert");
+
         commit("setTransactions", TransactionList);
       })
       .catch(err => {
+        this._vm.$vmstore.dispatch("app/showErrorAlert", "작업 실패");
+
         console.log(err);
       });
   },

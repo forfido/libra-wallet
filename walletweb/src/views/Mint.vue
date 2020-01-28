@@ -72,6 +72,7 @@
       waitDialog: false
     }),
     created() {
+      this.$store.dispatch("app/hideAlert");
     },
     methods: {
       MintLibra: function (payload) {

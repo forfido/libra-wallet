@@ -82,11 +82,13 @@ export default {
           password: payload.password
         })
         .then(res => {
-          console.log(res);
+          this.$store.dispatch("app/showSuccessAlert", "등록성공");
+
           this.$router.replace("/Login");
         })
         .catch(err => {
-          alert(err.message);
+          this.$store.dispatch("app/showErrorAlert", "등록실패");
+          console.log(err);
         });
     },
     Cancel: function () {

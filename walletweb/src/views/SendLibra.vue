@@ -111,6 +111,8 @@
       this.$store.dispatch("libraAccount/getBalance");
 
       this.receiverAddress = this.$route.params.fromLibraAddress;
+
+      this.$store.dispatch("app/hideAlert");
     },
 
     computed: {

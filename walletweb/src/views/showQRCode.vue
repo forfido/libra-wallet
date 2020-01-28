@@ -44,11 +44,13 @@
       }
     },
     created() {
+      this.$store.dispatch("app/hideAlert");
+
       this.$store.dispatch("libraAccount/getAccount");
 
       // Page reload시 vuex를 접근하지 못함. ( vue 생명주기 확인해야함. )
       if(!this.$store.state.libraAccount.libraAddress) {
-        alert("다시 접속 하세요.")
+        alert("다시 접속 하세요.");
         this.$router.replace("/Home");
       }
     },

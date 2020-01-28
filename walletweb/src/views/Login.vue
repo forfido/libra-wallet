@@ -15,5 +15,8 @@
     mixins: [CommonViews],
     data: () => ({
     }),
+    created() {
+      this.$store.dispatch("app/hideAlert");
+    },
   }
 </script>

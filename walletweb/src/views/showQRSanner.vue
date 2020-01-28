@@ -52,6 +52,9 @@
         size: 250,
       }
     },
+    created() {
+      this.$store.dispatch("app/hideAlert");
+    },
 
     methods: {
       onDecode (result) {

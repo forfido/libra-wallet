@@ -4,6 +4,9 @@
       <v-fade-transition mode="out-in">
         <router-view />
       </v-fade-transition>
+      <v-fade-transition mode="in-out">
+        <alert-PopUpAlert />
+      </v-fade-transition>
     </div>
   </v-content>
 </template>

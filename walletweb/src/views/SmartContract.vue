@@ -7,3 +7,13 @@
     </v-layout>
   </v-container>
 </template>
+
+<script>
+  export default {
+    data: () => ({
+    }),
+    created() {
+      this.$store.dispatch("app/hideAlert");
+    },
+  }
+</script>
