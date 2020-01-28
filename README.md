@@ -28,6 +28,12 @@ https://www.palibra.net
 - Node.js (https://nodejs.org/en/)
 - H2 Database Engine (https://www.h2database.com/html/download.html)
 
+### 서브모듈 체크아웃
+```
+$ git submodule init
+$ git submodule update
+```
+
 ### 실행하기
 1. H2 실행  
   `[윈도우 검색 단축키: Windows Key + S] - [H2 console 실행] - [브라우저 로그인 http://localhost:8082]` 
