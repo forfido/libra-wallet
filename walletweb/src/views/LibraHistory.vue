@@ -121,13 +121,8 @@
     },
     computed: {
       timeline () {
-        let valTransactions = this.$store.getters["libraAccount/myTransactions"].slice();
-
-        valTransactions.sort(function (a, b) {
-          a.expirationTime < b.expirationTime ? -1 : 1;
-        });
-        return valTransactions;
-      },
+        return this.$store.getters["libraAccount/myTransactions"].slice();
+      }
     },
     methods: {
       getTransacionHistory () {
