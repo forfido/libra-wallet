@@ -42,7 +42,7 @@ const getters = {
       libraTransaction.type = type;
     });
 
-    return state.libraTransactions
+    return state.libraTransactions;
   }
 };
 

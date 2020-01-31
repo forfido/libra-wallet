@@ -39,7 +39,7 @@
 
 <script>
   import { CommonViews } from "@/Mixins/CommonViews";
-  import { QrcodeStream } from 'vue-qrcode-reader'
+  import { QrcodeStream } from 'vue-qrcode-reader';
 
   export default {
     mixins: [CommonViews],
@@ -57,7 +57,7 @@
     },
 
     methods: {
-      onDecode (result) {
+      onDecode(result) {
         let urlParse = result.split("fromLibraAddress=");
         this.revAddress = urlParse[1];
 

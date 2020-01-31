@@ -121,7 +121,7 @@
     },
     computed: {
       timeline () {
-        return this.$store.getters["libraAccount/myTransactions"].slice().reverse();
+        return this.$store.getters["libraAccount/myTransactions"].slice();
       },
     },
     methods: {
