@@ -47,7 +47,7 @@
 
     data () {
       return {
-        result: '',
+        revAddress: '',
         error: '',
         size: 250,
       }
@@ -59,9 +59,9 @@
     methods: {
       onDecode (result) {
         let urlParse = result.split("fromLibraAddress=");
-        this.result = urlParse[1];
+        this.revAddress = urlParse[1];
 
-        this.$router.push({ name: 'SendLibra', params: {fromLibraAddress: result}});
+        this.$router.push({ name: 'SendLibra', params: {fromLibraAddress: this.revAddress}});
       },
 
       async onInit (promise) {
