@@ -121,7 +121,12 @@
     },
     computed: {
       timeline () {
-        return this.$store.getters["libraAccount/myTransactions"].slice();
+        let valTransactions = this.$store.getters["libraAccount/myTransactions"].slice();
+
+        valTransactions.sort(function ( a, b ) {
+          a.expirationTime < b.expirationTime ? 1 : -1;
+        });
+        return valTransactions;
       },
     },
     methods: {
